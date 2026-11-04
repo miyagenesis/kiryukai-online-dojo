@@ -1,0 +1,74 @@
+<!doctype html>
+<title>亀龍会オンライン道場 デモ</title>
+<meta charset="utf-8" />
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#1c1a17; --ink-soft:#5b564c; --ink-faint:#948c7c; --paper:#f6f1e7; --paper-raised:#fbf8f2; --rule:rgba(28,26,23,0.14); --red:#ab3b30; --red-soft:rgba(171,59,48,0.1); --shadow:0 1px 2px rgba(28,26,23,0.06),0 10px 30px -14px rgba(28,26,23,0.3); }
+  @media (prefers-color-scheme: dark){ :root{ --ink:#f1ebdd; --ink-soft:#bdb39d; --ink-faint:#8d846f; --paper:#15120e; --paper-raised:#1e1911; --rule:rgba(241,235,221,0.14); --red:#d38273; --red-soft:rgba(211,130,115,0.14); --shadow:0 1px 2px rgba(0,0,0,0.4),0 14px 34px -18px rgba(0,0,0,0.7); } }
+  *{box-sizing:border-box} body{margin:0;background:radial-gradient(1200px 500px at 50% -10%,var(--red-soft),transparent 60%),var(--paper);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:4rem 1.3rem 5rem;}
+  .brand{display:flex;align-items:center;gap:0.7rem;margin-bottom:2.2rem;}
+  .mk{width:40px;height:40px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mk svg{width:22px;height:22px;}
+  .bn .ja{font-family:"Shippori Mincho",serif;font-weight:800;font-size:1.05rem;}
+  .bn .en{font-size:0.6rem;letter-spacing:0.14em;color:var(--ink-faint);}
+  h1{font-family:"Shippori Mincho",serif;font-weight:800;font-size:clamp(1.6rem,4.5vw,2.2rem);margin:0 0 0.6rem;text-wrap:balance;}
+  .lead{color:var(--ink-soft);font-size:0.95rem;line-height:1.85;margin:0 0 2.2rem;max-width:34rem;}
+  .eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--red);margin-bottom:1rem;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--paper-raised);border:1px solid var(--rule);border-radius:12px;padding:1.3rem 1.4rem;box-shadow:var(--shadow);transition:border-color .15s,transform .15s;}
+  a.card:hover{border-color:var(--red);transform:translateY(-2px);}
+  a.card.wide{grid-column:1 / -1;}
+  .ctag{font-size:0.68rem;font-weight:700;letter-spacing:0.04em;color:var(--red);background:var(--red-soft);display:inline-block;padding:0.15rem 0.55rem;border-radius:100px;margin-bottom:0.6rem;}
+  .ct{font-family:"Shippori Mincho",serif;font-weight:700;font-size:1.08rem;margin-bottom:0.25rem;}
+  .cd{font-size:0.83rem;color:var(--ink-soft);line-height:1.7;}
+  .go{margin-top:0.7rem;font-size:0.8rem;font-weight:700;color:var(--red);}
+  .note{margin-top:2.4rem;font-size:0.78rem;color:var(--ink-faint);line-height:1.8;border-top:1px solid var(--rule);padding-top:1.2rem;}
+  @media (max-width:560px){ .grid{grid-template-columns:1fr;} }
+</style>
+<div class="wrap">
+  <div class="brand">
+    <div class="mk"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L20 6 V14 C20 19 16.4 21.6 12 23 C7.6 21.6 4 19 4 14 V6 Z" stroke="#fbf5ee" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8 V16 M8.5 10.5 L15.5 13.5 M15.5 10.5 L8.5 13.5" stroke="#fbf5ee" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+    <div class="bn"><div class="ja">亀龍会オンライン道場</div><div class="en">KIRYUKAI ONLINE DOJO — DEMO</div></div>
+  </div>
+
+  <div class="eyebrow">討議用デモ ・ 社外非公開（検索非掲載）</div>
+  <h1>亀龍会オンライン道場 デモ一覧</h1>
+  <p class="lead">日本代表選手が監修する、空手道のオンライン道場のデモです。下から目的に合わせてお入りください。各デモは日本語／English切替、スマホ表示プレビューに対応しています。</p>
+
+  <div class="grid">
+    <a class="card wide" href="./demo.html">
+      <span class="ctag">統合版（おすすめ）</span>
+      <div class="ct">オールインワン版</div>
+      <div class="cd">ライブ配信・オンデマンド動画・パーソナル指導を1つにまとめた、全機能入りのデモ。まずはこちらをご覧ください。</div>
+      <div class="go">開く →</div>
+    </a>
+    <a class="card" href="./demo-live.html">
+      <span class="ctag">パターン①</span>
+      <div class="ct">週1ライブ型</div>
+      <div class="cd">決まった曜日に、みんなでリアルタイム稽古を主軸にした構成。</div>
+      <div class="go">開く →</div>
+    </a>
+    <a class="card" href="./demo-ondemand.html">
+      <span class="ctag">パターン②</span>
+      <div class="ct">オンデマンド型</div>
+      <div class="cd">レベル別動画＋動画提出・添削で、自分のペースで進める構成。</div>
+      <div class="go">開く →</div>
+    </a>
+    <a class="card" href="./demo-personal.html">
+      <span class="ctag">パターン③</span>
+      <div class="ct">パーソナル型</div>
+      <div class="cd">個別Zoom指導を中心に、一人ひとりに最適化する構成。</div>
+      <div class="go">開く →</div>
+    </a>
+  </div>
+
+  <div class="note">
+    ※ 本ページは討議用のデモです。選手名・料金・認定プログラム等は検討中の内容を含み、変更される場合があります。検索エンジンには掲載しない設定（noindex）にしています。<br>
+    監修：亀龍会空手道部
+  </div>
+</div>
