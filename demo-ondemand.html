@@ -155,6 +155,8 @@
   .brand-name .ja { font-family: "Shippori Mincho", serif; font-weight: 700; font-size: 0.92rem; }
   .brand-name .en { font-size: 0.58rem; letter-spacing: 0.1em; color: var(--ink-faint); }
 
+  .nav-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; color: var(--ink-faint); padding: 0 0.7rem; margin: 0.9rem 0 0.25rem; text-transform: uppercase; }
+  .nav-label:first-child { margin-top: 0; }
   .navbtn {
     display: flex; align-items: center; gap: 0.6rem; padding: 0.52rem 0.7rem; border-radius: 7px;
     border: none; background: none; color: var(--ink-soft); font-size: 0.85rem; text-align: left; cursor: pointer; width: 100%;
@@ -573,14 +575,18 @@
     <nav class="navlist navset on" id="nav-student"><!-- built per model by renderStudentNav() --></nav>
 
     <nav class="navlist navset" id="nav-admin">
+      <div class="nav-label" data-i18n="nav.g.admin.broadcast">配信・コンテンツ</div>
       <button class="navbtn active" data-target="a-stream"><span class="ic">◉</span><span data-i18n="nav.stream">配信コントロール</span></button>
       <button class="navbtn" data-target="a-content"><span class="ic">✎</span><span data-i18n="nav.content">今週のメッセージ</span></button>
       <button class="navbtn" data-target="a-feedback"><span class="ic">⇧</span><span data-i18n="nav.adminfb">動画添削キュー</span></button>
+      <div class="nav-label" data-i18n="nav.g.admin.members">会員</div>
       <button class="navbtn" data-target="a-roster"><span class="ic">☰</span><span data-i18n="nav.roster">受講生一覧</span></button>
       <button class="navbtn" data-target="a-memberlog"><span class="ic">▤</span><span data-i18n="nav.memberlog">会員ログ</span></button>
+      <button class="navbtn" data-target="a-builder"><span class="ic">◧</span><span data-i18n="nav.builder">レポート作成</span></button>
+      <div class="nav-label" data-i18n="nav.g.admin.insight">分析・計画</div>
       <button class="navbtn" data-target="a-analytics"><span class="ic">▥</span><span data-i18n="nav.analytics">動画分析</span></button>
       <button class="navbtn" data-target="a-plan"><span class="ic">▦</span><span data-i18n="nav.plan">撮影計画</span></button>
-      <button class="navbtn" data-target="a-builder"><span class="ic">◧</span><span data-i18n="nav.builder">レポート作成</span></button>
+      <div class="nav-label" data-i18n="nav.g.admin.partner">連携</div>
       <button class="navbtn" data-target="a-partner"><span class="ic">⚭</span><span data-i18n="nav.partner">パートナー連携</span></button>
     </nav>
 
@@ -1271,6 +1277,7 @@
       'terms.h1':'第5条（禁止事項）','terms.b1':'会員は、本配信コンテンツを録画・複製・転載等により第三者へ提供し、又は外部のSNS・動画共有サービス等へ投稿・再配信・流出させてはなりません。','terms.h2':'第7条（損害賠償・法的措置）','terms.b2':'会員が本配信コンテンツを外部へ流出させた場合、当会は相当額の損害賠償を請求できるものとし、悪質と判断した場合には刑事告訴その他の法的措置を講じることがあります。','terms.h3':'第4条（利用料金）','terms.b3':'英語（海外）向けサイトの利用料金は、日本語（国内）向けの3倍を基準として別に定めます。',
       'role.student':'生徒・保護者ビュー','role.admin':'運営ビュー',
       'nav.top':'トップ','nav.coaches':'指導陣','nav.live':'配信（アーカイブ）','nav.news':'ニュース','nav.video':'動画ライブラリ','nav.submit':'動画提出・添削','nav.mental':'メンタル・試合解説','nav.personal':'パーソナル指導','nav.belt':'認定・帯プログラム','nav.report':'成績レポート','nav.events':'イベント・セミナー','nav.price':'料金プラン','nav.phone':'スマホ表示',
+      'nav.g.learn':'学ぶ','nav.g.record':'わたしの記録','nav.g.dojo':'道場から','nav.g.plan':'プラン','nav.g.tool':'ツール','nav.g.admin.broadcast':'配信・コンテンツ','nav.g.admin.members':'会員','nav.g.admin.insight':'分析・計画','nav.g.admin.partner':'連携',
       'phone.lead':'スマートフォンでの見え方のプレビューです。下の枠内は、実際のスマホと同じ画面幅でこのサイトを表示しています。そのままスクロール・操作して確認できます。','phone.note':'※ 実機のスマホで開くと、この枠なしで全画面表示になります。',
       'mental.lead':'技術だけでなく、日本代表選手の「心」を学べるプログラムです。勝った試合も負けた試合も自分たちで解説し、試合前のメンタルの持っていき方やルーティンまで公開します。参加者が本当に学びになるコンテンツを目指しています。',
       'mental.m1.title':'試合解説（勝ちも、負けも）','mental.rev1.t':'勝ち試合の解説 ／ 第6回全日本実業団','mental.rev1.c':'組手 ／ 山内 健太郎 選手・豊田 陽也','mental.rev2.t':'負け試合・課題の解説 ／ 自己分析','mental.rev2.c':'型 ／ 舟田 葵（和道流）','mental.rev.note':'※ 輝かしい結果だけでなく、大敗した試合や納得がいっていない試合も、自分たちで率直に解説します。親しみやすさと、本当の学びのために。',
@@ -1368,6 +1375,7 @@
       'terms.h1':'Article 5 (Prohibited Acts)','terms.b1':'Members must not record, copy, or repost the streamed content to third parties, nor post, redistribute, or leak it to external social media or video-sharing services.','terms.h2':'Article 7 (Damages & Legal Action)','terms.b2':'If a member leaks the streamed content externally, the Association may claim substantial damages and, where deemed malicious, may pursue criminal complaints and other legal action.','terms.h3':'Article 4 (Fees)','terms.b3':'Fees for the English (overseas) site are set separately at a baseline of 3× the Japanese (domestic) rate.',
       'role.student':'Student / Parent View','role.admin':'Staff View',
       'nav.top':'Home','nav.coaches':'Our Athletes','nav.live':'Broadcasts (Archive)','nav.news':'News','nav.video':'Video Library','nav.submit':'Submit & Feedback','nav.mental':'Mindset & Match Review','nav.personal':'Personal Coaching','nav.belt':'Belt Program','nav.report':'Progress Reports','nav.events':'Events & Seminars','nav.price':'Pricing','nav.phone':'Phone View',
+      'nav.g.learn':'Learn','nav.g.record':'My Progress','nav.g.dojo':'From the Dojo','nav.g.plan':'Plans','nav.g.tool':'Tools','nav.g.admin.broadcast':'Broadcast & Content','nav.g.admin.members':'Members','nav.g.admin.insight':'Analytics & Planning','nav.g.admin.partner':'Partners',
       'phone.lead':'A preview of how the site looks on a smartphone. The frame below shows this site at an actual phone width — scroll and interact with it directly.','phone.note':'※ Opened on a real phone, it fills the screen without this frame.',
       'mental.lead':'A program for learning not just technique, but the mindset of national-team athletes. They review their own matches — wins and losses alike — and share how they prepare mentally and their pre-match routines. Content designed to be genuinely instructive.',
       'mental.m1.title':'Match Review (wins and losses)','mental.rev1.t':'Winning match review / 6th All-Japan Corporate','mental.rev1.c':'Kumite / Kentaro Yamauchi, Haruya Toyoda','mental.rev2.t':'Loss & weaknesses review / self-analysis','mental.rev2.c':'Kata / Aoi Funada (Wado-ryu)','mental.rev.note':'※ Not just the shining results — we candidly review heavy losses and matches we weren’t happy with, for approachability and real learning.',
@@ -1890,6 +1898,17 @@
     personal: ['s-personal','s-submit','s-mental','s-video'],
   };
   function navList(){ let l = NAV[MODEL] || NAV.all; if(EMBED) l = l.filter(t=>t!=='s-phone'); return l; }
+  // メニューのグループ分け（整理）
+  const NAV_GROUP = {
+    's-top':'top',
+    's-video':'learn','s-mental':'learn','s-live':'learn','s-personal':'learn','s-submit':'learn',
+    's-report':'record',
+    's-coaches':'dojo','s-news':'dojo','s-events':'dojo',
+    's-price':'plan','s-belt':'plan',
+    's-phone':'tool',
+  };
+  const GROUP_ORDER = ['top','learn','record','dojo','plan','tool'];
+  const GROUP_KEY = { learn:'nav.g.learn', record:'nav.g.record', dojo:'nav.g.dojo', plan:'nav.g.plan', tool:'nav.g.tool' };
   function renderPhone(){
     if(EMBED) return;                       // never nest a phone inside the phone
     const f = document.getElementById('phone-iframe');
@@ -1898,10 +1917,19 @@
   }
   function renderStudentNav(){
     const nav = document.getElementById('nav-student');
-    nav.innerHTML = navList().map((tg,i)=>{
-      const [ic,key]=NAV_META[tg];
-      return `<button class="navbtn${i===0?' active':''}" data-target="${tg}"><span class="ic">${ic}</span><span data-i18n="${key}"></span></button>`;
-    }).join('');
+    const list = navList();
+    let html=''; let first=true;
+    GROUP_ORDER.forEach(g=>{
+      const items = list.filter(t=>NAV_GROUP[t]===g);
+      if(!items.length) return;
+      if(GROUP_KEY[g]) html += `<div class="nav-label" data-i18n="${GROUP_KEY[g]}"></div>`;
+      items.forEach(tg=>{
+        const [ic,key]=NAV_META[tg];
+        html += `<button class="navbtn${first?' active':''}" data-target="${tg}"><span class="ic">${ic}</span><span data-i18n="${key}"></span></button>`;
+        first=false;
+      });
+    });
+    nav.innerHTML = html;
   }
   function renderQuicklinks(){
     const q = document.getElementById('quicklinks');
