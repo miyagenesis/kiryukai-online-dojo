@@ -638,11 +638,11 @@
     100% { opacity:0;    transform: rotate(var(--rot,0deg)) scaleX(var(--flip,1)) scale(calc(var(--sc,1)*1.14)); }
   }
 
-  /* 墨の筆トレイル（カーソル追従） */
-  .ink-trail { position:fixed; z-index:9997; pointer-events:none; width:14px; height:14px; margin:-7px 0 0 -7px;
-    border-radius:52% 48% 46% 54% / 48% 52% 50% 50%;
-    background: radial-gradient(circle, rgba(var(--blot),0.32), transparent 70%); animation: inkFade .7s ease-out forwards; }
-  @keyframes inkFade { from{ opacity:.5; transform:scale(1);} to{ opacity:0; transform:scale(0.4);} }
+  /* 墨の筆トレイル（カーソル移動を滑らかな筆の線で追う） */
+  .ink-seg { position:fixed; z-index:9997; pointer-events:none; transform-origin:0 50%; border-radius:100px;
+    background: linear-gradient(90deg, rgba(var(--blot),0) 0%, rgba(var(--blot),0.14) 22%, rgba(var(--blot),0.2) 50%, rgba(var(--blot),0.14) 78%, rgba(var(--blot),0) 100%);
+    animation: segFade .65s ease-out forwards; }
+  @keyframes segFade { from{ opacity:0.85; } to{ opacity:0; } }
 
   /* ヒーロー見出しに筆の下線（開くたびに引かれる） */
   .hero-cap h2 { position:relative; display:inline-block; padding-bottom:0.25rem; }
@@ -2507,7 +2507,7 @@
     'M4,18 C40,6 78,12 118,26 C96,28 98,33 74,31 C86,34 44,33 34,28 C22,31 10,28 6,22 Z',
   ];
   function inkMark(x,y){
-    if(prefersReduced()) return;
+    if(prefersReduced() || currentRole==='admin') return;        // 運営ビューでは墨を出さない
     const rot=(Math.random()*90-45), sc=0.85+Math.random()*0.8, flip=Math.random()<0.5?-1:1;
     const path=SUMI_STROKES[Math.floor(Math.random()*SUMI_STROKES.length)];
     let drops=''; const nd=4+Math.floor(Math.random()*5);        // 飛び散る墨
@@ -2515,23 +2515,29 @@
     const w=document.createElement('div'); w.className='sumi';
     w.style.left=x+'px'; w.style.top=y+'px';
     w.style.setProperty('--rot',rot+'deg'); w.style.setProperty('--sc',sc); w.style.setProperty('--flip',flip);
-    w.innerHTML=`<svg viewBox="0 0 120 48"><g fill="rgba(var(--blot),0.85)" filter="url(#sumiRough)"><path d="${path}"/>${drops}</g></svg>`;
+    w.innerHTML=`<svg viewBox="0 0 120 48"><g fill="rgba(var(--blot),0.55)" filter="url(#sumiRough)"><path d="${path}"/>${drops}</g></svg>`;
     document.body.appendChild(w); setTimeout(()=>w.remove(), 560);
   }
   document.addEventListener('pointerdown', (e)=>inkMark(e.clientX, e.clientY), {passive:true});
+  // カーソル移動を、滑らかに流れる筆の線で追う（PCのみ・運営ビューでは出さない）
   (function(){
     if(EMBED) return;                                           // 枠内プレビューでは控える
     if(!(window.matchMedia && window.matchMedia('(pointer:fine)').matches)) return;
-    let lx=0, ly=0, last=0;
+    let px=null, py=null, pt=0;
     document.addEventListener('pointermove', (e)=>{
-      if(prefersReduced()) return;
-      const now=performance.now();
-      if(now-last<42 || Math.hypot(e.clientX-lx, e.clientY-ly)<14) return;
-      last=now; lx=e.clientX; ly=e.clientY;
-      const el=document.createElement('div'); el.className='ink-trail';
-      el.style.left=e.clientX+'px'; el.style.top=e.clientY+'px';
-      el.style.transform='scale('+(0.7+Math.random()*0.6)+')';
-      document.body.appendChild(el); setTimeout(()=>el.remove(), 680);
+      if(prefersReduced() || currentRole==='admin'){ px=null; return; }
+      const x=e.clientX, y=e.clientY, now=performance.now();
+      if(px===null){ px=x; py=y; pt=now; return; }
+      const dx=x-px, dy=y-py, len=Math.hypot(dx,dy);
+      if(len<7) return;
+      const speed=len/Math.max(1, now-pt);                       // px/ms：速いほど細く（筆の払い）
+      const h=Math.max(3, Math.min(13, 12 - speed*4));
+      const seg=document.createElement('div'); seg.className='ink-seg';
+      seg.style.left=px+'px'; seg.style.top=(py-h/2)+'px';
+      seg.style.width=len+'px'; seg.style.height=h+'px';
+      seg.style.transform='rotate('+(Math.atan2(dy,dx)*180/Math.PI)+'deg)';
+      document.body.appendChild(seg); setTimeout(()=>seg.remove(), 640);
+      px=x; py=y; pt=now;
     }, {passive:true});
   })();
 </script>
