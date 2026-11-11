@@ -607,8 +607,97 @@
     .week-tiles { grid-template-columns:1fr; }
   }
 
+  /* ============================================================
+     v3 — 和モダンを深める ＆ 墨のアニメーション
+     ============================================================ */
+  :root { --blot: 28,22,20; }                 /* 墨の色（RGB） */
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --blot: 241,234,220; } }
+  :root[data-theme="dark"] { --blot: 241,234,220; }
+
+  /* 和紙の地合い（本文全体にうっすら） */
+  body { background-image:
+    radial-gradient(circle at 18% 12%, rgba(var(--blot),0.016) 0 1.2px, transparent 1.4px),
+    radial-gradient(circle at 62% 38%, rgba(var(--blot),0.012) 0 1.2px, transparent 1.4px),
+    radial-gradient(circle at 83% 71%, rgba(var(--blot),0.016) 0 1.2px, transparent 1.4px);
+    background-size: 160px 160px, 220px 220px, 190px 190px; background-attachment: fixed; }
+
+  /* サイドバーに麻の葉のうっすら地紋 */
+  .sidebar { background-image:
+    repeating-linear-gradient(60deg,  rgba(var(--blot),0.028) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(-60deg, rgba(var(--blot),0.028) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(0deg,   rgba(var(--blot),0.028) 0 1px, transparent 1px 26px); }
+
+  /* 墨のタップ・エフェクト（クリック地点に滲む） */
+  .ink-splash { position:fixed; z-index:9998; pointer-events:none; width:46px; height:46px; margin:-23px 0 0 -23px;
+    border-radius:48% 52% 55% 45% / 50% 48% 52% 50%;
+    background: radial-gradient(circle at 50% 45%, rgba(var(--blot),0.5), rgba(var(--blot),0.28) 48%, transparent 72%);
+    transform: scale(0.15) rotate(var(--r,0deg)); animation: inkPop .62s var(--ease) forwards; }
+  .ink-splash::before, .ink-splash::after { content:""; position:absolute; border-radius:50%; background: rgba(var(--blot),0.4); }
+  .ink-splash::before { width:7px; height:7px; top:-6px; left:58%; }
+  .ink-splash::after  { width:5px; height:5px; bottom:-4px; left:24%; }
+  @keyframes inkPop { 0%{ transform:scale(0.15) rotate(var(--r,0deg)); opacity:.85; } 60%{ opacity:.45; } 100%{ transform:scale(1.55) rotate(var(--r,0deg)); opacity:0; } }
+
+  /* 墨の筆トレイル（カーソル追従） */
+  .ink-trail { position:fixed; z-index:9997; pointer-events:none; width:14px; height:14px; margin:-7px 0 0 -7px;
+    border-radius:52% 48% 46% 54% / 48% 52% 50% 50%;
+    background: radial-gradient(circle, rgba(var(--blot),0.32), transparent 70%); animation: inkFade .7s ease-out forwards; }
+  @keyframes inkFade { from{ opacity:.5; transform:scale(1);} to{ opacity:0; transform:scale(0.4);} }
+
+  /* ヒーロー見出しに筆の下線（開くたびに引かれる） */
+  .hero-cap h2 { position:relative; display:inline-block; padding-bottom:0.25rem; }
+  .hero-cap h2::after { content:""; position:absolute; left:0; bottom:0; height:3px; width:100%; border-radius:2px;
+    background: linear-gradient(90deg, var(--red), transparent); transform:scaleX(0); transform-origin:left;
+    animation: brushIn .9s var(--ease) .3s forwards; }
+  @keyframes brushIn { to { transform: scaleX(1); } }
+
+  /* ヒーローの落款（朱印） */
+  .hero-seal { position:absolute; left:1rem; top:0.9rem; z-index:2; width:30px; height:30px; border-radius:8px;
+    background:var(--red); color:#fbf5ee; font-family:"Shippori Mincho",serif; font-weight:800; font-size:0.95rem;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 2px 12px rgba(0,0,0,0.3); animation: sealIn .6s var(--ease) both; }
+  @keyframes sealIn { from{ opacity:0; transform:scale(0.4) rotate(-12deg);} to{ opacity:1; transform:none;} }
+
+  /* アイコンの“生きている”ゆらぎ ＆ ホバー反応 */
+  @keyframes floaty { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-3px);} }
+  .ql .qi, .week-tile .wt-ic { animation: floaty 3.6s ease-in-out infinite; }
+  .quicklinks .ql:nth-child(2) .qi { animation-delay:.45s; }
+  .quicklinks .ql:nth-child(3) .qi { animation-delay:.9s; }
+  .quicklinks .ql:nth-child(4) .qi { animation-delay:1.35s; }
+  .ql:hover .qi, .week-tile:hover .wt-ic { animation-play-state: paused; transform: scale(1.16); transition: transform .3s var(--ease); }
+  .navbtn .ic { transition: transform .3s var(--ease); }
+  .navbtn:hover .ic { transform: translateX(2px) scale(1.12); }
+  .status-dot.live { } /* 既存のpulseを維持 */
+
+  /* 稽古カレンダー（ヒートマップ） */
+  .heat { display:grid; grid-auto-flow:column; grid-template-rows:repeat(7,14px); gap:3px; overflow-x:auto; padding-bottom:0.2rem; }
+  .heat .hc { width:14px; height:14px; border-radius:3px; }
+  .heat-legend { display:flex; align-items:center; gap:0.35rem; font-size:0.72rem; color:var(--ink-faint); margin-top:0.8rem; }
+  .heat-legend .hc { width:12px; height:12px; border-radius:3px; }
+
+  /* 道場ランキング */
+  .rank-you { background: var(--red-soft); }
+  td.medal { font-weight:800; font-variant-numeric:tabular-nums; }
+
+  /* 運営ダッシュボード */
+  .dash-bars { display:flex; align-items:flex-end; gap:0.5rem; height:124px; }
+  .dash-bars .b { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:0.35rem; height:100%; }
+  .dash-bars .bar { width:72%; max-width:34px; background:linear-gradient(var(--red), var(--red-deep)); border-radius:5px 5px 0 0; transition:height .85s var(--ease); min-height:3px; }
+  .dash-bars .bl { font-size:0.66rem; color:var(--ink-faint); }
+  .seg { margin-bottom:0.8rem; }
+  .seg:last-child { margin-bottom:0; }
+  .seg .sr { display:flex; justify-content:space-between; font-size:0.8rem; color:var(--ink-soft); margin-bottom:0.25rem; }
+  .seg .mbar > span { background: var(--indigo); }
+  .todo-row { display:flex; align-items:center; justify-content:space-between; gap:0.8rem; padding:0.65rem 0; border-bottom:1px solid var(--rule); width:100%; text-align:left; border-left:none; border-right:none; border-top:none; background:none; font-family:inherit; cursor:pointer; color:inherit; }
+  .todo-row:last-child { border-bottom:none; }
+  .todo-row:hover .tt { color:var(--red); }
+  .todo-row .tt { font-size:0.86rem; }
+  .todo-row .tc { font-weight:700; color:var(--red); white-space:nowrap; }
+
   /* 動きを控える設定を尊重 */
   @media (prefers-reduced-motion: reduce) {
+    .hero-cap h2::after { animation:none; transform:scaleX(1); }
+    .hero-seal { animation:none; }
+    .ql .qi, .week-tile .wt-ic { animation:none; }
+    .dash-bars .bar { transition:none; }
     .panel.on { animation:none; }
     .reveal { opacity:1 !important; transform:none !important; transition:none; }
     .hero-carousel .slide.on { animation:none; }
@@ -709,8 +798,10 @@
     <nav class="navlist navset on" id="nav-student"><!-- built per model by renderStudentNav() --></nav>
 
     <nav class="navlist navset" id="nav-admin">
+      <div class="nav-label" data-i18n="nav.g.admin.overview">概況</div>
+      <button class="navbtn active" data-target="a-dash"><span class="ic">◍</span><span data-i18n="nav.dash">ダッシュボード</span></button>
       <div class="nav-label" data-i18n="nav.g.admin.broadcast">配信・コンテンツ</div>
-      <button class="navbtn active" data-target="a-stream"><span class="ic">◉</span><span data-i18n="nav.stream">配信コントロール</span></button>
+      <button class="navbtn" data-target="a-stream"><span class="ic">◉</span><span data-i18n="nav.stream">配信コントロール</span></button>
       <button class="navbtn" data-target="a-content"><span class="ic">✎</span><span data-i18n="nav.content">今週のメッセージ</span></button>
       <button class="navbtn" data-target="a-feedback"><span class="ic">⇧</span><span data-i18n="nav.adminfb">動画添削キュー</span></button>
       <div class="nav-label" data-i18n="nav.g.admin.members">会員</div>
@@ -756,6 +847,7 @@
         <div class="hero-carousel" id="hero-carousel" aria-roledescription="carousel">
           <div class="slides" id="slides"></div>
           <div class="hero-weave" aria-hidden="true"></div>
+          <div class="hero-seal" aria-hidden="true">亀</div>
           <div class="hero-kanji" aria-hidden="true">空手道</div>
           <div class="hero-cap">
             <div class="eyebrow" data-i18n="top.hero.eyebrow">亀龍会 空手道部</div>
@@ -815,7 +907,7 @@
           </div>
           <div class="card" style="padding:1.4rem 1.5rem">
             <div class="pill kumite" style="margin-bottom:0.7rem"><span class="dot"></span><span data-i18n="coach.yamauchi.cat">組手</span></div>
-            <div class="serif" style="font-size:1.15rem;font-weight:700" data-i18n="coach.yamauchi.name">山内 健太郎 選手</div>
+            <div class="serif" style="font-size:1.15rem;font-weight:700" data-i18n="coach.yamauchi.name">山内 健太郎</div>
             <p class="muted" style="margin:0.6rem 0 0" data-i18n="coach.yamauchi.bio">世界大会に出場する組手選手。実戦で培った技の組み立てを、初心者でも取り組める「技ができるようになるステップ」として指導します。</p>
           </div>
         </div>
@@ -951,7 +1043,7 @@
           </div>
           <div class="card vcard" data-tag="kumite advanced match">
             <div class="vthumb kumite"><span></span><span class="dur">8:40</span></div>
-            <div class="vbody"><div class="vt" data-i18n="v6.title">組手 実戦 ／ 試合形式のステップ3</div><div class="vc" data-i18n="v6.credit">組手・上級・試合 ／ 山内 健太郎 選手</div></div>
+            <div class="vbody"><div class="vt" data-i18n="v6.title">組手 実戦 ／ 試合形式のステップ3</div><div class="vc" data-i18n="v6.credit">組手・上級・試合 ／ 山内 健太郎</div></div>
           </div>
         </div>
 
@@ -1025,7 +1117,7 @@
             <video controls playsinline preload="none" data-vid="kumite" data-pos="kumite"></video>
             <div class="arch-body">
               <div class="at" data-i18n="mental.rev1.t">勝ち試合の解説 ／ 第6回全日本実業団</div>
-              <div class="ac" data-i18n="mental.rev1.c">組手 ／ 山内 健太郎 選手・豊田 陽也</div>
+              <div class="ac" data-i18n="mental.rev1.c">組手 ／ 山内 健太郎・豊田 陽也</div>
             </div>
           </div>
           <div class="card arch-card">
@@ -1096,6 +1188,13 @@
         <div class="section-title"><span id="streak-title">継続のあしあと</span><span class="en-tag">STREAK</span></div>
         <div class="card streak-card" id="streak-card"></div>
         <div class="badge-grid" id="badge-grid"></div>
+
+        <div class="section-title"><span id="heat-title">稽古カレンダー</span><span class="en-tag">CALENDAR</span></div>
+        <div class="card" style="padding:1.2rem 1.4rem"><div id="heat-cal"></div></div>
+
+        <div class="section-title"><span id="rank-title">道場ランキング（今週）</span><span class="en-tag">LEADERBOARD</span></div>
+        <div class="card" style="padding:0.4rem;overflow:auto"><div id="rank-table"></div></div>
+        <p class="muted" style="font-size:0.8rem;margin:0.5rem 0 0" id="rank-note"></p>
 
         <div class="section-title"><span data-i18n="report.watch.title">今月の学習・視聴時間</span><span class="en-tag">WATCH TIME</span></div>
         <div class="stat-row" style="margin-bottom:0.4rem">
@@ -1200,6 +1299,18 @@
           </div>
         </div>
         <p class="muted" style="text-align:center;font-size:0.8rem;margin-top:0.8rem" data-i18n="phone.note">※ 実機のスマホで開くと、この枠なしで全画面表示になります。</p>
+      </div>
+
+      <!-- ===== ADMIN: DASHBOARD ===== -->
+      <div class="panel" data-role-panel="admin" id="a-dash">
+        <div class="banner" data-i18n-html="dash.banner"><b>ダッシュボード：</b>運営の概況をひと目で。会員の定着・視聴・対応状況を確認できます（数値はデモ）。</div>
+        <div class="stat-row" id="dash-kpi" style="margin-bottom:0.4rem"></div>
+        <div class="section-title"><span id="dash-trend-title">直近7日の視聴回数</span><span class="en-tag">VIEWS / 7D</span></div>
+        <div class="card" style="padding:1.3rem 1.5rem 1.1rem"><div class="dash-bars" id="dash-trend"></div></div>
+        <div class="grid2" style="margin-top:1rem">
+          <div class="card" style="padding:1.2rem 1.4rem"><div class="section-title" style="margin:0 0 0.9rem"><span id="dash-ret-title">継続率</span></div><div id="dash-retention"></div></div>
+          <div class="card" style="padding:1.2rem 1.4rem"><div class="section-title" style="margin:0 0 0.5rem"><span id="dash-todo-title">今日の要対応</span></div><div id="dash-todo"></div></div>
+        </div>
       </div>
 
       <!-- ===== ADMIN: STREAM ===== -->
@@ -1441,7 +1552,7 @@
       'onb.eyebrow':'はじめに','onb.title':'ようこそ、亀龍会オンライン道場へ','onb.lead':'3つのステップで、今日から始められます。','onb.s1.t':'続け方を選ぶ','onb.s1.d':'「見て学ぶ」でも「一緒にやる」でもOK。あなたのペースで大丈夫です。','onb.s2.t':'最初の動画を見る','onb.s2.d':'まずは基本の突き（ステップ1）から。約10分で始められます。','onb.s3.t':'今週の配信をチェック','onb.s3.d':'毎週の新着・ライブ回を確認して、稽古を習慣に。','onb.start':'最初の動画を見てみる','onb.skip':'あとで',
       'phone.lead':'スマートフォンでの見え方のプレビューです。下の枠内は、実際のスマホと同じ画面幅でこのサイトを表示しています。そのままスクロール・操作して確認できます。','phone.note':'※ 実機のスマホで開くと、この枠なしで全画面表示になります。',
       'mental.lead':'技術だけでなく、日本代表選手の「心」を学べるプログラムです。勝った試合も負けた試合も自分たちで解説し、試合前のメンタルの持っていき方やルーティンまで公開します。参加者が本当に学びになるコンテンツを目指しています。',
-      'mental.m1.title':'試合解説（勝ちも、負けも）','mental.rev1.t':'勝ち試合の解説 ／ 第6回全日本実業団','mental.rev1.c':'組手 ／ 山内 健太郎 選手・豊田 陽也','mental.rev2.t':'負け試合・課題の解説 ／ 自己分析','mental.rev2.c':'型 ／ 舟田 葵（和道流）','mental.rev.note':'※ 輝かしい結果だけでなく、大敗した試合や納得がいっていない試合も、自分たちで率直に解説します。親しみやすさと、本当の学びのために。',
+      'mental.m1.title':'試合解説（勝ちも、負けも）','mental.rev1.t':'勝ち試合の解説 ／ 第6回全日本実業団','mental.rev1.c':'組手 ／ 山内 健太郎・豊田 陽也','mental.rev2.t':'負け試合・課題の解説 ／ 自己分析','mental.rev2.c':'型 ／ 舟田 葵（和道流）','mental.rev.note':'※ 輝かしい結果だけでなく、大敗した試合や納得がいっていない試合も、自分たちで率直に解説します。親しみやすさと、本当の学びのために。',
       'mental.m2.title':'メンタル・試合前ルーティン','mental.card1.t':'試合までの気持ちの作り方','mental.card1.d':'大会に向けて、緊張とどう付き合うか。日本代表の実体験で語ります。','mental.card2.t':'試合前日・当日のルーティン','mental.card2.d':'食事・ウォームアップ・集中の入り方など、当日の過ごし方を公開。','mental.card3.t':'負けから立ち直る考え方','mental.card3.d':'うまくいかなかった時に、次へどう切り替えるか。',
       'mental.q.title':'選手に質問する','mental.q.lead':'技のこと、メンタルのこと、保護者の方からの「どう関わればいい？」まで。質問を送ると、日本代表選手・指導員が動画やコメントで答えます。','mental.q.ph':'例：試合前に緊張しすぎてしまいます。どう準備すればいいですか？','mental.q.btn':'質問を送る','mental.q.done':'質問を受け付けました。選手・指導員が動画またはコメントでお答えします。',
       'coaches.style.title':'流派と基本動作について','coaches.style.body':'亀龍会には四大流派のうち3つの流派の選手が在籍しています。空手の「基本動作」は流派を問わず共通なので、まずは全流派に共通する基本を細かく段階に分けてお届けします。流派ごとの違いは、その先の応用・型の段階で扱います。',
@@ -1452,7 +1563,7 @@
       'coaches.lead':'亀龍会空手道部の現役選手が指導します。競技の最前線に立つ選手が、型・組手の技術はもちろん、空手道の礼節や武道としての考え方までお伝えします。','coaches.note':'<b>監修：</b>本オンライン道場は亀龍会空手道部が監修しています。選手個人ではなく、亀龍会空手道部として監修する体裁でお届けします。',
       'coach.funada.cat':'型 ／ 和道流','coach.funada.name':'舟田 葵','coach.funada.bio':'国際大会に出場する和道流の型選手。空手愛好家に向けて、型の美しさと礼節・武道の心を発信します。流派を大切にした正統な型指導が強みです。',
       'coach.toyoda.cat':'組手','coach.toyoda.name':'豊田 陽也','coach.toyoda.bio':'海外の国際大会にも出場する組手選手。小学生最大規模の大会で3連覇の実績。間合い・初動・戦術を、段階を追ってわかりやすく指導します。',
-      'coach.yamauchi.cat':'組手','coach.yamauchi.name':'山内 健太郎 選手','coach.yamauchi.bio':'世界大会に出場する組手選手。実戦で培った技の組み立てを、初心者でも取り組める「技ができるようになるステップ」として指導します。',
+      'coach.yamauchi.cat':'組手','coach.yamauchi.name':'山内 健太郎','coach.yamauchi.bio':'世界大会に出場する組手選手。実戦で培った技の組み立てを、初心者でも取り組める「技ができるようになるステップ」として指導します。',
       'belt.lead':'「少しずつレベルアップしていく」目標を、段階（帯）で楽しめる仕組みです。動画を提出し、指導員の採点に合格すると次の帯へ。入門から黒帯まで、亀龍会オンライン道場独自の認定として、海外の愛好家の方が前向きに取り組める形を目指します。','belt.flow.title':'認定の流れ',
       'belt.f1.t':'課題の型・技を練習','belt.f1.d':'各帯の課題動画を見て、自宅で練習します。','belt.f2.t':'動画を提出して審査','belt.f2.d':'スマホで撮って提出。亀龍会の選手が審査します。','belt.f3.t':'合格で認定証・次の帯へ','belt.f3.d':'合格すると修了認定証を発行、次の帯の課題へ進みます。',
       'belt.caveat':'<b>ご注意：</b>本プログラムの帯・認定証は、亀龍会オンライン道場独自の<b>修了認定</b>です。連盟・流派が発行する公式の段位や、公式大会で使用できる資格とは異なります。',
@@ -1464,6 +1575,7 @@
       'live.r2.d':'10/4(土) 21:00','live.r2.t':'型の基本 — 軸と運足','live.r2.w':'日本代表 指導枠',
       'live.r3.d':'10/11(土) 21:00','live.r3.t':'組手の間合い入門','live.r3.w':'日本代表 指導枠',
       'live.r4.d':'10/18(土) 21:00','live.r4.t':'質問回 — 海外道場からの質問に答える','live.r4.w':'亀龍会空手道部',
+      'nav.dash':'ダッシュボード','nav.g.admin.overview':'概況','dash.banner':'<b>ダッシュボード：</b>運営の概況をひと目で。会員の定着・視聴・対応状況を確認できます（数値はデモ）。',
       'nav.stream':'配信コントロール','nav.content':'今週のメッセージ','nav.adminfb':'動画添削キュー','nav.roster':'受講生一覧','nav.memberlog':'会員ログ','nav.analytics':'動画分析','nav.builder':'レポート作成','nav.partner':'パートナー連携',
       'van.banner':'<b>動画分析：</b>動画ごとの視聴回数・完了率を確認できます。よく見られているジャンル・レベルを、今後の動画作成の方向性づくりにお使いください。','van.rank.title':'視聴回数ランキング','van.genre.title':'ジャンル別の視聴回数',
       'nav.plan':'撮影計画','plan.banner':'<b>仮の計画：</b>ローンチに必要な動画本数と撮影スケジュールの“たたき台”です。数字は撮影計画MTGで調整します。','plan.note':'※ ローンチ下限は30本（案B）、目標カタログは50本（案A）。以後は毎月+10本で積み増し。制約は撮影より編集。','plan.cat.title':'カテゴリ別の目標本数と進捗','plan.sched.title':'撮影スケジュール（仮）',
@@ -1487,7 +1599,7 @@
       'prog.p2.title':'オンデマンド・プログラム型','prog.p2.tag':'自分のペースで、正しく','prog.p2.cycle':'いつでも（毎月新着を追加）','prog.p2.method':'レベル別カリキュラムを動画で進め、動画提出→添削','prog.p2.content':'進研ゼミ方式。課題動画を見て練習し、提出','prog.p2.for':'こんな方に：時間が不規則／自宅で着実に上達したい方',
       'prog.p3.title':'ハイブリッド・パーソナル型','prog.p3.tag':'先生に、直接みてもらう','prog.p3.cycle':'月2回のパーソナル＋動画は随時','prog.p3.method':'個別Zoom指導＋オンデマンド動画の組み合わせ','prog.p3.content':'個別カリキュラムで一人ひとりに最適化','prog.p3.for':'こんな方に：選手志向／保護者が「直接みてほしい」と考える方',
       'chip.all':'すべて','chip.kata':'型','chip.kumite':'組手','chip.doalong':'一緒にやる','chip.explain':'解説','chip.match':'試合','chip.beginner':'初級','chip.intermediate':'中級','chip.advanced':'上級','badge.new':'今月新着','badge.resume':'続きから',
-      'v1.title':'突き ステップ1 ／ 基本の突き','v1.credit':'組手・初級・一緒にやる ／ 監修：亀龍会空手道部','v2.title':'蹴り ステップ1 ／ 前蹴り・回し蹴り','v2.credit':'組手・初級・一緒にやる ／ 監修：亀龍会空手道部','v3.title':'平安二段 ステップ1 ／ 前半','v3.credit':'型・初級・解説 ／ 舟田 葵（和道流）','v4.title':'突き ステップ2 ／ 刻み突き・連突き','v4.credit':'組手・中級・解説 ／ 豊田 陽也','v5.title':'平安四段 ステップ2 ／ 運足と極め','v5.credit':'型・中級・解説 ／ 舟田 葵（和道流）','v6.title':'組手 実戦 ／ 試合形式のステップ3','v6.credit':'組手・上級・試合 ／ 山内 健太郎 選手',
+      'v1.title':'突き ステップ1 ／ 基本の突き','v1.credit':'組手・初級・一緒にやる ／ 監修：亀龍会空手道部','v2.title':'蹴り ステップ1 ／ 前蹴り・回し蹴り','v2.credit':'組手・初級・一緒にやる ／ 監修：亀龍会空手道部','v3.title':'平安二段 ステップ1 ／ 前半','v3.credit':'型・初級・解説 ／ 舟田 葵（和道流）','v4.title':'突き ステップ2 ／ 刻み突き・連突き','v4.credit':'組手・中級・解説 ／ 豊田 陽也','v5.title':'平安四段 ステップ2 ／ 運足と極め','v5.credit':'型・中級・解説 ／ 舟田 葵（和道流）','v6.title':'組手 実戦 ／ 試合形式のステップ3','v6.credit':'組手・上級・試合 ／ 山内 健太郎',
       'menu.title':'今日の自宅練習メニュー','menu.h':'親子で・10分でできる基礎メニュー','menu.1':'その場突き 左右各20本（腰の回転を意識）','menu.2':'前屈立ちのキープ 30秒 × 3セット','menu.3':'平安二段の最初の5動作をゆっくり反復','menu.4':'できたら動画に撮って「動画提出・添削」へ',
       'bonus.title':'特典：選手ハイライト（リール）','bonus.note':'※ 技の動画だけでなく、3選手の大会の「かっこいいシーン」をリール風に短く編集した特典動画。子供も保護者も楽しめる“推し”コンテンツとしてライブラリに追加していきます。','bonus1.t':'舟田 葵 ／ 型ベストシーン','bonus1.c':'特典・リール ／ 和道流','bonus2.t':'豊田 陽也 ／ 一本シーン集','bonus2.c':'特典・リール ／ 組手','bonus3.t':'山内 健太郎 ／ 世界大会ハイライト','bonus3.c':'特典・リール ／ 組手',
       'submit.banner.b':'添削とは：','submit.banner.t':'自分の練習・試合動画を送ると、コーチが文章でアドバイスを返します（おうち道場方式）。スタンダード以上のプランでご利用いただけます。','submit.drop.t':'練習・試合動画をアップロード','submit.drop.s':'クリックして選択（デモ：実際の送信は行いません）','submit.done':'送信しました。担当コーチが3営業日以内に添削コメントをお返しします。','submit.past.title':'これまでの添削',
@@ -1519,6 +1631,7 @@
         's-events':['イベント・セミナー','セミナー集客と他道場との交流試合'],
         's-price':['料金プラン','国内はおうち道場と同価格帯・海外は3倍'],
         's-phone':['スマホ表示プレビュー','実機と同じ画面幅での見え方'],
+        'a-dash':['運営ダッシュボード','会員の定着・視聴・対応状況を一目で'],
         'a-stream':['配信コントロール','手動切替・おうち道場と連携'],
         'a-content':['今週のメッセージ','亀龍会空手道部からの発信を作成'],
         'a-feedback':['動画添削キュー','提出動画へのコーチ添削を管理'],
@@ -1563,6 +1676,7 @@
       'live.r2.d':'Sat 10/4, 21:00','live.r2.t':'Kata Basics — Posture & Footwork','live.r2.w':'National Team Coaching',
       'live.r3.d':'Sat 10/11, 21:00','live.r3.t':'Intro to Kumite Distance','live.r3.w':'National Team Coaching',
       'live.r4.d':'Sat 10/18, 21:00','live.r4.t':'Q&A — Answering Overseas Dojos','live.r4.w':'Kiryukai Karate-Do Club',
+      'nav.dash':'Dashboard','nav.g.admin.overview':'Overview','dash.banner':'<b>Dashboard:</b> The operating picture at a glance — member retention, viewing and open tasks (demo figures).',
       'nav.stream':'Stream Control','nav.content':"This Week's Message",'nav.adminfb':'Feedback Queue','nav.roster':'Member Roster','nav.memberlog':'Member Logs','nav.analytics':'Video Analytics','nav.builder':'Report Builder','nav.partner':'Partners',
       'van.banner':'<b>Video analytics:</b> See views and completion rate per video. Use the most-watched genres and levels to steer what to produce next.','van.rank.title':'View-count ranking','van.genre.title':'Views by genre',
       'nav.plan':'Filming Plan','plan.banner':'<b>Tentative plan:</b> A draft of the video count needed for launch and the filming schedule. Numbers will be adjusted at the filming-plan meeting.','plan.note':'※ Launch minimum 30 (Plan B); catalog target 50 (Plan A); then +10/month. The constraint is editing, not filming.','plan.cat.title':'Target count & progress by category','plan.sched.title':'Filming schedule (tentative)',
@@ -1618,6 +1732,7 @@
         's-events':['Events & Seminars','Seminar acquisition and exchange matches'],
         's-price':['Pricing','Domestic matches Ouchi Dojo · overseas 3×'],
         's-phone':['Phone View','How it looks at a real phone width'],
+        'a-dash':['Operations Dashboard','Retention, viewing & open tasks at a glance'],
         'a-stream':['Stream Control','Manual switch, linked with Ouchi Dojo'],
         'a-content':["This Week's Message","Draft this week's message from Kiryukai"],
         'a-feedback':['Feedback Queue','Manage coach feedback on submitted videos'],
@@ -1996,6 +2111,82 @@
     renderBadges();
   }
 
+  // ---- 成績：稽古カレンダー（ヒートマップ） ----
+  function heatColor(pct){ return pct===0 ? 'var(--paper-sunken)' : `color-mix(in srgb, var(--red) ${pct}%, var(--paper-sunken))`; }
+  function renderHeatmap(){
+    const el = document.getElementById('heat-cal'); if(!el) return;
+    const en = currentLang==='en';
+    const ht = document.getElementById('heat-title'); if(ht) ht.textContent = en?'Practice Calendar':'稽古カレンダー';
+    const weeks=12, days=weeks*7, lv=[0,22,44,66,90];
+    const seed = n => Math.abs((Math.sin(n*12.9898)*43758.5453)%1);
+    let cells='';
+    for(let i=0;i<days;i++){
+      const recent = i >= days-12;                 // 直近12日は連続稽古
+      const r = seed(i+1);
+      const lvl = recent ? 2+Math.floor(r*3) : Math.floor(r*5);
+      cells += `<div class="hc" style="background:${heatColor(lv[lvl])}"></div>`;
+    }
+    const steps = lv.map(p=>`<div class="hc" style="background:${heatColor(p)}"></div>`).join('');
+    el.innerHTML = `<div class="heat">${cells}</div>`+
+      `<div class="heat-legend"><span>${en?'Less':'少'}</span>${steps}<span>${en?'More':'多'}</span><span style="margin-left:auto">${en?'Last 12 weeks':'直近12週間'}</span></div>`;
+  }
+
+  // ---- 成績：道場ランキング（今週） ----
+  const RANK = [
+    {n:L('Sora_K','Sora_K'), days:6, you:false},
+    {n:L('あなた','You'),     days:5, you:true},
+    {n:L('Léa_P','Léa_P'),   days:5, you:false},
+    {n:L('Kenta_M','Kenta_M'),days:4, you:false},
+    {n:L('Mia_G','Mia_G'),   days:3, you:false},
+  ];
+  function renderRank(){
+    const el = document.getElementById('rank-table'); if(!el) return;
+    const en = currentLang==='en';
+    const rt = document.getElementById('rank-title'); if(rt) rt.textContent = en?'Dojo Leaderboard (this week)':'道場ランキング（今週）';
+    const nt = document.getElementById('rank-note'); if(nt) nt.textContent = en?'※ Shown by nickname, opt-in. Your real name is never shown.':'※ ニックネーム表示・任意参加です。実名は表示されません。';
+    const sorted = [...RANK].sort((a,b)=>b.days-a.days);
+    const th = en?['#','Member','Practice days']:['#','メンバー','稽古日数'];
+    const medal = i => ['🥇','🥈','🥉'][i] || (i+1);
+    const rows = sorted.map((r,i)=>`<tr class="${r.you?'rank-you':''}"><td class="medal">${medal(i)}</td><td>${tierText(r.n)}${r.you?` <span class="pill kumite"><span class="dot"></span>${en?'You':'あなた'}</span>`:''}</td><td class="date">${r.days}${en?' days':'日'}</td></tr>`).join('');
+    el.innerHTML = `<table class="sched"><tr><th>${th[0]}</th><th>${th[1]}</th><th>${th[2]}</th></tr>${rows}</table>`;
+  }
+
+  // ---- 運営ビュー：ダッシュボード ----
+  const DASH_TREND = [48,61,57,72,66,83,91];      // 直近7日の視聴回数（デモ）
+  function renderDash(){
+    const kpi = document.getElementById('dash-kpi'); if(!kpi) return;
+    const en = currentLang==='en';
+    const T = (ja,e)=> en?e:ja;
+    document.getElementById('dash-trend-title').textContent = T('直近7日の視聴回数','Views, last 7 days');
+    document.getElementById('dash-ret-title').textContent   = T('継続率','Retention');
+    document.getElementById('dash-todo-title').textContent  = T('今日の要対応','To handle today');
+    const kpis = [
+      {n:'34',  l:T('アクティブ会員','Active members')},
+      {n:'312', l:T('今週の視聴回数','Views this week')},
+      {n:'78%', l:T('継続率（30日）','Retention (30d)')},
+      {n:'2',   l:T('添削の残り','Feedback pending')},
+      {n:'3',   l:T('要フォロー会員','Members to follow')},
+      {n:'4',   l:T('今月の新規','New this month')},
+    ];
+    kpi.innerHTML = kpis.map(k=>`<div class="card stat"><div class="n">${k.n}</div><div class="l">${k.l}</div></div>`).join('');
+    // 7日間の棒グラフ
+    const max = Math.max(...DASH_TREND);
+    const dl = en?['Mon','Tue','Wed','Thu','Fri','Sat','Sun']:['月','火','水','木','金','土','日'];
+    const bars = document.getElementById('dash-trend');
+    bars.innerHTML = DASH_TREND.map((v,i)=>`<div class="b"><div class="bar" data-h="${Math.round(v/max*100)}" style="height:0%"></div><div class="bl">${dl[i]}</div></div>`).join('');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ bars.querySelectorAll('.bar').forEach(b=>{ b.style.height=(prefersReduced()? b.dataset.h : b.dataset.h)+'%'; }); }));
+    // 継続率セグメント
+    const ret = [{l:T('7日継続','7-day'),v:92},{l:T('30日継続','30-day'),v:78},{l:T('90日継続','90-day'),v:61}];
+    document.getElementById('dash-retention').innerHTML = ret.map(r=>`<div class="seg"><div class="sr"><span>${r.l}</span><span>${r.v}%</span></div><div class="mbar"><span style="width:${r.v}%"></span></div></div>`).join('');
+    // 要対応リスト
+    const todo = [
+      {t:T('添削待ちの動画','Videos awaiting feedback'), c:'2', go:'a-feedback'},
+      {t:T('7日以上の未視聴','Inactive 7+ days'), c:'3', go:'a-memberlog'},
+      {t:T('今週の新着公開','New release this week'), c:T('水曜','Wed'), go:'a-content'},
+    ];
+    document.getElementById('dash-todo').innerHTML = todo.map(x=>`<button class="todo-row" data-go="${x.go}"><span class="tt">${x.t}</span><span class="tc">${x.c} →</span></button>`).join('');
+  }
+
   // ---- モーション：パネルを開いたときの段差リビール＋数字カウントアップ ----
   function prefersReduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
   const REVEAL_SEL = ':scope > .card, :scope > .grid2, :scope > .grid3, :scope > .flow-row, :scope > .stat-row, :scope > .price-grid3, :scope > .vgrid, :scope > .archive-grid, :scope > .banner, :scope > .section-title, :scope > .hero-carousel, :scope > .top-lead, :scope > .muted, :scope > .phone-wrap, :scope > .belt-ladder, :scope > .funnel, :scope > .chiprow, :scope > .week-card, :scope > .badge-grid';
@@ -2113,6 +2304,9 @@
     renderPlan();
     renderThisWeek();
     renderStreak();
+    renderHeatmap();
+    renderRank();
+    renderDash();
     // sync all lang switches
     document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active', b.dataset.lang===currentLang));
   }
@@ -2292,4 +2486,28 @@
   renderQuicklinks();
   applyI18n();
   if(EMBED){ document.body.classList.add('embed'); doLogin(); }   // inside the phone-preview iframe: skip login, show the app
+
+  // ---- 墨：タップで滲む・カーソルに筆トレイル ----
+  document.addEventListener('pointerdown', (e)=>{
+    if(prefersReduced()) return;
+    const el=document.createElement('div'); el.className='ink-splash';
+    el.style.left=e.clientX+'px'; el.style.top=e.clientY+'px';
+    el.style.setProperty('--r', (Math.random()*80-40)+'deg');
+    document.body.appendChild(el); setTimeout(()=>el.remove(), 680);
+  }, {passive:true});
+  (function(){
+    if(EMBED) return;                                           // 枠内プレビューでは控える
+    if(!(window.matchMedia && window.matchMedia('(pointer:fine)').matches)) return;
+    let lx=0, ly=0, last=0;
+    document.addEventListener('pointermove', (e)=>{
+      if(prefersReduced()) return;
+      const now=performance.now();
+      if(now-last<42 || Math.hypot(e.clientX-lx, e.clientY-ly)<14) return;
+      last=now; lx=e.clientX; ly=e.clientY;
+      const el=document.createElement('div'); el.className='ink-trail';
+      el.style.left=e.clientX+'px'; el.style.top=e.clientY+'px';
+      el.style.transform='scale('+(0.7+Math.random()*0.6)+')';
+      document.body.appendChild(el); setTimeout(()=>el.remove(), 680);
+    }, {passive:true});
+  })();
 </script>
