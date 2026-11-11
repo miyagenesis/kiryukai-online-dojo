@@ -483,6 +483,140 @@
     .hero-cap { padding: 1.8rem 1.1rem 1rem; }
     .topbar h1 { font-size: 1.05rem; }
   }
+
+  /* ============================================================
+     v2 — 和モダンの洗練 ＆ アニメーション
+     ============================================================ */
+  :root { --ease: cubic-bezier(.22,.61,.36,1); }
+
+  /* 画期的アクセント：本文上端の三色ライン（紅・金・藍） */
+  .main::before { content:""; display:block; height:3px; flex-shrink:0;
+    background: linear-gradient(90deg, var(--red) 0%, var(--gold) 50%, var(--indigo) 100%); }
+
+  /* 見出しに筆の入りのような朱のティック */
+  .section-title::before { content:""; width:4px; height:1.05em; border-radius:2px; flex-shrink:0;
+    background: linear-gradient(var(--red), var(--red-deep)); }
+
+  /* 共通トランジション（既存のhover/activeがなめらかに効く） */
+  .card, .ql, .vcard, .flow-step, .navbtn, .chip, .slotbtn, .btn-primary, .btn-ghost,
+  .switch-btn, .belt-row, .stat, .week-tile, .inactive-row, .badge,
+  .role-switch button, .lang-switch button, .car-nav, .pc, .prog-card, .coach-row {
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease),
+      background .25s var(--ease), border-color .25s var(--ease), color .2s var(--ease); }
+
+  /* インタラクティブ要素の浮き上がり */
+  .ql:hover, .vcard:hover, .flow-step.clickable:hover, .week-tile:hover,
+  .inactive-row:hover, .event-card .slotbtn:hover { transform: translateY(-3px); }
+  .navbtn:hover { transform: translateX(2px); }
+  .btn-primary:hover, .switch-btn:hover, .gen-btn:hover { transform: translateY(-1px); }
+
+  /* サイドメニュー：選択中の縦バー */
+  .navbtn { position: relative; }
+  .navbtn.active::before { content:""; position:absolute; left:3px; top:50%; transform: translateY(-50%);
+    width:3px; height:58%; border-radius:3px; background:#fbf5ee; opacity:.9; }
+
+  /* パネル切替のフェードイン */
+  @keyframes panelIn { from { opacity:0; } to { opacity:1; } }
+  .panel.on { animation: panelIn .45s var(--ease) both; }
+
+  /* スクロール風の段差リビール（JSで .in を付与） */
+  .reveal { opacity:0; transform: translateY(16px);
+    transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .reveal.in { opacity:1; transform:none; }
+
+  /* ヒーロー：ケンバーンズ（ゆっくりズーム） */
+  @keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.12); } }
+  .hero-carousel .slide.on { animation: kenburns 6.5s ease-out both; }
+
+  /* ヒーロー：麻の葉ふうの織りテクスチャ ＆ 縦書きの「空手道」 */
+  .hero-weave { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.13; mix-blend-mode:overlay;
+    background-image:
+      repeating-linear-gradient(60deg,  #fff 0 1px, transparent 1px 22px),
+      repeating-linear-gradient(-60deg, #fff 0 1px, transparent 1px 22px),
+      repeating-linear-gradient(0deg,   #fff 0 1px, transparent 1px 22px); }
+  .hero-kanji { position:absolute; top:0.7rem; right:1rem; z-index:2; pointer-events:none;
+    writing-mode:vertical-rl; font-family:"Shippori Mincho",serif; font-weight:800;
+    font-size:2.3rem; letter-spacing:0.14em; color:rgba(255,255,255,0.16);
+    text-shadow:0 2px 24px rgba(0,0,0,0.35); }
+
+  /* 動画：続きから（レジューム）バー */
+  .vthumb .resume { position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(255,255,255,0.28); }
+  .vthumb .resume > span { display:block; height:100%; background:#fff; }
+  .resume-tag { background:rgba(0,0,0,0.5); color:#fff; font-size:0.62rem; font-weight:800;
+    padding:0.12rem 0.4rem; border-radius:4px; align-self:flex-start; }
+
+  /* トップ：今週の道場カード */
+  .week-card { display:flex; align-items:stretch; gap:1rem; padding:1rem 1.1rem; }
+  .week-left { display:flex; align-items:center; }
+  .week-streak { writing-mode:vertical-rl; font-family:"Shippori Mincho",serif; font-weight:700;
+    font-size:0.82rem; color:var(--red); background:var(--red-soft); border-radius:8px;
+    padding:0.75rem 0.45rem; letter-spacing:0.12em; white-space:nowrap; }
+  .week-tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:0.7rem; flex:1; }
+  .week-tile { display:flex; align-items:center; gap:0.7rem; text-align:left; border:1px solid var(--rule);
+    background:var(--paper); border-radius:10px; padding:0.8rem 0.9rem; cursor:pointer; font-family:inherit; }
+  .week-tile:hover { border-color:var(--red); box-shadow:var(--shadow); }
+  .week-tile .wt-ic { font-size:1.2rem; color:var(--red); flex-shrink:0; width:1.3rem; text-align:center; }
+  .week-tile .wt-tx { display:flex; flex-direction:column; min-width:0; flex:1; }
+  .week-tile .wt-t { font-weight:700; font-size:0.84rem; }
+  .week-tile .wt-d { font-size:0.72rem; color:var(--ink-faint); margin-top:0.1rem; }
+  .week-tile .wt-go { color:var(--red); font-weight:700; flex-shrink:0; }
+
+  /* 成績：継続（ストリーク）＆ 達成バッジ */
+  .streak-card { display:flex; align-items:center; gap:1.4rem; padding:1.3rem 1.6rem; flex-wrap:wrap; }
+  .streak-ring { position:relative; width:92px; height:92px; flex-shrink:0; }
+  .streak-ring circle.prog { transition: stroke-dashoffset 1.1s var(--ease); }
+  .streak-ring .sr-num { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .streak-ring .sr-n { font-family:"Shippori Mincho",serif; font-size:1.8rem; color:var(--red); line-height:1; }
+  .streak-ring .sr-u { font-size:0.6rem; color:var(--ink-faint); margin-top:0.15rem; }
+  .streak-meta { flex:1; min-width:200px; }
+  .streak-meta .sm-t { font-family:"Shippori Mincho",serif; font-weight:700; font-size:1.05rem; }
+  .streak-meta .sm-d { font-size:0.84rem; color:var(--ink-soft); margin-top:0.35rem; line-height:1.75; }
+  .badge-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:0.7rem; margin-top:0.9rem; }
+  .badge { text-align:center; padding:0.9rem 0.4rem; border:1px solid var(--rule); border-radius:10px; background:var(--paper-raised); }
+  .badge.lock { opacity:0.42; filter:grayscale(1); }
+  .badge .bi { font-size:1.4rem; line-height:1; }
+  .badge .bt { font-size:0.65rem; font-weight:700; margin-top:0.4rem; color:var(--ink-soft); }
+
+  /* オンボーディング */
+  .onb-mask { position:fixed; inset:0; z-index:60; display:flex; align-items:center; justify-content:center;
+    padding:1.4rem; background:rgba(20,17,13,0.55); backdrop-filter:blur(3px); animation:onbFade .35s var(--ease) both; }
+  .onb-mask[hidden] { display:none; }
+  .onb-card { width:100%; max-width:440px; background:var(--paper-raised); border:1px solid var(--rule);
+    border-radius:16px; box-shadow:var(--shadow-lg); padding:2rem 1.9rem 1.6rem; position:relative; animation:onbPop .5s var(--ease) both; }
+  .onb-seal { position:absolute; top:-18px; left:50%; transform:translateX(-50%); width:44px; height:44px;
+    border-radius:11px; background:var(--red); color:#fbf5ee; font-family:"Shippori Mincho",serif; font-weight:800;
+    font-size:1.3rem; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); }
+  .onb-eyebrow { text-align:center; font-size:0.68rem; letter-spacing:0.16em; color:var(--red); font-weight:700; margin-top:0.7rem; }
+  .onb-title { font-family:"Shippori Mincho",serif; text-align:center; font-size:1.25rem; margin:0.3rem 0 0.4rem; text-wrap:balance; }
+  .onb-lead { text-align:center; font-size:0.85rem; color:var(--ink-soft); margin:0 0 1.3rem; }
+  .onb-steps { display:flex; flex-direction:column; gap:0.85rem; margin-bottom:1.4rem; }
+  .onb-step { display:flex; gap:0.8rem; align-items:flex-start; }
+  .onb-step .onb-n { width:26px; height:26px; border-radius:50%; background:var(--red-soft); color:var(--red);
+    font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .onb-step .onb-st { font-weight:700; font-size:0.9rem; }
+  .onb-step .onb-sd { font-size:0.8rem; color:var(--ink-soft); margin-top:0.12rem; line-height:1.6; }
+  .onb-skip { display:block; width:100%; border:none; background:none; color:var(--ink-faint);
+    font-size:0.8rem; cursor:pointer; margin-top:0.6rem; text-decoration:underline; }
+  @keyframes onbFade { from { opacity:0; } to { opacity:1; } }
+  @keyframes onbPop { from { opacity:0; transform:translateY(14px) scale(.97); } to { opacity:1; transform:none; } }
+
+  @media (max-width: 900px) {
+    .badge-grid { grid-template-columns:repeat(3,1fr); }
+    .week-card { flex-direction:column; }
+    .week-left { display:none; }
+    .week-tiles { grid-template-columns:1fr; }
+  }
+
+  /* 動きを控える設定を尊重 */
+  @media (prefers-reduced-motion: reduce) {
+    .panel.on { animation:none; }
+    .reveal { opacity:1 !important; transform:none !important; transition:none; }
+    .hero-carousel .slide.on { animation:none; }
+    .streak-ring circle.prog { transition:none; }
+    .onb-mask, .onb-card { animation:none; }
+    .card, .ql, .vcard, .flow-step, .navbtn, .chip, .slotbtn, .btn-primary, .btn-ghost,
+    .switch-btn, .belt-row, .stat, .week-tile, .inactive-row, .badge, .car-nav, .pc, .prog-card, .coach-row { transition:none; }
+  }
 </style>
 
 <!-- ==================== LOGIN ==================== -->
@@ -621,6 +755,8 @@
       <div class="panel on" data-role-panel="student" id="s-top">
         <div class="hero-carousel" id="hero-carousel" aria-roledescription="carousel">
           <div class="slides" id="slides"></div>
+          <div class="hero-weave" aria-hidden="true"></div>
+          <div class="hero-kanji" aria-hidden="true">空手道</div>
           <div class="hero-cap">
             <div class="eyebrow" data-i18n="top.hero.eyebrow">亀龍会 空手道部</div>
             <h2 data-i18n="top.hero.title">その一挙手に、亀龍会の空手道が宿る。</h2>
@@ -631,6 +767,9 @@
         </div>
 
         <p class="top-lead" id="top-lead"></p>
+
+        <div class="section-title"><span id="week-title">今週の道場</span><span class="en-tag">THIS WEEK</span></div>
+        <div class="card week-card" id="week-card"></div>
 
         <div class="section-title"><span id="top-flow-title"></span></div>
         <div class="flow-row" id="top-flow"><!-- built per model by renderModelTop() --></div>
@@ -795,7 +934,7 @@
             <div class="vbody"><div class="vt" data-i18n="v1.title">突き ステップ1 ／ 基本の突き</div><div class="vc" data-i18n="v1.credit">組手・初級・一緒にやる ／ 監修：亀龍会空手道部</div></div>
           </div>
           <div class="card vcard" data-tag="kumite beginner doalong">
-            <div class="vthumb kumite"><span></span><span class="dur">5:10</span></div>
+            <div class="vthumb kumite"><span class="resume-tag" data-i18n="badge.resume">続きから</span><span class="dur">5:10</span><div class="resume"><span style="width:60%"></span></div></div>
             <div class="vbody"><div class="vt" data-i18n="v2.title">蹴り ステップ1 ／ 前蹴り・回し蹴り</div><div class="vc" data-i18n="v2.credit">組手・初級・一緒にやる ／ 監修：亀龍会空手道部</div></div>
           </div>
           <div class="card vcard" data-tag="kata beginner explain">
@@ -807,7 +946,7 @@
             <div class="vbody"><div class="vt" data-i18n="v4.title">突き ステップ2 ／ 刻み突き・連突き</div><div class="vc" data-i18n="v4.credit">組手・中級・解説 ／ 豊田 陽也</div></div>
           </div>
           <div class="card vcard" data-tag="kata intermediate explain">
-            <div class="vthumb kata"><span></span><span class="dur">7:30</span></div>
+            <div class="vthumb kata"><span class="resume-tag" data-i18n="badge.resume">続きから</span><span class="dur">7:30</span><div class="resume"><span style="width:40%"></span></div></div>
             <div class="vbody"><div class="vt" data-i18n="v5.title">平安四段 ステップ2 ／ 運足と極め</div><div class="vc" data-i18n="v5.credit">型・中級・解説 ／ 舟田 葵（和道流）</div></div>
           </div>
           <div class="card vcard" data-tag="kumite advanced match">
@@ -954,6 +1093,10 @@
 
       <!-- ===== REPORT ===== -->
       <div class="panel" data-role-panel="student" id="s-report">
+        <div class="section-title"><span id="streak-title">継続のあしあと</span><span class="en-tag">STREAK</span></div>
+        <div class="card streak-card" id="streak-card"></div>
+        <div class="badge-grid" id="badge-grid"></div>
+
         <div class="section-title"><span data-i18n="report.watch.title">今月の学習・視聴時間</span><span class="en-tag">WATCH TIME</span></div>
         <div class="stat-row" style="margin-bottom:0.4rem">
           <div class="card stat"><div class="n">4<span style="font-size:0.9rem">h</span>20<span style="font-size:0.9rem">m</span></div><div class="l" data-i18n="report.watch.total">今月の視聴時間</div></div>
@@ -1210,6 +1353,23 @@
     </div>
   </div>
 </div>
+
+<!-- ==================== ONBOARDING ==================== -->
+<div class="onb-mask" id="onb" hidden>
+  <div class="onb-card">
+    <div class="onb-seal">亀</div>
+    <div class="onb-eyebrow" data-i18n="onb.eyebrow">はじめに</div>
+    <h2 class="onb-title" data-i18n="onb.title">ようこそ、亀龍会オンライン道場へ</h2>
+    <p class="onb-lead" data-i18n="onb.lead">3つのステップで、今日から始められます。</p>
+    <div class="onb-steps">
+      <div class="onb-step"><span class="onb-n">1</span><div><div class="onb-st" data-i18n="onb.s1.t"></div><div class="onb-sd" data-i18n="onb.s1.d"></div></div></div>
+      <div class="onb-step"><span class="onb-n">2</span><div><div class="onb-st" data-i18n="onb.s2.t"></div><div class="onb-sd" data-i18n="onb.s2.d"></div></div></div>
+      <div class="onb-step"><span class="onb-n">3</span><div><div class="onb-st" data-i18n="onb.s3.t"></div><div class="onb-sd" data-i18n="onb.s3.d"></div></div></div>
+    </div>
+    <button class="btn-primary" data-i18n="onb.start" onclick="onbStart()">最初の動画を見てみる</button>
+    <button class="onb-skip" data-i18n="onb.skip" onclick="onbClose()">あとで</button>
+  </div>
+</div>
 </div>
 
 <script>
@@ -1278,6 +1438,7 @@
       'role.student':'生徒・保護者ビュー','role.admin':'運営ビュー',
       'nav.top':'トップ','nav.coaches':'指導陣','nav.live':'配信（アーカイブ）','nav.news':'ニュース','nav.video':'動画ライブラリ','nav.submit':'動画提出・添削','nav.mental':'メンタル・試合解説','nav.personal':'パーソナル指導','nav.belt':'認定・帯プログラム','nav.report':'成績レポート','nav.events':'イベント・セミナー','nav.price':'料金プラン','nav.phone':'スマホ表示',
       'nav.g.learn':'学ぶ','nav.g.record':'わたしの記録','nav.g.dojo':'道場から','nav.g.plan':'プラン','nav.g.tool':'ツール','nav.g.admin.broadcast':'配信・コンテンツ','nav.g.admin.members':'会員','nav.g.admin.insight':'分析・計画','nav.g.admin.partner':'連携',
+      'onb.eyebrow':'はじめに','onb.title':'ようこそ、亀龍会オンライン道場へ','onb.lead':'3つのステップで、今日から始められます。','onb.s1.t':'続け方を選ぶ','onb.s1.d':'「見て学ぶ」でも「一緒にやる」でもOK。あなたのペースで大丈夫です。','onb.s2.t':'最初の動画を見る','onb.s2.d':'まずは基本の突き（ステップ1）から。約10分で始められます。','onb.s3.t':'今週の配信をチェック','onb.s3.d':'毎週の新着・ライブ回を確認して、稽古を習慣に。','onb.start':'最初の動画を見てみる','onb.skip':'あとで',
       'phone.lead':'スマートフォンでの見え方のプレビューです。下の枠内は、実際のスマホと同じ画面幅でこのサイトを表示しています。そのままスクロール・操作して確認できます。','phone.note':'※ 実機のスマホで開くと、この枠なしで全画面表示になります。',
       'mental.lead':'技術だけでなく、日本代表選手の「心」を学べるプログラムです。勝った試合も負けた試合も自分たちで解説し、試合前のメンタルの持っていき方やルーティンまで公開します。参加者が本当に学びになるコンテンツを目指しています。',
       'mental.m1.title':'試合解説（勝ちも、負けも）','mental.rev1.t':'勝ち試合の解説 ／ 第6回全日本実業団','mental.rev1.c':'組手 ／ 山内 健太郎 選手・豊田 陽也','mental.rev2.t':'負け試合・課題の解説 ／ 自己分析','mental.rev2.c':'型 ／ 舟田 葵（和道流）','mental.rev.note':'※ 輝かしい結果だけでなく、大敗した試合や納得がいっていない試合も、自分たちで率直に解説します。親しみやすさと、本当の学びのために。',
@@ -1325,7 +1486,7 @@
       'prog.p1.title':'週1ライブ型','prog.p1.tag':'みんなで、同じ時間に','prog.p1.cycle':'毎週1回（土曜21:00〜）','prog.p1.method':'リアルタイムのライブ配信で一緒に稽古','prog.p1.content':'「空手道とは」＋基本・型・組手の実演','prog.p1.for':'こんな方に：仲間と一緒の緊張感で続けたい／決まった時間に稽古したい方',
       'prog.p2.title':'オンデマンド・プログラム型','prog.p2.tag':'自分のペースで、正しく','prog.p2.cycle':'いつでも（毎月新着を追加）','prog.p2.method':'レベル別カリキュラムを動画で進め、動画提出→添削','prog.p2.content':'進研ゼミ方式。課題動画を見て練習し、提出','prog.p2.for':'こんな方に：時間が不規則／自宅で着実に上達したい方',
       'prog.p3.title':'ハイブリッド・パーソナル型','prog.p3.tag':'先生に、直接みてもらう','prog.p3.cycle':'月2回のパーソナル＋動画は随時','prog.p3.method':'個別Zoom指導＋オンデマンド動画の組み合わせ','prog.p3.content':'個別カリキュラムで一人ひとりに最適化','prog.p3.for':'こんな方に：選手志向／保護者が「直接みてほしい」と考える方',
-      'chip.all':'すべて','chip.kata':'型','chip.kumite':'組手','chip.doalong':'一緒にやる','chip.explain':'解説','chip.match':'試合','chip.beginner':'初級','chip.intermediate':'中級','chip.advanced':'上級','badge.new':'今月新着',
+      'chip.all':'すべて','chip.kata':'型','chip.kumite':'組手','chip.doalong':'一緒にやる','chip.explain':'解説','chip.match':'試合','chip.beginner':'初級','chip.intermediate':'中級','chip.advanced':'上級','badge.new':'今月新着','badge.resume':'続きから',
       'v1.title':'突き ステップ1 ／ 基本の突き','v1.credit':'組手・初級・一緒にやる ／ 監修：亀龍会空手道部','v2.title':'蹴り ステップ1 ／ 前蹴り・回し蹴り','v2.credit':'組手・初級・一緒にやる ／ 監修：亀龍会空手道部','v3.title':'平安二段 ステップ1 ／ 前半','v3.credit':'型・初級・解説 ／ 舟田 葵（和道流）','v4.title':'突き ステップ2 ／ 刻み突き・連突き','v4.credit':'組手・中級・解説 ／ 豊田 陽也','v5.title':'平安四段 ステップ2 ／ 運足と極め','v5.credit':'型・中級・解説 ／ 舟田 葵（和道流）','v6.title':'組手 実戦 ／ 試合形式のステップ3','v6.credit':'組手・上級・試合 ／ 山内 健太郎 選手',
       'menu.title':'今日の自宅練習メニュー','menu.h':'親子で・10分でできる基礎メニュー','menu.1':'その場突き 左右各20本（腰の回転を意識）','menu.2':'前屈立ちのキープ 30秒 × 3セット','menu.3':'平安二段の最初の5動作をゆっくり反復','menu.4':'できたら動画に撮って「動画提出・添削」へ',
       'bonus.title':'特典：選手ハイライト（リール）','bonus.note':'※ 技の動画だけでなく、3選手の大会の「かっこいいシーン」をリール風に短く編集した特典動画。子供も保護者も楽しめる“推し”コンテンツとしてライブラリに追加していきます。','bonus1.t':'舟田 葵 ／ 型ベストシーン','bonus1.c':'特典・リール ／ 和道流','bonus2.t':'豊田 陽也 ／ 一本シーン集','bonus2.c':'特典・リール ／ 組手','bonus3.t':'山内 健太郎 ／ 世界大会ハイライト','bonus3.c':'特典・リール ／ 組手',
@@ -1376,6 +1537,7 @@
       'role.student':'Student / Parent View','role.admin':'Staff View',
       'nav.top':'Home','nav.coaches':'Our Athletes','nav.live':'Broadcasts (Archive)','nav.news':'News','nav.video':'Video Library','nav.submit':'Submit & Feedback','nav.mental':'Mindset & Match Review','nav.personal':'Personal Coaching','nav.belt':'Belt Program','nav.report':'Progress Reports','nav.events':'Events & Seminars','nav.price':'Pricing','nav.phone':'Phone View',
       'nav.g.learn':'Learn','nav.g.record':'My Progress','nav.g.dojo':'From the Dojo','nav.g.plan':'Plans','nav.g.tool':'Tools','nav.g.admin.broadcast':'Broadcast & Content','nav.g.admin.members':'Members','nav.g.admin.insight':'Analytics & Planning','nav.g.admin.partner':'Partners',
+      'onb.eyebrow':'Getting started','onb.title':'Welcome to Kiryukai Online Dojo','onb.lead':'Three steps to get started today.','onb.s1.t':'Choose how you’ll practice','onb.s1.d':'“Watch & learn” or “do along” — your pace is just fine.','onb.s2.t':'Watch your first video','onb.s2.d':'Start with the basic punch (Step 1) — ready in about 10 minutes.','onb.s3.t':'Check this week’s release','onb.s3.d':'See new & live sessions each week and make practice a habit.','onb.start':'Watch my first video','onb.skip':'Later',
       'phone.lead':'A preview of how the site looks on a smartphone. The frame below shows this site at an actual phone width — scroll and interact with it directly.','phone.note':'※ Opened on a real phone, it fills the screen without this frame.',
       'mental.lead':'A program for learning not just technique, but the mindset of national-team athletes. They review their own matches — wins and losses alike — and share how they prepare mentally and their pre-match routines. Content designed to be genuinely instructive.',
       'mental.m1.title':'Match Review (wins and losses)','mental.rev1.t':'Winning match review / 6th All-Japan Corporate','mental.rev1.c':'Kumite / Kentaro Yamauchi, Haruya Toyoda','mental.rev2.t':'Loss & weaknesses review / self-analysis','mental.rev2.c':'Kata / Aoi Funada (Wado-ryu)','mental.rev.note':'※ Not just the shining results — we candidly review heavy losses and matches we weren’t happy with, for approachability and real learning.',
@@ -1423,7 +1585,7 @@
       'prog.p1.title':'Weekly Live','prog.p1.tag':'Together, at the same time','prog.p1.cycle':'Once a week (Sat 21:00〜)','prog.p1.method':'Train together via real-time live stream','prog.p1.content':'"What is Karate-Do" + basics, kata & kumite demos','prog.p1.for':'For those who: stay motivated with peers / want a fixed practice time',
       'prog.p2.title':'On-Demand Program','prog.p2.tag':'At your own pace, done right','prog.p2.cycle':'Anytime (new videos monthly)','prog.p2.method':'Progress through a leveled curriculum; submit videos for feedback','prog.p2.content':'Self-study style: watch the assignment, practice, submit','prog.p2.for':'For those who: have irregular schedules / want steady progress at home',
       'prog.p3.title':'Hybrid / Personal','prog.p3.tag':'Have a teacher watch you directly','prog.p3.cycle':'2 personal sessions/month + videos anytime','prog.p3.method':'Personal Zoom coaching combined with on-demand video','prog.p3.content':'Optimized for each person with a custom curriculum','prog.p3.for':'For those who: are competition-minded / parents who want direct feedback',
-      'chip.all':'All','chip.kata':'Kata','chip.kumite':'Kumite','chip.doalong':'Do-along','chip.explain':'Explained','chip.match':'Match','chip.beginner':'Beginner','chip.intermediate':'Intermediate','chip.advanced':'Advanced','badge.new':'New',
+      'chip.all':'All','chip.kata':'Kata','chip.kumite':'Kumite','chip.doalong':'Do-along','chip.explain':'Explained','chip.match':'Match','chip.beginner':'Beginner','chip.intermediate':'Intermediate','chip.advanced':'Advanced','badge.new':'New','badge.resume':'Resume',
       'v1.title':'Punch Step 1 / Basic Tsuki','v1.credit':'Kumite · Beginner · Do-along / Supervised by Kiryukai','v2.title':'Kick Step 1 / Front & Roundhouse','v2.credit':'Kumite · Beginner · Do-along / Supervised by Kiryukai','v3.title':'Heian Nidan Step 1 / First Half','v3.credit':'Kata · Beginner · Explained / Aoi Funada (Wado-ryu)','v4.title':'Punch Step 2 / Kizami & Combinations','v4.credit':'Kumite · Intermediate · Explained / Haruya Toyoda','v5.title':'Heian Yondan Step 2 / Footwork & Focus','v5.credit':'Kata · Intermediate · Explained / Aoi Funada (Wado-ryu)','v6.title':'Kumite Live / Match-style Step 3','v6.credit':'Kumite · Advanced · Match / Kentaro Yamauchi',
       'menu.title':"Today's Home Drill",'menu.h':'A 10-minute basics menu for parent & child','menu.1':'Standing punches: 20 each side (rotate the hips)','menu.2':'Hold front stance: 30 sec × 3 sets','menu.3':'Slowly repeat the first 5 moves of Heian Nidan','menu.4':'Film it and head to "Submit & Feedback"',
       'bonus.title':'Bonus: Athlete Highlights (Reel)','bonus.note':'※ Beyond technique videos — the three athletes’ best tournament scenes edited short like a reel. A "fan-favorite" bonus that both kids and parents enjoy, added to the library over time.','bonus1.t':'Aoi Funada / Kata best scenes','bonus1.c':'Bonus reel / Wado-ryu','bonus2.t':'Haruya Toyoda / Ippon moments','bonus2.c':'Bonus reel / Kumite','bonus3.t':'Kentaro Yamauchi / World Champs highlights','bonus3.c':'Bonus reel / Kumite',
@@ -1779,6 +1941,96 @@
     }).join('');
   }
 
+  // ---- トップ：今週の道場（続きから・今週の配信・次の一歩） ----
+  function renderThisWeek(){
+    const c = document.getElementById('week-card'); if(!c) return;
+    const en = currentLang==='en';
+    const wt = document.getElementById('week-title'); if(wt) wt.textContent = en ? 'This Week at the Dojo' : '今週の道場';
+    const mid = (MODEL==='live')
+      ? {go:'s-live', ic:'◉', t: en?'Join this week’s live':'今週のライブに参加', d: en?'Sat 21:00 · with Kiryukai':'土 21:00・亀龍会と一緒に'}
+      : {go:'s-live', ic:'◉', t: en?'See this week’s release':'今週の新着を見る', d: en?'New every Wednesday':'毎週水曜に公開'};
+    const third = (MODEL==='live')
+      ? {go:'s-mental', ic:'☯', t: en?'Ask an athlete':'選手に質問する', d: en?'Mindset & match review':'メンタル・試合解説'}
+      : {go:'s-submit', ic:'⇧', t: en?'Submit for feedback':'添削に出す', d: en?'1 slot left this month':'今月あと1本'};
+    const tiles = [
+      {go:'s-video', ic:'▷', t: en?'Continue watching':'続きから見る', d: en?'Kick Step 1 · 60%':'蹴り ステップ1・60%'},
+      mid, third,
+    ];
+    c.innerHTML =
+      `<div class="week-left"><span class="week-streak">🔥 ${en?'12-day streak':'12日連続'}</span></div>`+
+      `<div class="week-tiles">`+
+      tiles.map(x=>`<button class="week-tile" data-go="${x.go}"><span class="wt-ic">${x.ic}</span><span class="wt-tx"><span class="wt-t">${x.t}</span><span class="wt-d">${x.d}</span></span><span class="wt-go">→</span></button>`).join('')+
+      `</div>`;
+  }
+
+  // ---- 成績：継続（ストリーク）＆ 達成バッジ ----
+  const BADGES = [
+    {i:'🥋', e:true,  t:L('初稽古','First practice')},
+    {i:'🔥', e:true,  t:L('7日連続','7-day streak')},
+    {i:'▷',  e:true,  t:L('動画10本','10 videos')},
+    {i:'❖',  e:true,  t:L('型デビュー','Kata debut')},
+    {i:'⇧',  e:true,  t:L('初めての添削','First feedback')},
+    {i:'◆',  e:false, t:L('30日連続','30-day streak')},
+  ];
+  function renderBadges(){
+    const g = document.getElementById('badge-grid'); if(!g) return;
+    g.innerHTML = BADGES.map(b=>`<div class="badge${b.e?'':' lock'}"><div class="bi">${b.i}</div><div class="bt">${tierText(b.t)}</div></div>`).join('');
+  }
+  function renderStreak(){
+    const c = document.getElementById('streak-card'); if(!c) return;
+    const en = currentLang==='en';
+    const st = document.getElementById('streak-title'); if(st) st.textContent = en?'Your Streak':'継続のあしあと';
+    const days=12, goal=30, R=40, CIRC=2*Math.PI*R, off=CIRC*(1-days/goal);
+    c.innerHTML =
+      `<div class="streak-ring">`+
+        `<svg width="92" height="92" viewBox="0 0 92 92" aria-hidden="true">`+
+          `<circle cx="46" cy="46" r="40" fill="none" stroke="var(--paper-sunken)" stroke-width="7"/>`+
+          `<circle class="prog" cx="46" cy="46" r="40" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${CIRC.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 46 46)"/>`+
+        `</svg>`+
+        `<div class="sr-num"><div class="sr-n">${days}</div><div class="sr-u">${en?'day streak':'日連続'}</div></div>`+
+      `</div>`+
+      `<div class="streak-meta">`+
+        `<div class="sm-t">${en?'🔥 On a 12-day practice streak':'🔥 12日連続で稽古中'}</div>`+
+        `<div class="sm-d">${en?'18 more days unlocks the “30-day” badge. Two more days this week keeps your record alive.':'あと18日で「30日連続」バッジを獲得。今週はあと2日の視聴で記録を更新できます。'}</div>`+
+      `</div>`;
+    renderBadges();
+  }
+
+  // ---- モーション：パネルを開いたときの段差リビール＋数字カウントアップ ----
+  function prefersReduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  const REVEAL_SEL = ':scope > .card, :scope > .grid2, :scope > .grid3, :scope > .flow-row, :scope > .stat-row, :scope > .price-grid3, :scope > .vgrid, :scope > .archive-grid, :scope > .banner, :scope > .section-title, :scope > .hero-carousel, :scope > .top-lead, :scope > .muted, :scope > .phone-wrap, :scope > .belt-ladder, :scope > .funnel, :scope > .chiprow, :scope > .week-card, :scope > .badge-grid';
+  function animateReveal(target){
+    const panel = document.getElementById(target); if(!panel) return;
+    countUp(panel);
+    if(prefersReduced()) return;
+    const els = panel.querySelectorAll(REVEAL_SEL);
+    els.forEach((el,i)=>{ el.classList.add('reveal'); el.classList.remove('in'); el.style.transitionDelay=(Math.min(i,10)*55)+'ms'; });
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ els.forEach(el=>el.classList.add('in')); }));
+  }
+  function countUp(panel){
+    if(prefersReduced()) return;
+    panel.querySelectorAll('.stat .n').forEach(el=>{
+      if(el.dataset.cu || el.children.length) return;        // skip styled/unit numbers
+      const m = el.textContent.match(/^(\D*)(\d[\d,]*)(\D*)$/);
+      if(!m) return;
+      const pre=m[1], suf=m[3], target=parseInt(m[2].replace(/,/g,''),10);
+      if(!isFinite(target) || target<=0) return;
+      el.dataset.cu='1'; const dur=850, t0=performance.now();
+      (function step(now){ const p=Math.min(1,(now-t0)/dur); const v=Math.round(target*(1-Math.pow(1-p,3)));
+        el.textContent=pre+v.toLocaleString('en-US')+suf; if(p<1) requestAnimationFrame(step); })(t0);
+    });
+  }
+
+  // ---- オンボーディング（初回ログイン時のみ） ----
+  function showOnboarding(){
+    if(EMBED) return;
+    let seen=false; try{ seen=sessionStorage.getItem('kiryu_onb'); }catch(e){}
+    if(seen) return;
+    const o=document.getElementById('onb'); if(o) o.hidden=false;
+  }
+  function onbClose(){ const o=document.getElementById('onb'); if(o) o.hidden=true; try{ sessionStorage.setItem('kiryu_onb','1'); }catch(e){} }
+  function onbStart(){ onbClose(); setRole('student'); go('s-video'); }
+
   let currentLang = 'ja';
   let currentRole = 'student';
   let currentTarget = 's-top';
@@ -1790,7 +2042,7 @@
     document.getElementById('screen-'+name).classList.add('on');
     window.scrollTo(0,0);
   }
-  function doLogin(){ showScreen('app'); }
+  function doLogin(){ showScreen('app'); animateReveal(currentTarget); showOnboarding(); }
   function doLogout(){ showScreen('login'); }
   function doRegister(){
     const ok = document.getElementById('reg-name').value.trim() &&
@@ -1801,7 +2053,7 @@
     if(!ok){ document.getElementById('reg-note').classList.add('show'); return; }
     document.getElementById('reg-note').classList.remove('show');
     alert(t('reg.done'));
-    showScreen('app');
+    showScreen('app'); animateReveal(currentTarget); showOnboarding();
   }
 
   // ---- terms box + plan select (built from i18n) ----
@@ -1859,6 +2111,8 @@
     renderMemberLog();
     renderAnalytics();
     renderPlan();
+    renderThisWeek();
+    renderStreak();
     // sync all lang switches
     document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active', b.dataset.lang===currentLang));
   }
@@ -1954,7 +2208,7 @@
     const first=nav.querySelector('.navbtn'); first.classList.add('active');
     currentTarget=first.dataset.target;
     document.getElementById(currentTarget).classList.add('on');
-    applyMeta(currentTarget); window.scrollTo(0,0);
+    applyMeta(currentTarget); window.scrollTo(0,0); animateReveal(currentTarget);
   }
   function applyMeta(target){ const m=t('pageMeta')[target]; if(!m) return; document.getElementById('page-title').textContent=m[0]; document.getElementById('page-sub').textContent=m[1]; }
   roleButtons.forEach(b=>b.addEventListener('click', ()=>setRole(b.dataset.role)));
@@ -1968,7 +2222,7 @@
     const panel=document.getElementById(target); if(panel) panel.classList.add('on');
     if(target==='s-phone') renderPhone();
     closeMenu();                            // collapse the mobile dropdown after choosing
-    applyMeta(target); window.scrollTo(0,0);
+    applyMeta(target); window.scrollTo(0,0); animateReveal(target);
   }
   function go(target){ activateNav(target); }
   function toggleMenu(){ const s=document.querySelector('.sidebar'); const o=s.classList.toggle('open'); const b=document.getElementById('menu-toggle'); if(b) b.setAttribute('aria-expanded', o?'true':'false'); }
@@ -1976,8 +2230,7 @@
   // delegated nav + quicklink clicks (nav is rebuilt at runtime)
   document.addEventListener('click', (e)=>{
     const btn = e.target.closest('.navbtn'); if(btn && btn.dataset.target){ activateNav(btn.dataset.target); return; }
-    const ql = e.target.closest('.ql'); if(ql && ql.dataset.go){ activateNav(ql.dataset.go); return; }
-    const fs = e.target.closest('.flow-step'); if(fs && fs.dataset.go){ activateNav(fs.dataset.go); }
+    const go = e.target.closest('[data-go]'); if(go && go.dataset.go){ activateNav(go.dataset.go); }  // .ql / .flow-step / .week-tile
   });
 
   // ---- video filter ----
