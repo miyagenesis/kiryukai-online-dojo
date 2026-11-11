@@ -627,15 +627,16 @@
     repeating-linear-gradient(-60deg, rgba(var(--blot),0.028) 0 1px, transparent 1px 26px),
     repeating-linear-gradient(0deg,   rgba(var(--blot),0.028) 0 1px, transparent 1px 26px); }
 
-  /* 墨のタップ・エフェクト（クリック地点に滲む） */
-  .ink-splash { position:fixed; z-index:9998; pointer-events:none; width:46px; height:46px; margin:-23px 0 0 -23px;
-    border-radius:48% 52% 55% 45% / 50% 48% 52% 50%;
-    background: radial-gradient(circle at 50% 45%, rgba(var(--blot),0.5), rgba(var(--blot),0.28) 48%, transparent 72%);
-    transform: scale(0.15) rotate(var(--r,0deg)); animation: inkPop .62s var(--ease) forwards; }
-  .ink-splash::before, .ink-splash::after { content:""; position:absolute; border-radius:50%; background: rgba(var(--blot),0.4); }
-  .ink-splash::before { width:7px; height:7px; top:-6px; left:58%; }
-  .ink-splash::after  { width:5px; height:5px; bottom:-4px; left:24%; }
-  @keyframes inkPop { 0%{ transform:scale(0.15) rotate(var(--r,0deg)); opacity:.85; } 60%{ opacity:.45; } 100%{ transform:scale(1.55) rotate(var(--r,0deg)); opacity:0; } }
+  /* 墨のタップ・エフェクト（筆の一画目のように荒々しく） */
+  .sumi { position:fixed; z-index:9998; pointer-events:none; width:140px; height:60px; margin:-30px 0 0 -70px;
+    transform: rotate(var(--rot,0deg)) scaleX(var(--flip,1)) scale(var(--sc,1)); transform-origin:center;
+    animation: sumiHit .5s cubic-bezier(.2,.75,.3,1) forwards; will-change: transform, opacity; }
+  .sumi svg { width:100%; height:100%; display:block; overflow:visible; }
+  @keyframes sumiHit {
+    0%   { opacity:0;    transform: rotate(var(--rot,0deg)) scaleX(var(--flip,1)) scale(calc(var(--sc,1)*0.45)); }
+    16%  { opacity:0.96; transform: rotate(var(--rot,0deg)) scaleX(var(--flip,1)) scale(calc(var(--sc,1)*1.1)); }
+    100% { opacity:0;    transform: rotate(var(--rot,0deg)) scaleX(var(--flip,1)) scale(calc(var(--sc,1)*1.14)); }
+  }
 
   /* 墨の筆トレイル（カーソル追従） */
   .ink-trail { position:fixed; z-index:9997; pointer-events:none; width:14px; height:14px; margin:-7px 0 0 -7px;
@@ -667,11 +668,26 @@
   .navbtn:hover .ic { transform: translateX(2px) scale(1.12); }
   .status-dot.live { } /* 既存のpulseを維持 */
 
-  /* 稽古カレンダー（ヒートマップ） */
-  .heat { display:grid; grid-auto-flow:column; grid-template-rows:repeat(7,14px); gap:3px; overflow-x:auto; padding-bottom:0.2rem; }
-  .heat .hc { width:14px; height:14px; border-radius:3px; }
-  .heat-legend { display:flex; align-items:center; gap:0.35rem; font-size:0.72rem; color:var(--ink-faint); margin-top:0.8rem; }
-  .heat-legend .hc { width:12px; height:12px; border-radius:3px; }
+  /* 稽古カレンダー（月間・○で稽古日） */
+  .cal-head { display:flex; align-items:baseline; justify-content:space-between; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.9rem; }
+  .cal-month { font-family:"Shippori Mincho",serif; font-weight:700; font-size:1.1rem; }
+  .cal-sum { font-size:0.82rem; color:var(--ink-soft); }
+  .cal-sum b { color:var(--red); font-family:"Shippori Mincho",serif; }
+  .cal { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .cal .dow { text-align:center; font-size:0.7rem; font-weight:700; color:var(--ink-faint); padding-bottom:0.15rem; }
+  .cal .dow.sun { color:var(--red); }
+  .cal .dow.sat { color:var(--indigo); }
+  .cal .day { position:relative; aspect-ratio:1/1; border-radius:10px; background:var(--paper-sunken);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; }
+  .cal .day.empty { background:none; }
+  .cal .day .dn { font-size:0.74rem; color:var(--ink-soft); font-variant-numeric:tabular-nums; line-height:1; }
+  .cal .day.done { background:var(--red-soft); }
+  .cal .day.done .dn { color:var(--red); font-weight:700; }
+  .cal .day.done .mk { color:var(--red); font-size:0.95rem; line-height:1; }
+  .cal .day.future { opacity:0.4; }
+  .cal .day.today { outline:2px solid var(--red); outline-offset:0; }
+  .cal .day.today .dn { color:var(--red); font-weight:800; }
+  @media (max-width:480px){ .cal { gap:4px; } .cal .day { border-radius:8px; } .cal .day .dn { font-size:0.66rem; } .cal .day.done .mk { font-size:0.8rem; } }
 
   /* 道場ランキング */
   .rank-you { background: var(--red-soft); }
@@ -811,8 +827,6 @@
       <div class="nav-label" data-i18n="nav.g.admin.insight">分析・計画</div>
       <button class="navbtn" data-target="a-analytics"><span class="ic">▥</span><span data-i18n="nav.analytics">動画分析</span></button>
       <button class="navbtn" data-target="a-plan"><span class="ic">▦</span><span data-i18n="nav.plan">撮影計画</span></button>
-      <div class="nav-label" data-i18n="nav.g.admin.partner">連携</div>
-      <button class="navbtn" data-target="a-partner"><span class="ic">⚭</span><span data-i18n="nav.partner">パートナー連携</span></button>
     </nav>
 
     <div class="sidebar-foot">
@@ -1445,22 +1459,6 @@
         </div>
       </div>
 
-      <!-- ===== ADMIN: PARTNER ===== -->
-      <div class="panel" data-role-panel="admin" id="a-partner">
-        <div class="grid2">
-          <div class="card partner-card">
-            <div class="phead"><span class="pn" data-i18n="partner1.name">おうち道場</span><span class="pill good"><span class="dot"></span><span data-i18n="partner1.status">稼働中</span></span></div>
-            <p class="role" data-i18n="partner1.role">オンライン配信の実運用（手動切替）と、SNS発信の窓口を担当。週1ライブの配信オペレーションはここに一任。動画提出→添削の運用ノウハウも参考にしています。</p>
-            <p class="muted" style="margin:0" data-i18n="partner1.recent">直近の対応：9/6配信のテスト接続 ・ 完了</p>
-          </div>
-          <div class="card partner-card">
-            <div class="phead"><span class="pn" data-i18n="partner2.name">メディケート</span><span class="pill gold"><span class="dot"></span><span data-i18n="partner2.status">設計中</span></span></div>
-            <p class="role" data-i18n="partner2.role">教えるプログラムの設計を担当。型・組手それぞれのカリキュラムと、レポート項目の妥当性を監修していただく想定。</p>
-            <p class="muted" style="margin:0" data-i18n="partner2.recent">直近の対応：型/組手レポート項目たたき台のレビュー待ち</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
@@ -1482,6 +1480,15 @@
   </div>
 </div>
 </div>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none">
+  <defs>
+    <filter id="sumiRough" x="-40%" y="-80%" width="180%" height="260%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.14 0.24" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
 
 <script>
   // ==================== media assets (injected at build) ====================
@@ -2111,24 +2118,30 @@
     renderBadges();
   }
 
-  // ---- 成績：稽古カレンダー（ヒートマップ） ----
-  function heatColor(pct){ return pct===0 ? 'var(--paper-sunken)' : `color-mix(in srgb, var(--red) ${pct}%, var(--paper-sunken))`; }
+  // ---- 成績：稽古カレンダー（月間・○＝稽古した日） ----
+  // 親子が「いつ稽古したか」をひと目で分かるよう、ふつうの月めくりカレンダーで表示。
   function renderHeatmap(){
     const el = document.getElementById('heat-cal'); if(!el) return;
     const en = currentLang==='en';
     const ht = document.getElementById('heat-title'); if(ht) ht.textContent = en?'Practice Calendar':'稽古カレンダー';
-    const weeks=12, days=weeks*7, lv=[0,22,44,66,90];
-    const seed = n => Math.abs((Math.sin(n*12.9898)*43758.5453)%1);
-    let cells='';
-    for(let i=0;i<days;i++){
-      const recent = i >= days-12;                 // 直近12日は連続稽古
-      const r = seed(i+1);
-      const lvl = recent ? 2+Math.floor(r*3) : Math.floor(r*5);
-      cells += `<div class="hc" style="background:${heatColor(lv[lvl])}"></div>`;
+    const year=2026, daysInMonth=30, firstDow=0 /* 11/1(2026)=日曜 */, today=11;
+    const donePractice = new Set(); for(let d=1; d<=11; d++) donePractice.add(d);   // 今月1〜11日に稽古（直近は連続）
+    const dow = en ? ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] : ['日','月','火','水','木','金','土'];
+    const monthLbl = en ? `November ${year}` : `${year}年 11月`;
+    let cells = dow.map((d,i)=>`<div class="dow${i===0?' sun':''}${i===6?' sat':''}">${d}</div>`).join('');
+    for(let i=0;i<firstDow;i++) cells += `<div class="day empty"></div>`;
+    for(let d=1; d<=daysInMonth; d++){
+      const isDone=donePractice.has(d), isToday=d===today, isFuture=d>today;
+      const cls=['day']; if(isDone) cls.push('done'); if(isToday) cls.push('today'); if(isFuture) cls.push('future');
+      const mark = isDone ? '<span class="mk">○</span>' : '';
+      cells += `<div class="${cls.join(' ')}"><span class="dn">${d}</span>${mark}</div>`;
     }
-    const steps = lv.map(p=>`<div class="hc" style="background:${heatColor(p)}"></div>`).join('');
-    el.innerHTML = `<div class="heat">${cells}</div>`+
-      `<div class="heat-legend"><span>${en?'Less':'少'}</span>${steps}<span>${en?'More':'多'}</span><span style="margin-left:auto">${en?'Last 12 weeks':'直近12週間'}</span></div>`;
+    const n = donePractice.size;
+    const sum = en ? `<b>${n} days</b> trained this month · 🔥 12-day streak` : `今月 <b>${n}日</b> 稽古 ・ 🔥 12日連続`;
+    const note = en ? '○ marks a day you trained. Today is outlined in red.' : '○ がついた日は稽古した日です。今日は赤い枠で表示しています。';
+    el.innerHTML = `<div class="cal-head"><span class="cal-month">${monthLbl}</span><span class="cal-sum">${sum}</span></div>`+
+      `<div class="cal">${cells}</div>`+
+      `<p class="muted" style="font-size:0.78rem;margin:0.85rem 0 0">${note}</p>`;
   }
 
   // ---- 成績：道場ランキング（今週） ----
@@ -2487,14 +2500,25 @@
   applyI18n();
   if(EMBED){ document.body.classList.add('embed'); doLogin(); }   // inside the phone-preview iframe: skip login, show the app
 
-  // ---- 墨：タップで滲む・カーソルに筆トレイル ----
-  document.addEventListener('pointerdown', (e)=>{
+  // ---- 墨：タップで「筆の一画目」のように荒々しく滲む ----
+  const SUMI_STROKES = [   // 120x48 viewBox の筆ストローク（かすれ・太細つき）
+    'M4,30 C26,10 72,8 118,18 C92,24 96,30 70,30 C84,33 60,34 52,31 C40,35 20,34 6,27 Z',
+    'M6,22 C34,8 68,10 116,12 C96,20 104,26 78,25 C92,30 50,36 40,30 C26,33 12,30 4,25 Z',
+    'M4,18 C40,6 78,12 118,26 C96,28 98,33 74,31 C86,34 44,33 34,28 C22,31 10,28 6,22 Z',
+  ];
+  function inkMark(x,y){
     if(prefersReduced()) return;
-    const el=document.createElement('div'); el.className='ink-splash';
-    el.style.left=e.clientX+'px'; el.style.top=e.clientY+'px';
-    el.style.setProperty('--r', (Math.random()*80-40)+'deg');
-    document.body.appendChild(el); setTimeout(()=>el.remove(), 680);
-  }, {passive:true});
+    const rot=(Math.random()*90-45), sc=0.85+Math.random()*0.8, flip=Math.random()<0.5?-1:1;
+    const path=SUMI_STROKES[Math.floor(Math.random()*SUMI_STROKES.length)];
+    let drops=''; const nd=4+Math.floor(Math.random()*5);        // 飛び散る墨
+    for(let i=0;i<nd;i++){ const dx=(6+Math.random()*118).toFixed(1), dy=(Math.random()*48).toFixed(1), r=(0.8+Math.random()*3.4).toFixed(1); drops+=`<circle cx="${dx}" cy="${dy}" r="${r}"/>`; }
+    const w=document.createElement('div'); w.className='sumi';
+    w.style.left=x+'px'; w.style.top=y+'px';
+    w.style.setProperty('--rot',rot+'deg'); w.style.setProperty('--sc',sc); w.style.setProperty('--flip',flip);
+    w.innerHTML=`<svg viewBox="0 0 120 48"><g fill="rgba(var(--blot),0.85)" filter="url(#sumiRough)"><path d="${path}"/>${drops}</g></svg>`;
+    document.body.appendChild(w); setTimeout(()=>w.remove(), 560);
+  }
+  document.addEventListener('pointerdown', (e)=>inkMark(e.clientX, e.clientY), {passive:true});
   (function(){
     if(EMBED) return;                                           // 枠内プレビューでは控える
     if(!(window.matchMedia && window.matchMedia('(pointer:fine)').matches)) return;
