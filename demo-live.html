@@ -768,56 +768,6 @@
     color: var(--red); margin: -0.6rem 0 1.3rem; }
   :lang(ja) .auth-tagline { font-style: normal; font-size: 0.85rem; letter-spacing: 0.08em; }
 
-  /* ---------- オープニング：和紙の上に選手が散らばり、墨で「亀龍会」がバンと出る ---------- */
-  .intro { position: fixed; inset: 0; z-index: 9999; overflow: hidden; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; cursor: pointer; clip-path: circle(150% at 50% 50%);
-    background:
-      radial-gradient(ellipse at 50% 46%, rgba(255,250,238,0.95), rgba(239,230,211,0) 62%),
-      radial-gradient(circle at 14% 22%, rgba(60,40,20,0.05) 0 1.4px, transparent 1.6px),
-      radial-gradient(circle at 71% 63%, rgba(60,40,20,0.05) 0 1.4px, transparent 1.6px),
-      var(--washi);
-    background-size: auto, 150px 150px, 210px 210px, auto; }
-  .intro[hidden] { display: none; }
-  .intro .collage .ip { mix-blend-mode: multiply; filter: grayscale(0.7) contrast(1.06); box-shadow: none; opacity: 0; animation: none; }
-  .intro.play .collage .ip { animation: ipIn 1s var(--ease) forwards; animation-delay: calc(var(--i) * 140ms + 80ms); }
-  @keyframes ipIn { from { opacity: 0; transform: translateY(54px) scale(0.86) rotate(var(--r)); }
-                    to   { opacity: 0.5; transform: translateY(0) scale(1) rotate(var(--r)); } }
-  .intro-svg { position: relative; z-index: 3; width: min(94vw, 1120px); height: auto; overflow: visible; }
-  .intro.play .intro-svg { animation: shake .34s .75s, shake .34s 1s, shake .34s 1.25s; }
-  @keyframes shake { 0%,100% { transform: translate(0,0); } 25% { transform: translate(-4px,3px); } 50% { transform: translate(4px,-3px); } 75% { transform: translate(-2px,-2px); } }
-  .intro-svg .ch { font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif; font-weight: 800; font-size: 300px; fill: #15110e;
-    opacity: 0; transform-box: fill-box; transform-origin: 50% 55%; }
-  .intro.play .intro-svg .ch { animation: slam .52s cubic-bezier(.16,.9,.3,1) forwards; animation-delay: var(--d); }
-  @keyframes slam { 0% { opacity: 0; transform: scale(2) rotate(var(--tr, 0deg)); } 55% { opacity: 1; transform: scale(0.93) rotate(0); }
-                    78% { transform: scale(1.035); } 100% { opacity: 1; transform: scale(1); } }
-  .intro-svg .ring { fill: none; stroke: rgba(21,17,14,0.5); stroke-width: 7; opacity: 0; transform-box: fill-box; transform-origin: center; }
-  .intro.play .intro-svg .ring { animation: ringOut .95s ease-out forwards; animation-delay: var(--d); }
-  @keyframes ringOut { 0% { opacity: 0.75; transform: scale(0.3); } 100% { opacity: 0; transform: scale(2.3); } }
-  .intro-svg .dr { fill: #15110e; opacity: 0; transform-box: fill-box; transform-origin: center; }
-  .intro.play .intro-svg .dr { animation: dropPop .62s cubic-bezier(.2,.9,.3,1) forwards; animation-delay: calc(var(--d) + 50ms); }
-  @keyframes dropPop { 0% { opacity: 0; transform: translate(0,0) scale(0); } 35% { opacity: 0.92; }
-                       100% { opacity: 0.82; transform: translate(var(--dx), var(--dy)) scale(1); } }
-  .intro-sub { position: relative; z-index: 3; margin-top: 0.6rem; font: 700 clamp(0.64rem, 1.4vw, 0.88rem)/1 var(--sans, "Zen Kaku Gothic New", sans-serif);
-    letter-spacing: 0.42em; color: #3a2f27; opacity: 0; text-transform: uppercase; text-align: center; padding-left: 0.42em; }
-  .intro.play .intro-sub { animation: fadeUp .8s var(--ease) 1.55s forwards; }
-  .intro-tag { position: relative; z-index: 3; margin-top: 0.8rem; font: italic 600 clamp(1.1rem, 2.7vw, 1.8rem)/1.2 var(--display);
-    color: var(--red-deep); opacity: 0; text-align: center; padding: 0 1rem; }
-  :lang(ja) .intro-tag { font-style: normal; letter-spacing: 0.12em; }
-  .intro.play .intro-tag { animation: fadeUp .9s var(--ease) 1.95s forwards; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  .intro-seal { position: absolute; right: clamp(18px, 9vw, 130px); bottom: clamp(36px, 13vh, 130px); z-index: 4; width: 62px; height: 62px;
-    background: #b3281c; color: #fbf5ee; font: 800 2rem/62px "Shippori Mincho", serif; text-align: center; border-radius: 6px;
-    opacity: 0; transform: scale(1.9) rotate(-14deg); }
-  .intro.play .intro-seal { animation: stamp .46s cubic-bezier(.2,.9,.3,1) 1.7s forwards; }
-  @keyframes stamp { 0% { opacity: 0; transform: scale(1.9) rotate(-14deg); } 70% { opacity: 1; transform: scale(0.95) rotate(-6deg); }
-                     100% { opacity: 0.93; transform: scale(1) rotate(-6deg); } }
-  .intro.out { animation: introOut .78s cubic-bezier(.7,0,.3,1) forwards; }
-  @keyframes introOut { from { clip-path: circle(150% at 50% 50%); } to { clip-path: circle(0% at 50% 50%); } }
-  .intro-skip { position: absolute; top: max(16px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); z-index: 5;
-    border: 1px solid rgba(21,17,14,0.3); background: none; color: #3a2f27; font: 700 0.7rem var(--sans, sans-serif);
-    letter-spacing: 0.16em; padding: 0.45rem 0.95rem; border-radius: 100px; cursor: pointer; text-transform: uppercase; }
-  .intro-skip:hover { background: rgba(21,17,14,0.08); }
-
   /* ---------- 新ヒーロー（トップ）：暗い地・金と朱・扇状の選手カード・桜 ---------- */
   .hero2 { position: relative; isolation: isolate; border-radius: 18px; overflow: hidden; color: #f6efe2;
     display: grid; grid-template-columns: 1.02fr 1fr; align-items: center; gap: 1rem; min-height: 500px;
@@ -896,12 +846,10 @@
     .hero2 { grid-template-columns: 1fr; min-height: 0; }
     .hero2-cards { height: 340px; margin-top: 1.2rem; }
     .collage .ip { width: clamp(110px, 34vw, 190px); }
-    .intro-svg .ch { font-size: 290px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .collage .ip, .h2-card, .h2-btn.primary::after { animation: none; }
     .h2-card { opacity: 1; }
-    .intro { display: none !important; }
   }
 
   /* ============================================================
@@ -1995,20 +1943,6 @@ body[data-view="student"] .btn-primary:active,body[data-view="student"] .h2-btn:
 .fx-sfx:focus-visible{outline:2px solid var(--gold,#ffd27a);outline-offset:2px}
 body[data-view="staff"] #slash,body[data-view="staff"] #kiai,body[data-view="staff"] canvas.fx-hero{display:none}
 
-/* intro 2.0 */
-.intro::before{content:"";position:absolute;inset:0;background:#fff;z-index:6;pointer-events:none;opacity:0}
-.intro.play::before{animation:fxIFlash .32s ease-out}
-@keyframes fxIFlash{0%{opacity:1}100%{opacity:0}}
-.intro::after{content:"";position:absolute;inset:-10%;z-index:6;pointer-events:none;opacity:0;
-  background:linear-gradient(100deg,transparent 45%,#fff 49.4%,var(--aka,#e8232f) 50%,var(--aka,#e8232f) 51.8%,transparent 54%)}
-.intro.play::after{animation:fxISlash .34s linear 1.5s both}
-@keyframes fxISlash{0%{opacity:0;transform:translateX(-70%)}15%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translateX(70%)}}
-.intro.play .intro-svg{animation:shake .34s 1.03s,shake .34s 1.28s,shake .34s 1.53s}
-.intro .ring{stroke:rgba(232,35,47,.55)}
-#intro-fx{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none}
-.intro.out{animation:fxIntroOut .42s var(--e-cut) forwards}
-@keyframes fxIntroOut{from{clip-path:polygon(0 0,112% 0,100% 100%,0 100%)}to{clip-path:polygon(112% 0,112% 0,100% 100%,100% 100%)}}
-
 @media (prefers-reduced-motion:reduce){
   #slash,#kiai,canvas.fx-hero,#fx-shine,.osu,.flash{display:none!important}
   .kt-go .kw{animation:none}
@@ -2939,20 +2873,6 @@ body[data-view="staff"] #slash,body[data-view="staff"] #kiai,body[data-view="sta
 
 <div id="slash" aria-hidden="true"><i></i></div>
 <div id="kiai" aria-hidden="true"></div>
-
-<!-- ==================== INTRO (logo ink) ==================== -->
-<div class="intro" id="intro" hidden onclick="introEnd()">
-  <div class="collage" id="intro-collage" aria-hidden="true"></div>
-  <svg class="intro-svg" id="intro-svg" viewBox="0 0 1200 520" aria-hidden="true">
-    <g class="ig" data-cx="290" data-cy="270" style="--d:.75s;--tr:-7deg"><circle class="ring" cx="290" cy="270" r="150"/><text class="ch" x="290" y="400" text-anchor="middle" filter="url(#inkBleed)">亀</text></g>
-    <g class="ig" data-cx="600" data-cy="270" style="--d:1s;--tr:5deg"><circle class="ring" cx="600" cy="270" r="150"/><text class="ch" x="600" y="400" text-anchor="middle" filter="url(#inkBleed)">龍</text></g>
-    <g class="ig" data-cx="910" data-cy="270" style="--d:1.25s;--tr:-4deg"><circle class="ring" cx="910" cy="270" r="150"/><text class="ch" x="910" y="400" text-anchor="middle" filter="url(#inkBleed)">会</text></g>
-  </svg>
-  <div class="intro-sub">Kiryukai Karate-Do · Online Dojo</div>
-  <div class="intro-tag" id="intro-tag"></div>
-  <div class="intro-seal" aria-hidden="true">亀</div>
-  <button class="intro-skip" id="intro-skip" type="button" onclick="event.stopPropagation();introEnd()">Skip</button>
-</div>
 
 <script>
   // ==================== media assets (injected at build) ====================
@@ -4445,52 +4365,12 @@ body[data-view="staff"] #slash,body[data-view="staff"] #kiai,body[data-view="sta
       const i=+el.dataset.ph; if(i>=0 && ATHLETES[i]) el.style.backgroundImage='url('+ATHLETES[i]+')';
     });
   }
-  function buildIntro(){
-    const svg=document.getElementById('intro-svg'); if(!svg || svg.dataset.built) return; svg.dataset.built='1';
-    svg.querySelectorAll('.ig').forEach(g=>{
-      const cx=+g.dataset.cx, cy=+g.dataset.cy; let h='';
-      for(let k=0;k<9;k++){
-        const a=Math.random()*Math.PI*2, d=170+Math.random()*190, r=3+Math.random()*10;
-        h+=`<circle class="dr" cx="${cx}" cy="${cy}" r="${r.toFixed(1)}" style="--dx:${(Math.cos(a)*d).toFixed(0)}px;--dy:${(Math.sin(a)*d*0.7).toFixed(0)}px"/>`;
-      }
-      g.insertAdjacentHTML('beforeend',h);
-    });
-  }
-  let introEnd=function(){};
-  // Intro 2.0: white flash -> 3 slams (shockwave each; 3rd = red slash + embers + kiai) -> exit by slash wipe. <=4.3s total.
+  // 入場演出（道→空手道→亀龍会のフロート + BGM）はログイン成功後に流れる。実体は prod/web/intro.js（KryOpening）。
+  let introEnd=function(){ try{ window.KryOpening && KryOpening.skip(); }catch(e){} };
   function playIntro(after){
-    const el=document.getElementById('intro');
-    let themeH=null, themeAt=performance.now(); if(!EMBED){ try{ themeH=sfx.theme(); }catch(e){} }
-    if(!el || EMBED || prefersReduced() || currentRole==='admin'){ if(after) after(); return; }
-    buildIntro();
-    const tag=document.getElementById('intro-tag'); if(tag) tag.textContent=t('intro.tag');
-    const sk=document.getElementById('intro-skip'); if(sk) sk.textContent=t('intro.skip');
-    el.hidden=false; el.classList.remove('out','play'); void el.offsetWidth; el.classList.add('play');
-    let done=false, timers=[], raf=0, cv=null;
-    const T=(fn,ms)=>timers.push(setTimeout(fn,ms));
-    // ember canvas (burst on 3rd slam, then a few rising embers)
-    const P=[]; let live=false, cx=null, W=0, H=0;
-    function ember(x,y,burst){ const a=burst?Math.random()*6.283:-1.57+(Math.random()-.5)*.8, s=burst?3+Math.random()*7:1+Math.random()*2;
-      P.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:1.8+Math.random()*3.2,a:1,g:Math.random()<.35,burst}); }
-    function loop(){ if(!live) return; raf=requestAnimationFrame(loop); cx.clearRect(0,0,W,H);
-      if(Math.random()<.5) ember(Math.random()*W,H+5,false);
-      for(let i=P.length-1;i>=0;i--){ const p=P[i]; p.x+=p.vx; p.y+=p.vy; if(p.burst){p.vx*=.95;p.vy=p.vy*.95+.12;p.a-=.022;} else {p.a-=.008; p.vy-=.01;}
-        if(p.a<=0||p.y<-10){ P.splice(i,1); continue; }
-        cx.fillStyle=p.g?'rgba(200,150,40,'+p.a*.9+')':'rgba(232,35,47,'+p.a*.85+')'; cx.beginPath(); cx.arc(p.x,p.y,p.r,0,6.283); cx.fill(); } }
-    function startEmbers(x,y){ if(live||!FX.on()) return; cv=document.createElement('canvas'); cv.id='intro-fx'; cv.setAttribute('aria-hidden','true');
-      W=cv.width=innerWidth; H=cv.height=innerHeight; cx=cv.getContext('2d'); el.appendChild(cv); live=true;
-      for(let i=0;i<(innerWidth<720?34:64);i++) ember(x,y,true); loop(); }
-    const hit=(g,i)=>{ if(done) return; const r=g.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2;
-      kiaiFX(x,y,i===2?2:.6,{ink:true,silent:true});
-      if(i===2){ sfx.kiai(); startEmbers(x,y); } else sfx.taiko(); };
-    el.querySelectorAll('.ig').forEach((g,i)=>T(()=>hit(g,i), 1030+i*250));
-    introEnd=function(){ if(done) return; done=true; if(themeH && performance.now()-themeAt<3700) themeH.stop(.35); timers.forEach(clearTimeout); live=false; cancelAnimationFrame(raf);
-      el.classList.add('out');
-      setTimeout(()=>{ el.hidden=true; el.classList.remove('play','out'); if(cv){cv.remove();cv=null;}
-        if(after) after(); if(FX.on()) kiaiFX(null,null,2); }, 440); };
-    T(()=>introEnd(), 3800);
+    if(EMBED || prefersReduced() || currentRole==='admin' || !window.KryOpening){ if(after) after(); return; }
+    try{ KryOpening.play(after); }catch(e){ try{console.warn('opening failed',e)}catch(_){} if(after) after(); }
   }
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') introEnd(); });
 
   // ヒーロー見出し2行目の入れ替え（reduced-motion では静止）
   function startRot(){
@@ -5988,7 +5868,7 @@ body[data-view="staff"] #slash,body[data-view="staff"] #kiai,body[data-view="sta
     const rawLogin=doLogin; doLogin=function(){ loginAt=performance.now(); return rawLogin.apply(this,arguments); };
     const rawNav=activateNav;
     activateNav=function(tg){
-      const sl=document.getElementById('slash'), intro=document.getElementById('intro'), app=document.getElementById('screen-app');
+      const sl=document.getElementById('slash'), intro=document.getElementById('opening'), app=document.getElementById('screen-app');
       if(!FX.on()||busy||!sl||tg===currentTarget||EMBED||(intro&&!intro.hidden)||(app&&!app.classList.contains('on'))||performance.now()-loginAt<1200) return rawNav(tg);
       busy=true; sl.classList.remove('go'); void sl.offsetWidth; sl.classList.add('go');
       setTimeout(()=>rawNav(tg),170);
@@ -6104,7 +5984,7 @@ body[data-view="staff"] #slash,body[data-view="staff"] #kiai,body[data-view="sta
 
     // ---- QA hooks:  #fx=intro|slash|kiai|roll|hero   ?freeze=<ms> pauses all animations after that time ----
     (function(){ const f=(location.hash.match(/fx=(\w+)/)||[])[1], fr=new URLSearchParams(location.search).get('freeze');
-      if(f==='intro'){ showScreen('app'); playIntro(()=>{}); }
+      if(f==='intro'){ showScreen('app'); playIntro(()=>{}); }   /* 入場演出（ログイン後に流れるもの）。QA: #fx=intro */
       else if(f==='slash'){ const sl=document.getElementById('slash'); sl.style.setProperty('--sl-dl','-.15s'); sl.style.setProperty('--sl-ps','paused'); sl.classList.add('go'); }   /* frozen mid-cut (QA) */
       else if(f==='kiai'){ setTimeout(()=>kiaiFX(null,null,2,{silent:true}),80); }
       else if(f==='roll'){ document.querySelectorAll('[data-cu]').forEach(e=>{ if(!e.children.length||e.querySelector('.roll')) {} }); setTimeout(()=>{ const p=document.getElementById(currentTarget); p&&p.querySelectorAll('.stat .n').forEach(e=>{ if(e.querySelector('.roll')) return; delete e.dataset.cu; }); p&&countUp(p); },80); }
@@ -6321,74 +6201,65 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
 .panel[hidden]{display:none !important}
 
 
-/* ===== opening (login entrance): player videos + 空手道 -> 亀龍会 ===== */
-.login-vids{position:absolute;inset:0;z-index:0;display:flex;opacity:0;transition:opacity 1.3s ease;background:#0b0807;overflow:hidden}
+/* ===== 入場: ログイン前 = 選手の動画3本 + ログインフォームだけ / ログイン後 = 道 → 空手道 → 亀龍会 がふわっと浮かぶ ===== */
+.login-vids{position:absolute;inset:0;z-index:0;display:flex;opacity:0;transition:opacity 1.6s ease;background:#0b0807;overflow:hidden}
 .login-vids.show{opacity:1}.login-vids.instant{transition:none}
 .login-vids .lv{position:relative;flex:1 1 0;min-width:0;background-size:cover;background-position:center}
-.login-vids video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s;filter:saturate(.85) contrast(1.08) brightness(.78)}
-.login-vids video.on{opacity:1}
-.login-vids::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,5,.55),rgba(8,6,5,.25) 40%,rgba(8,6,5,.7)),radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.65));pointer-events:none}
-.login-vids .lv+.lv::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:rgba(0,0,0,.6);z-index:2}
+.login-vids video,.op-vids video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s}
+.login-vids video{filter:saturate(.8) contrast(1.05) brightness(.62)}
+.login-vids video.on,.op-vids video.on{opacity:1}
+.login-vids::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,5,.6),rgba(8,6,5,.3) 45%,rgba(8,6,5,.78)),radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.7));pointer-events:none}
+.login-vids .lv+.lv::before,.op-vids .lv+.lv::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(244,237,224,.1);z-index:2}
 #screen-login .collage{opacity:0}
 .op-lock body{overflow:hidden}
-#screen-login .auth-card{transition:opacity .9s .15s}
-.op-lock #screen-login .auth-card{opacity:0;visibility:hidden;transition:none}
-.opening{position:fixed;inset:0;z-index:9500;overflow:hidden;color:#f4ede0;background:#050403;cursor:pointer;transition:opacity .9s ease,transform .9s ease,background-color 1.2s ease;font-family:"Yuji Boku","Yuji Syuku","Shippori Mincho","Hiragino Mincho ProN",serif}
+
+.opening{--k:1;position:fixed;inset:0;z-index:9500;overflow:hidden;color:#f4ede0;background:#060504;cursor:pointer;font-family:"Shippori Mincho","Hiragino Mincho ProN",serif;animation:opIn .5s ease-out both;transition:opacity 1.2s ease}
 .opening[hidden]{display:none}
-.opening.op-vid,.opening.op-final{background-color:transparent}
-.opening.op-out{opacity:0;transform:scale(1.06);pointer-events:none;cursor:default}
-.op-dim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(0,0,0,.05),rgba(0,0,0,.55) 75%);opacity:0;transition:opacity 1.2s}
-.op-vid .op-dim,.op-final .op-dim{opacity:1}
-.op-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
-.op-flash.go{animation:opFlash .5s ease-out}
-@keyframes opFlash{0%{opacity:.95}100%{opacity:0}}
-.op-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
-.op-stage{position:absolute;inset:0;z-index:2;--kr:min(27vw,31vh);--kd:min(18vw,21vh)}
-.op-shake{animation:opShake .35s}.op-shake2{animation:opShake2 .6s}
-@keyframes opShake{0%,100%{transform:translate(0)}20%{transform:translate(-5px,3px)}40%{transform:translate(5px,-4px)}60%{transform:translate(-3px,-2px)}80%{transform:translate(3px,2px)}}
-@keyframes opShake2{0%,100%{transform:translate(0)}10%{transform:translate(-16px,9px)}22%{transform:translate(15px,-12px)}34%{transform:translate(-12px,-8px)}46%{transform:translate(10px,9px)}60%{transform:translate(-6px,4px)}75%{transform:translate(4px,-3px)}}
+.opening.op-out{opacity:0;pointer-events:none}
+@keyframes opIn{from{opacity:0}to{opacity:1}}
+.op-bg{position:absolute;inset:0;opacity:0;transition:opacity calc(2.8s*var(--k)) ease}
+.op-vid .op-bg{opacity:.55}
+.op-vids{position:absolute;inset:-2%;display:flex;filter:blur(3px) saturate(.6) brightness(.5)}
+.op-vids .lv{position:relative;flex:1 1 0;min-width:0;background-size:cover;background-position:center}
+.op-dim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 48%,rgba(6,5,4,.3),rgba(6,5,4,.86) 80%)}
+.op-glow{position:absolute;left:50%;top:54%;width:120vmin;height:120vmin;margin:-60vmin 0 0 -60vmin;border-radius:50%;background:radial-gradient(circle,rgba(232,35,47,.22),rgba(232,35,47,0) 62%);opacity:0;transition:opacity calc(3.2s*var(--k)) ease;animation:opBreath calc(6s*var(--k)) ease-in-out infinite alternate;pointer-events:none}
+.op-kr-on .op-glow{opacity:.9}.op-ringed .op-glow{opacity:1.3}
+@keyframes opBreath{from{transform:scale(.94)}to{transform:scale(1.06)}}
+.op-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.op-stage{position:absolute;inset:0;z-index:2;--kr:min(25vw,29vh);--kd:min(17vw,20vh)}
 .op-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.op-kd{position:absolute;left:0;right:0;top:25%;display:flex;justify-content:center;font-size:var(--kd);line-height:1.05;font-weight:400;letter-spacing:0}
-.op-kdg{display:inline-flex;transform:translateX(-1em);transition:transform .75s cubic-bezier(.2,.9,.25,1)}
-.op-kin .op-kdg,.op-final .op-kdg{transform:none}
-.op-d,.op-k{display:inline-block;opacity:0;text-shadow:0 0 30px rgba(232,35,47,.45),0 5px 0 rgba(0,0,0,.55),0 0 2px #000}
-.op-d{transform:scale(1.5);filter:blur(22px);transition:opacity .45s ease-out,transform .55s cubic-bezier(.16,.9,.3,1),filter .55s ease-out}
-.op-dou .op-d,.op-final .op-d{opacity:1;transform:none;filter:none}
-.op-k{transform:translateX(-70vw) skewX(-14deg);filter:blur(7px);transition:transform .75s cubic-bezier(.2,.9,.25,1),opacity .3s,filter .6s .15s}
-.op-kin .op-k,.op-final .op-k{opacity:1;transform:none;filter:none}
-.op-khit .op-kd{animation:opKd .42s ease-out}
-@keyframes opKd{0%{filter:brightness(2.2)}100%{filter:none}}
-.op-kr{position:absolute;left:0;right:0;top:calc(25% + var(--kd)*.55);text-align:center;font-size:var(--kr);line-height:1.05;white-space:nowrap}
-.op-kr span{display:inline-block;opacity:0;color:#f6efe2;text-shadow:0 0 50px rgba(232,35,47,.65),0 0 14px rgba(232,35,47,.5),0 8px 0 rgba(0,0,0,.6),0 0 3px #000;transform-origin:50% 55%;letter-spacing:.04em}
-.op-slam .op-kr span{animation:opSlam .3s cubic-bezier(.12,.9,.3,1) forwards}
-.op-final .op-kr span{opacity:1;animation:none;transform:none}
-@keyframes opSlam{0%{opacity:0;transform:scale(1.6);filter:blur(10px)}55%{opacity:1;transform:scale(.96);filter:blur(0)}100%{opacity:1;transform:scale(1);filter:none}}
-.op-slam .op-kd,.op-final .op-kd{opacity:.62;transition:opacity .4s .05s}
-.op-ring{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border:3px solid rgba(244,237,224,.8);border-radius:50%;pointer-events:none;z-index:3;animation:opRing .9s cubic-bezier(.1,.7,.3,1) forwards}
-.op-ring.big{border-width:6px;animation-duration:1.15s}
-@keyframes opRing{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(32)}}
-.op-sub{position:absolute;left:0;right:0;bottom:calc(8vh + 78px);text-align:center;opacity:0;transform:translateY(14px);transition:opacity .9s,transform .9s;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;padding:0 5vw}
-.op-sub-on .op-sub,.op-final .op-sub{opacity:1;transform:none}
-.op-en{font-weight:700;letter-spacing:.34em;font-size:clamp(.7rem,1.7vw,1.05rem);text-shadow:0 2px 8px #000}
-.op-tag{margin-top:.7rem;font-size:clamp(.78rem,1.5vw,1rem);color:rgba(244,237,224,.82);letter-spacing:.08em;text-shadow:0 2px 8px #000}
-.op-enter{position:absolute;left:50%;bottom:8vh;transform:translate(-50%,16px);opacity:0;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:.75rem 2.6rem;background:rgba(232,35,47,.92);color:#fff;border:0;border-radius:2px;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.25),0 10px 30px rgba(0,0,0,.5);transition:opacity .7s,transform .7s,background .2s;font-family:inherit}
-.op-enter b{font:700 1.15rem/1 "Zen Kaku Gothic New",sans-serif;letter-spacing:.4em;padding-left:.4em}
-.op-enter i{font-style:normal;font-size:.95rem;letter-spacing:.5em;padding-left:.5em;opacity:.9}
-.op-enter:hover,.op-enter:focus-visible{background:#ff3341;outline:2px solid #fff;outline-offset:3px}
-.op-enter-on .op-enter,.op-final .op-enter{opacity:1;transform:translate(-50%,0);pointer-events:auto;animation:opPulse 2.4s ease-in-out 1s infinite}
-@keyframes opPulse{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.25),0 10px 30px rgba(0,0,0,.5),0 0 0 0 rgba(232,35,47,.6)}50%{box-shadow:0 0 0 1px rgba(255,255,255,.25),0 10px 30px rgba(0,0,0,.5),0 0 0 14px rgba(232,35,47,0)}}
-.op-gate{position:absolute;inset:0;z-index:4;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;background:transparent;border:0;color:#f4ede0;cursor:pointer;font-family:inherit}
-.op-gated .op-gate{display:flex}
-.op-gate-k{font-size:min(16vw,18vh);opacity:.9;text-shadow:0 0 40px rgba(232,35,47,.5)}
-.op-gate-t{font:700 .95rem/1 "Zen Kaku Gothic New",sans-serif;letter-spacing:.4em;padding-left:.4em;animation:opBlink 1.6s ease-in-out infinite}
-@keyframes opBlink{50%{opacity:.3}}
-.op-snd{position:absolute;left:max(14px,env(safe-area-inset-left,0px));top:max(14px,env(safe-area-inset-top,0px));z-index:5;background:rgba(0,0,0,.45);color:#f4ede0;border:1px solid rgba(244,237,224,.35);border-radius:999px;padding:.4rem .9rem;font:700 .72rem/1 "Zen Kaku Gothic New",sans-serif;letter-spacing:.12em;cursor:pointer}
-.op-skip{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:max(18px,env(safe-area-inset-top,0px));z-index:5;font:500 .7rem/1 "Zen Kaku Gothic New",sans-serif;letter-spacing:.08em;color:rgba(244,237,224,.6);pointer-events:none;transition:opacity .4s}
-.op-final .op-skip,.op-gated .op-skip{opacity:0}
-@media (max-aspect-ratio:1/1){.op-stage{--kr:29vw;--kd:20vw}.op-kd{top:30%}.op-kr{top:calc(30% + var(--kd)*.55)}.op-skip{display:none}.op-sub{bottom:calc(10vh + 78px)}.op-enter{bottom:10vh}}
+.op-kd{position:absolute;left:0;right:0;top:22%;display:flex;justify-content:center;font-size:var(--kd);line-height:1.05;font-weight:500;transform:translateY(calc(var(--kr)*.45));opacity:1;transition:transform calc(3.2s*var(--k)) cubic-bezier(.3,.1,.2,1),opacity calc(3s*var(--k)) ease}
+.op-kr-on .op-kd{transform:none;opacity:.5}
+.op-kd i,.op-kr i{display:inline-block;font-style:normal;text-shadow:0 0 40px rgba(232,35,47,.35),0 0 2px rgba(0,0,0,.6)}
+.op-k{position:relative;display:inline-block;width:0;height:1.05em;transition:width calc(2.6s*var(--k)) cubic-bezier(.25,.1,.2,1)}
+.op-kin .op-k{width:2em}
+.op-k b{position:absolute;right:0;top:0;font-weight:inherit;white-space:nowrap;opacity:0;transform:translateX(-10vw);filter:blur(14px);transition:opacity calc(2.2s*var(--k)) ease-out,transform calc(2.8s*var(--k)) cubic-bezier(.2,.7,.2,1),filter calc(2.2s*var(--k)) ease-out}
+.op-kin .op-k b{opacity:1;transform:none;filter:none}
+.op-d{display:inline-block;opacity:0;transform:translateY(36px);filter:blur(18px);transition:opacity calc(2.4s*var(--k)) ease-out,transform calc(3s*var(--k)) cubic-bezier(.2,.7,.2,1),filter calc(2.4s*var(--k)) ease-out}
+.op-dou .op-d{opacity:1;transform:none;filter:none}
+.op-d i{animation:opBob calc(7s*var(--k)) ease-in-out infinite alternate}
+.op-k i{display:inline-block;animation:opBob calc(8s*var(--k)) ease-in-out -3s infinite alternate}
+.op-kr i{animation:opBob calc(9s*var(--k)) ease-in-out -1s infinite alternate}
+@keyframes opBob{from{transform:translateY(0)}to{transform:translateY(-.045em)}}
+.op-kr{position:absolute;left:0;right:0;top:calc(22% + var(--kd)*1.02);text-align:center;font-size:var(--kr);line-height:1.05;white-space:nowrap;font-weight:600}
+.op-kr span{display:inline-block;opacity:0;color:#f7f0e3;transform:translateY(56px) scale(.96);filter:blur(18px);letter-spacing:.3em;margin-right:-.3em;transition:opacity calc(2.6s*var(--k)) ease-out,transform calc(3.2s*var(--k)) cubic-bezier(.2,.7,.2,1),filter calc(2.6s*var(--k)) ease-out,letter-spacing calc(3.2s*var(--k)) cubic-bezier(.2,.7,.2,1),margin calc(3.2s*var(--k)) cubic-bezier(.2,.7,.2,1)}
+.op-kr span i{text-shadow:0 0 60px rgba(232,35,47,.5),0 0 16px rgba(232,35,47,.3),0 0 2px rgba(0,0,0,.6)}
+.op-kr-on .op-kr span{opacity:1;transform:none;filter:none;letter-spacing:.06em;margin-right:-.06em}
+.op-ring{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid rgba(244,237,224,.38);border-radius:50%;pointer-events:none;z-index:3;opacity:0;animation:opRing calc(3.8s*var(--k)) cubic-bezier(.15,.6,.2,1) forwards}
+.op-ring.big{border-color:rgba(232,35,47,.55);animation-name:opRingBig;animation-duration:calc(4.6s*var(--k))}
+@keyframes opRing{0%{opacity:.7;transform:scale(.6)}100%{opacity:0;transform:scale(14)}}
+@keyframes opRingBig{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(30)}}
+.op-sub{position:absolute;left:0;right:0;bottom:9vh;text-align:center;opacity:0;transform:translateY(10px);transition:opacity calc(1.8s*var(--k)) ease,transform calc(1.8s*var(--k)) ease;font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif}
+.op-sub-on .op-sub{opacity:1;transform:none}
+.op-en{font-weight:500;letter-spacing:.4em;padding-left:.4em;font-size:clamp(.66rem,1.5vw,.92rem);color:rgba(244,237,224,.9)}
+.op-tag{margin-top:.8rem;font-size:clamp(.78rem,1.4vw,.95rem);color:rgba(244,237,224,.66);letter-spacing:.1em}
+.op-snd,.op-skip{position:absolute;z-index:5;font:500 .7rem/1 "Zen Kaku Gothic New",sans-serif;letter-spacing:.1em;color:rgba(244,237,224,.7)}
+.op-snd{left:max(16px,env(safe-area-inset-left,0px));top:max(16px,env(safe-area-inset-top,0px));background:none;border:1px solid rgba(244,237,224,.22);border-radius:999px;padding:.5rem .9rem;cursor:pointer;transition:border-color .3s,color .3s}
+.op-snd:hover,.op-snd:focus-visible{border-color:rgba(244,237,224,.6);color:#f4ede0;outline:none}
+.op-skip{right:max(16px,env(safe-area-inset-right,0px));top:max(22px,env(safe-area-inset-top,0px));opacity:.8}
+@media (max-aspect-ratio:1/1){.op-stage{--kr:28vw;--kd:20vw}.op-kd{top:27%}.op-kr{top:calc(27% + var(--kd)*1.02)}.op-skip{display:none}.op-sub{bottom:10vh}}
 @media (prefers-reduced-motion:reduce){.opening,.opening *,.login-vids{animation:none!important;transition:none!important}}
-.opening.op-final *,.opening.op-final{transition:none!important}
-.opening.op-final.op-out{transition:opacity .5s!important}
+
 </style>
 <script id="cms-api-js">
 /* cms-api.js - API-backed drop-in for the demo's window.CMS (localStorage "kry.cms").
@@ -6650,94 +6521,98 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
 
 </script>
 <script id="intro-js">
-/* 亀龍会 オープニング（ログイン画面の入場演出 + WebAudio BGM）
+/* 亀龍会 入場演出（ログイン後に流れる「道 → 空手道 → 亀龍会」のフロート演出 + WebAudio BGM）
+ * - ログイン前の画面は、選手の動画3本の背景（login-vids）だけ。演出はログイン成功後に KryOpening.play(after) で始まる。
+ * - 文字は叩きつけず、ふわっと浮かび、ゆっくり漂う。8〜12 秒（同じセッションの 2 回目以降は約 4 秒に短縮）。
  * - 純粋ロジック（タイムライン・BGMスケジュール）は node で単体テスト可能: node prod/web/intro.test.js
- * - ブラウザ部分は window.KryOpening.init({...}) で起動。映像も音も 1 つの時計（AudioContext.currentTime、
- *   音なしのときだけ performance.now）で駆動する。
+ * - 映像も音も 1 つの時計（AudioContext.currentTime、音なしのときだけ performance.now）で駆動する。
  * - 外部音源・サンプルは使わない（すべてオシレーター＋ノイズ＋生成インパルスの合成）。
  */
 (function (root) {
   'use strict';
 
   // ------------------------------------------------------------------ 純粋ロジック
-  // 映像の合図（秒）
+  // 映像の合図（秒）。フル版。
   var TL = {
-    vid: 0.2,        // 背景動画フェードイン開始
-    dou: 1.0,        // 「道」が墨のように現れる
-    kIn: 2.2,        // 「空手」が左から滑り込む
-    kHit: 2.95,      // 「空手」が「道」に付く（ドン）
-    slam: 3.8,       // 「亀龍会」が叩きつけられる（最大の一撃）
-    sub: 4.8,        // サブコピー
-    enter: 5.5,      // ENTER ボタン
-    end: 5.6,        // 演出の終わり（以降は静止して待つ）
-    bgmEnd: 14.2     // BGM の終わり
+    vid: 0.2,        // 暗い背景に選手の動画がうっすら
+    dou: 1.0,        // 「道」がゆっくり浮かび上がる（約 2.6 秒かけて）
+    kIn: 3.8,        // 「空手」が左から流れ込む（約 2.4 秒）
+    kHit: 5.9,       // 「空手」が「道」に寄り添い「空手道」になる（静かな波紋）
+    kr: 7.0,         // 「亀龍会」が重みをもって浮上（約 2.8 秒）
+    ring: 8.6,       // 静かな光のリング
+    sub: 8.8,        // サブコピー
+    end: 10.6,       // 演出の終わり（自動でアプリへ。以降 1.2 秒のフェード）
+    bgmEnd: 13.4     // BGM の終わり
   };
+  var SHORT_K = 0.4;   // 同じセッションの 2 回目以降: 全体を 0.4 倍の時間に
 
   var MASTER_DB = -12;
   function dbToGain(db) { return Math.pow(10, db / 20); }
   function midiToHz(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+  function scaledTL(k) { var o = {}; for (var n in TL) o[n] = TL[n] * (k || 1); return o; }
 
-  // 和音進行（MIDI）: Dm -> Bb -> Gm7 -> D（ピカルディ終止）
+  // 和音進行（MIDI）: Dm -> Bb -> Gm7 -> D（ピカルディ終止。D は「亀龍会」の瞬間）
   var CHORDS = [
-    { t: 3.8, dur: 2.9, notes: [38, 50, 57, 62, 65] },
-    { t: 6.4, dur: 2.9, notes: [34, 46, 53, 58, 62] },
-    { t: 9.0, dur: 2.5, notes: [43, 50, 55, 58, 65] },
-    { t: 11.2, dur: 3.0, notes: [38, 45, 50, 57, 62, 66] }
+    { t: 1.0, dur: 2.9, notes: [38, 50, 57, 62, 65] },
+    { t: 3.8, dur: 2.1, notes: [34, 46, 53, 58, 62] },
+    { t: 5.8, dur: 1.3, notes: [43, 50, 55, 58, 65] },
+    { t: 7.0, dur: 3.6, notes: [38, 45, 50, 57, 62, 66] }
   ];
-  // 尺八風の旋律（MIDI, 開始, 長さ）
+  // 尺八風の旋律（MIDI, 開始, 長さ）: ゆっくり上って、亀龍会で一番高い音に届く
   var MELODY = [
-    [74, 4.6, 1.3], [77, 5.9, 0.7], [81, 6.6, 1.5], [79, 8.2, 0.8],
-    [77, 9.0, 0.6], [74, 9.6, 1.4], [81, 11.3, 1.2], [86, 12.5, 1.6]
+    [74, 2.0, 1.7], [77, 3.9, 1.0], [81, 5.0, 1.5], [79, 6.3, 0.6],
+    [86, 7.0, 2.1], [81, 9.3, 1.3], [78, 10.7, 1.9]
   ];
 
-  /** BGM の予定表。{t,type,...} の配列（t 昇順）。音の種類: drone riser whoosh don boom crash pad flute bell fade */
-  function bgmSchedule(tl) {
-    tl = tl || TL;
-    var S = tl.slam, ev = [];
-    ev.push({ t: 0, type: 'drone', dur: tl.bgmEnd, peak: S });
-    ev.push({ t: 0.3, type: 'riser', dur: S - 0.3 - 0.06 });
-    ev.push({ t: tl.dou, type: 'don', v: 0.75, f: 150 });                       // 「道」
-    ev.push({ t: tl.kIn, type: 'whoosh', dur: 0.75 });                          // 「空手」滑り込み
-    ev.push({ t: tl.kHit, type: 'don', v: 0.9, f: 140 });                       // 「空手」着地
-    [3.3, 3.48, 3.62, 3.7, 3.75].forEach(function (t, i) {                      // 溜め（ドロドロ）
-      ev.push({ t: t, type: 'don', v: 0.22 + i * 0.07, f: 120 + i * 8, small: true });
-    });
-    ev.push({ t: S, type: 'don', v: 1.0, f: 130 });                             // 「亀龍会」最大の一撃
-    ev.push({ t: S + 0.07, type: 'don', v: 0.85, f: 95 });
-    ev.push({ t: S, type: 'boom' });
-    ev.push({ t: S, type: 'crash' });
-    ev.push({ t: S, type: 'bell', f: 1174.7 });
-    ev.push({ t: S + 0.06, type: 'bell', f: 1760 });
-    ev.push({ t: S + 0.15, type: 'bell', f: 2349.3 });
-    ev.push({ t: S + 0.3, type: 'bell', f: 2960 });
-    CHORDS.forEach(function (c) { ev.push({ t: c.t, type: 'pad', dur: c.dur, freqs: c.notes.map(midiToHz) }); });
+  /** BGM の予定表（フル版 k=1、短縮版は時間だけ k 倍）。{t,type,...} の配列（t 昇順）。
+   *  音の種類: drone riser whoosh don boom crash pad flute bell fade
+   *  太鼓（don）は 道 / 空手道 / 亀龍会 / 余韻 の要所だけ。壮大さは drone・pad・旋律・鐘で出す。 */
+  function bgmSchedule(k) {
+    var tl = TL, ev = [];
+    ev.push({ t: 0, type: 'drone', dur: tl.bgmEnd, peak: tl.kr, v: 0.8 });
+    ev.push({ t: 4.9, type: 'riser', dur: tl.kr - 4.9 - 0.06, v: 0.3 });                // 「亀龍会」へ静かに持ち上げる
+    ev.push({ t: tl.dou, type: 'don', v: 0.34, f: 130 });                              // 「道」: 遠い一打
+    ev.push({ t: tl.dou + 0.4, type: 'bell', f: 1174.7, v: 0.7 });
+    ev.push({ t: tl.kIn, type: 'whoosh', dur: 1.9, v: 0.5 });                          // 「空手」流れ込み
+    ev.push({ t: tl.kHit, type: 'don', v: 0.5, f: 125 });                              // 「空手道」: 静かな一打
+    ev.push({ t: tl.kHit, type: 'bell', f: 1318.5, v: 0.8 });
+    ev.push({ t: tl.kHit + 0.12, type: 'bell', f: 1760, v: 0.6 });
+    ev.push({ t: tl.kr, type: 'don', v: 0.85, f: 120 });                               // 「亀龍会」: この演出で最大の一打（それでも控えめ）
+    ev.push({ t: tl.kr + 0.09, type: 'don', v: 0.55, f: 92 });
+    ev.push({ t: tl.kr, type: 'boom', v: 0.6 });
+    ev.push({ t: tl.kr, type: 'crash', v: 0.45 });
+    [1174.7, 1760, 2349.3, 2960].forEach(function (f, i) { ev.push({ t: tl.kr + i * 0.14, type: 'bell', f: f, v: 1 }); });
+    CHORDS.forEach(function (c) { ev.push({ t: c.t, type: 'pad', dur: c.dur, freqs: c.notes.map(midiToHz), v: c.t >= tl.kr ? 1.15 : 0.9 }); });
     MELODY.forEach(function (m) { ev.push({ t: m[1], type: 'flute', dur: m[2], f: midiToHz(m[0]) }); });
-    ev.push({ t: 7.0, type: 'don', v: 0.32, f: 110 });                          // 余韻の鼓動
-    ev.push({ t: 9.6, type: 'don', v: 0.3, f: 110 });
-    ev.push({ t: 11.2, type: 'don', v: 0.5, f: 105 });                          // 終止の一打
-    ev.push({ t: tl.bgmEnd - 2.4, type: 'fade', dur: 2.4 });
+    ev.push({ t: tl.ring, type: 'bell', f: 2349.3, v: 0.7 });                          // 光のリング
+    ev.push({ t: 9.7, type: 'don', v: 0.3, f: 108 });                                  // 余韻の鼓動
+    ev.push({ t: tl.bgmEnd - 2.6, type: 'fade', dur: 2.6 });
     ev.sort(function (a, b) { return a.t - b.t; });
+    if (k && k !== 1) ev = ev.map(function (e) { var o = {}; for (var n in e) o[n] = e[n]; o.t = e.t * k; if (o.dur) o.dur = e.dur * k; if (o.peak) o.peak = e.peak * k; return o; });
     return ev;
   }
 
-  /** 時計 now（秒）までに来た合図のうち、まだ出していないものの index を返す。fired は Set/配列の代わりの {index:true} */
+  /** 時計 now（秒）までに来た合図のうち、まだ出していないものの index を返す。fired は {index:true} */
   function dueCues(cues, now, fired) {
     var out = [];
     for (var i = 0; i < cues.length; i++) if (!fired[i] && cues[i].t <= now) out.push(i);
     return out;
   }
-  var VISUAL_CUES = [
-    { t: TL.vid, name: 'vid' }, { t: TL.dou, name: 'dou' }, { t: TL.kIn, name: 'kIn' },
-    { t: TL.kHit, name: 'kHit' }, { t: TL.slam, name: 'slam' }, { t: TL.sub, name: 'sub' },
-    { t: TL.enter, name: 'enter' }, { t: TL.end, name: 'end' }
-  ];
+  function visualCues(k) {
+    var tl = scaledTL(k);
+    return [
+      { t: tl.vid, name: 'vid' }, { t: tl.dou, name: 'dou' }, { t: tl.kIn, name: 'kIn' }, { t: tl.kHit, name: 'kHit' },
+      { t: tl.kr, name: 'kr' }, { t: tl.ring, name: 'ring' }, { t: tl.sub, name: 'sub' }, { t: tl.end, name: 'end' }
+    ];
+  }
+  var VISUAL_CUES = visualCues(1);
 
   var COPY = {
-    en: { tag: 'Learn karate from Japan’s national team.', skip: 'Click / Enter / Esc to skip', tap: 'TAP TO ENTER', snd: ['SOUND ON', 'SOUND OFF'] },
-    ja: { tag: '日本代表の選手から、空手道を学ぶ。', skip: 'クリック / Enter / Esc でスキップ', tap: 'タップして入場', snd: ['音 ON', '音 OFF'] },
-    es: { tag: 'Aprende karate con la selección nacional de Japón.', skip: 'Clic / Enter / Esc para saltar', tap: 'TOCA PARA ENTRAR', snd: ['SONIDO ON', 'SONIDO OFF'] },
-    pt: { tag: 'Aprenda karatê com a seleção nacional do Japão.', skip: 'Clique / Enter / Esc para pular', tap: 'TOQUE PARA ENTRAR', snd: ['SOM ON', 'SOM OFF'] },
-    fr: { tag: 'Apprenez le karaté avec l’équipe nationale du Japon.', skip: 'Clic / Entrée / Échap pour passer', tap: 'TOUCHEZ POUR ENTRER', snd: ['SON ON', 'SON OFF'] }
+    en: { tag: 'Learn karate from Japan’s national team.', skip: 'Click / Enter / Esc to skip', snd: ['SOUND ON', 'SOUND OFF'] },
+    ja: { tag: '日本代表の選手から、空手道を学ぶ。', skip: 'クリック / Enter / Esc でスキップ', snd: ['音 ON', '音 OFF'] },
+    es: { tag: 'Aprende karate con la selección nacional de Japón.', skip: 'Clic / Enter / Esc para saltar', snd: ['SONIDO ON', 'SONIDO OFF'] },
+    pt: { tag: 'Aprenda karatê com a seleção nacional do Japão.', skip: 'Clique / Enter / Esc para pular', snd: ['SOM ON', 'SOM OFF'] },
+    fr: { tag: 'Apprenez le karaté avec l’équipe nationale du Japon.', skip: 'Clic / Entrée / Échap pour passer', snd: ['SON ON', 'SON OFF'] }
   };
   function copyFor(lang) { return COPY[lang] || COPY.en; }
 
@@ -6752,8 +6627,9 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
   function pickMedia(landscape) { return landscape ? MEDIA.landscape : MEDIA.portrait; }
 
   var pure = {
-    TL: TL, MASTER_DB: MASTER_DB, CHORDS: CHORDS, MELODY: MELODY, VISUAL_CUES: VISUAL_CUES, MEDIA: MEDIA,
-    dbToGain: dbToGain, midiToHz: midiToHz, bgmSchedule: bgmSchedule, dueCues: dueCues, copyFor: copyFor, pickMedia: pickMedia
+    TL: TL, SHORT_K: SHORT_K, MASTER_DB: MASTER_DB, CHORDS: CHORDS, MELODY: MELODY, VISUAL_CUES: VISUAL_CUES, MEDIA: MEDIA,
+    dbToGain: dbToGain, midiToHz: midiToHz, bgmSchedule: bgmSchedule, dueCues: dueCues, visualCues: visualCues, scaledTL: scaledTL,
+    copyFor: copyFor, pickMedia: pickMedia
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = pure;
   if (typeof window === 'undefined' || !root.document) return;
@@ -6783,30 +6659,30 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
 
     var V = {
       drone: function (e) {
-        var a = T(e.t), b = T(e.t + e.dur), peak = T(e.peak);
+        var a = T(e.t), b = T(e.t + e.dur), peak = T(e.peak), vv = e.v == null ? 1 : e.v;
         var lp = ac.createBiquadFilter(), g = ac.createGain();
         lp.type = 'lowpass'; lp.Q.value = 2;
         lp.frequency.setValueAtTime(110, a); lp.frequency.exponentialRampToValueAtTime(1600, peak); lp.frequency.exponentialRampToValueAtTime(420, peak + 3);
-        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.5, peak); g.gain.exponentialRampToValueAtTime(0.2, peak + 2.5); g.gain.setValueAtTime(0.2, b - 3); g.gain.exponentialRampToValueAtTime(0.0001, b);
+        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.5 * vv, peak); g.gain.exponentialRampToValueAtTime(0.22 * vv, peak + 2.5); g.gain.setValueAtTime(0.22 * vv, b - 3); g.gain.exponentialRampToValueAtTime(0.0001, b);
         [[36.7, -6], [36.7, 7], [73.4, -8], [73.4, 6], [110, 0], [146.8, -5]].forEach(function (x) {
           var o = osc('sawtooth', x[0], a, b + 0.1), gg = ac.createGain(); o.detune.value = x[1]; gg.gain.value = x[0] < 50 ? 0.34 : 0.2; o.connect(gg); gg.connect(lp);
         });
-        var sg = ac.createGain(); sg.gain.setValueAtTime(0.0001, a); sg.gain.exponentialRampToValueAtTime(0.55, peak); sg.gain.exponentialRampToValueAtTime(0.0001, b);
+        var sg = ac.createGain(); sg.gain.setValueAtTime(0.0001, a); sg.gain.exponentialRampToValueAtTime(0.5 * vv, peak); sg.gain.exponentialRampToValueAtTime(0.0001, b);
         osc('sine', 36.7, a, b + 0.1).connect(sg); send(sg);
         lp.connect(g); send(g);
       },
       riser: function (e) {
-        var a = T(e.t), b = T(e.t + e.dur), bp = ac.createBiquadFilter(), g = ac.createGain();
+        var a = T(e.t), b = T(e.t + e.dur), bp = ac.createBiquadFilter(), g = ac.createGain(), vv = e.v == null ? 1 : e.v;
         bp.type = 'bandpass'; bp.Q.value = 3; bp.frequency.setValueAtTime(260, a); bp.frequency.exponentialRampToValueAtTime(5200, b);
-        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.5, b - 0.05); g.gain.linearRampToValueAtTime(0.0001, b + 0.04);
+        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.5 * vv, b - 0.05); g.gain.linearRampToValueAtTime(0.0001, b + 0.04);
         noise(e.dur + 0.2, a).connect(bp); bp.connect(g); send(g);
         var o = osc('sine', 110, a, b + 0.05), og = ac.createGain(); o.frequency.setValueAtTime(110, a); o.frequency.exponentialRampToValueAtTime(1100, b);
-        og.gain.setValueAtTime(0.0001, a); og.gain.exponentialRampToValueAtTime(0.09, b - 0.05); og.gain.linearRampToValueAtTime(0.0001, b + 0.04); o.connect(og); send(og);
+        og.gain.setValueAtTime(0.0001, a); og.gain.exponentialRampToValueAtTime(0.09 * vv, b - 0.05); og.gain.linearRampToValueAtTime(0.0001, b + 0.04); o.connect(og); send(og);
       },
       whoosh: function (e) {
-        var a = T(e.t), bp = ac.createBiquadFilter(), g = ac.createGain();
+        var a = T(e.t), bp = ac.createBiquadFilter(), g = ac.createGain(), vv = e.v == null ? 1 : e.v;
         bp.type = 'bandpass'; bp.Q.value = 1.4; bp.frequency.setValueAtTime(500, a); bp.frequency.exponentialRampToValueAtTime(3400, a + e.dur);
-        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.3, a + e.dur * 0.8); g.gain.exponentialRampToValueAtTime(0.0001, a + e.dur + 0.1);
+        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.3 * vv, a + e.dur * 0.8); g.gain.exponentialRampToValueAtTime(0.0001, a + e.dur + 0.1);
         noise(e.dur + 0.2, a).connect(bp); bp.connect(g); send(g);
       },
       don: function (e) {
@@ -6817,22 +6693,22 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
         var ng = ac.createGain(), f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 1400; env(ng, t, 0.002, 0.09, 0.4 * v); noise(0.14, t).connect(f); f.connect(ng); send(ng);
       },
       boom: function (e) {
-        var t = T(e.t), g = ac.createGain();
-        env(g, t, 0.012, 3.0, 0.75); var o = osc('sine', 52, t, t + 3.2); o.frequency.setValueAtTime(52, t); o.frequency.exponentialRampToValueAtTime(30, t + 2.2); o.connect(g); send(g);
-        var lp = ac.createBiquadFilter(), sg = ac.createGain(); lp.type = 'lowpass'; lp.frequency.value = 700; env(sg, t, 0.01, 1.6, 0.35);
+        var t = T(e.t), g = ac.createGain(), vv = e.v == null ? 1 : e.v;
+        env(g, t, 0.03 + 0.05 * (1 - vv), 3.0, 0.75 * vv); var o = osc('sine', 52, t, t + 3.2); o.frequency.setValueAtTime(52, t); o.frequency.exponentialRampToValueAtTime(30, t + 2.2); o.connect(g); send(g);
+        var lp = ac.createBiquadFilter(), sg = ac.createGain(); lp.type = 'lowpass'; lp.frequency.value = 700; env(sg, t, 0.04, 1.6, 0.35 * vv);
         [73.4, 110, 146.8].forEach(function (f) { osc('sawtooth', f, t, t + 1.8).connect(lp); }); lp.connect(sg); send(sg);   // 低い金管風の一撃
       },
       crash: function (e) {
-        var t = T(e.t), f = ac.createBiquadFilter(), g = ac.createGain();
-        f.type = 'lowpass'; f.frequency.setValueAtTime(7000, t); f.frequency.exponentialRampToValueAtTime(900, t + 2.4); env(g, t, 0.008, 2.4, 0.34); noise(2.6, t).connect(f); f.connect(g); send(g);
+        var t = T(e.t), f = ac.createBiquadFilter(), g = ac.createGain(), vv = e.v == null ? 1 : e.v;
+        f.type = 'lowpass'; f.frequency.setValueAtTime(7000, t); f.frequency.exponentialRampToValueAtTime(900, t + 2.4); env(g, t, 0.12, 2.6, 0.34 * vv); noise(2.6, t).connect(f); f.connect(g); send(g);
       },
       bell: function (e) {
-        var t = T(e.t), g = ac.createGain(); env(g, t, 0.005, 3.0, 0.035); osc('sine', e.f, t, t + 3.1).connect(g); send(g);
-        var g2 = ac.createGain(); env(g2, t, 0.005, 1.6, 0.014); osc('sine', e.f * 2.76, t, t + 1.7).connect(g2); send(g2);
+        var t = T(e.t), g = ac.createGain(), vv = e.v == null ? 1 : e.v; env(g, t, 0.005, 3.0, 0.035 * vv); osc('sine', e.f, t, t + 3.1).connect(g); send(g);
+        var g2 = ac.createGain(); env(g2, t, 0.005, 1.6, 0.014 * vv); osc('sine', e.f * 2.76, t, t + 1.7).connect(g2); send(g2);
       },
       pad: function (e) {
         var a = T(e.t), b = T(e.t + e.dur + 0.9), g = ac.createGain();
-        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.16, a + 0.9); g.gain.setValueAtTime(0.16, T(e.t + e.dur - 0.2)); g.gain.exponentialRampToValueAtTime(0.0001, b);
+        g.gain.setValueAtTime(0.0001, a); g.gain.exponentialRampToValueAtTime(0.17 * (e.v == null ? 1 : e.v), a + 1.3); g.gain.setValueAtTime(0.17 * (e.v == null ? 1 : e.v), T(e.t + e.dur - 0.2)); g.gain.exponentialRampToValueAtTime(0.0001, b);
         var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400;
         var f1 = ac.createBiquadFilter(), f2 = ac.createBiquadFilter(), mix = ac.createGain(), choir = ac.createGain();
         f1.type = 'bandpass'; f1.frequency.value = 760; f1.Q.value = 5; f2.type = 'bandpass'; f2.frequency.value = 1150; f2.Q.value = 6; choir.gain.value = 1.3; mix.gain.value = 1;
@@ -6864,12 +6740,14 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
     };
   }
 
+
   // ------------------------------------------------------------------ 画面（DOM）
   var doc = root.document;
-  var S = { state: 'idle', clock: null, bgm: null, raf: 0, fired: {}, particles: [], pAlive: false };
+  var S = { state: 'idle', clock: null, bgm: null, raf: 0, fired: {}, cues: VISUAL_CUES, k: 1, after: null, motes: [], moteRaf: 0 };
   var D = {};   // 起動時に渡される依存
   var els = {};
-  var QA_FREEZE = (function () { var m = /opfreeze=([\d.]+)/.exec((root.location.hash || '') + (root.location.search || '')); return m ? +m[1] : null; })();
+  var HASH = function () { return (root.location.hash || '') + (root.location.search || ''); };
+  var QA_FREEZE = (function () { var m = /opfreeze=([\d.]+)/.exec(HASH()); return m ? +m[1] : null; })();
 
   function $(id) { return doc.getElementById(id); }
   function el(tag, cls, html) { var e = doc.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
@@ -6877,12 +6755,12 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
   function soundOn() { return !!(D.sfx && D.sfx.on); }
   function store(k, v) { try { if (v === undefined) return root.sessionStorage.getItem(k); root.sessionStorage.setItem(k, v); } catch (e) {} return null; }
 
-  function buildVideos(login) {
-    var box = $('login-vids'); if (box) box.remove();
-    box = el('div', 'login-vids'); box.id = 'login-vids'; box.setAttribute('aria-hidden', 'true');
+  // 選手の動画（3 本横並び）。ログイン前の背景 = login-vids。演出中は同じ素材を暗くして敷く。
+  function videoStrip(cls, id) {
+    var box = el('div', cls); if (id) box.id = id; box.setAttribute('aria-hidden', 'true');
     var land = root.matchMedia ? root.matchMedia('(min-aspect-ratio: 1/1)').matches : true;
-    var list = pickMedia(land), moving = !D.reduced;
-    list.forEach(function (m) {
+    var moving = !D.reduced;
+    pickMedia(land).forEach(function (m) {
       var cell = el('div', 'lv'); cell.style.backgroundImage = 'url(' + m.p + ')';
       var v = doc.createElement('video');
       v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', '');
@@ -6890,29 +6768,32 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
       if (moving) { v.autoplay = true; v.addEventListener('playing', function () { v.classList.add('on'); }); v.addEventListener('loadeddata', function () { var p = v.play && v.play(); if (p && p.catch) p.catch(function () {}); }); }
       v.src = m.v; cell.appendChild(v); box.appendChild(cell);
     });
+    return box;
+  }
+  function buildLoginVideos(login) {
+    var old = $('login-vids'); if (old) old.remove();
+    var box = videoStrip('login-vids', 'login-vids');
     login.insertBefore(box, login.querySelector('.collage') ? login.querySelector('.collage').nextSibling : login.firstChild);
     els.vids = box;
-    return land;
   }
 
   function buildOverlay() {
+    if (els.o) els.o.remove();
     var o = el('div', 'opening'); o.id = 'opening'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Kiryukai Karate Online Dojo');
     o.innerHTML =
-      '<div class="op-dim"></div><div class="op-flash"></div><canvas class="op-fx" aria-hidden="true"></canvas>' +
+      '<div class="op-bg"></div><div class="op-dim"></div><div class="op-glow"></div><canvas class="op-fx" aria-hidden="true"></canvas>' +
       '<div class="op-stage">' +
-        '<div class="op-kd" aria-hidden="true"><span class="op-kdg"><span class="op-k">空手</span><span class="op-d">道</span></span></div>' +
-        '<div class="op-kr" aria-hidden="true"><span>亀龍会</span></div>' +
+        '<div class="op-kd" aria-hidden="true"><span class="op-k"><b><i>空手</i></b></span><span class="op-d"><i>道</i></span></div>' +
+        '<div class="op-kr" aria-hidden="true"><span><i>亀龍会</i></span></div>' +
         '<h1 class="op-sr">空手道 亀龍会</h1>' +
         '<div class="op-sub"><div class="op-en">KIRYUKAI KARATE ONLINE DOJO</div><div class="op-tag"></div></div>' +
-        '<button type="button" class="op-enter"><b>ENTER</b><i>入場</i></button>' +
       '</div>' +
-      '<button type="button" class="op-gate"><span class="op-gate-k">亀龍会</span><span class="op-gate-t"></span></button>' +
       '<button type="button" class="op-snd" aria-pressed="true"></button>' +
       '<div class="op-skip"></div>';
     doc.body.appendChild(o);
-    els.o = o; els.stage = o.querySelector('.op-stage'); els.flash = o.querySelector('.op-flash'); els.cv = o.querySelector('.op-fx');
-    els.kdg = o.querySelector('.op-kdg'); els.sub = o.querySelector('.op-sub'); els.enter = o.querySelector('.op-enter');
-    els.gate = o.querySelector('.op-gate'); els.snd = o.querySelector('.op-snd');
+    var bg = videoStrip('op-vids'); o.querySelector('.op-bg').appendChild(bg);
+    els.o = o; els.cv = o.querySelector('.op-fx'); els.snd = o.querySelector('.op-snd'); els.opvids = bg;
+    o.style.setProperty('--k', String(S.k));
     relang();
   }
 
@@ -6921,68 +6802,52 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
     var c = copyFor(lang());
     els.o.querySelector('.op-tag').textContent = c.tag;
     els.o.querySelector('.op-skip').textContent = c.skip;
-    els.o.querySelector('.op-gate-t').textContent = c.tap;
     paintSnd();
   }
   function paintSnd() { if (!els.snd) return; var c = copyFor(lang()), on = soundOn(); els.snd.textContent = '♪ ' + c.snd[on ? 0 : 1]; els.snd.setAttribute('aria-pressed', on ? 'true' : 'false'); }
 
-  // ---- 演出
-  function shake(strong) {
-    [els.stage, els.vids].forEach(function (e) { if (!e) return; e.classList.remove('op-shake', 'op-shake2'); void e.offsetWidth; e.classList.add(strong ? 'op-shake2' : 'op-shake'); });
-    setTimeout(function () { [els.stage, els.vids].forEach(function (e) { if (e) e.classList.remove('op-shake', 'op-shake2'); }); }, 700);
-  }
-  function ring(x, y, big, color) {
-    var r = el('i', 'op-ring' + (big ? ' big' : '')); r.style.left = x + 'px'; r.style.top = y + 'px'; if (color) r.style.borderColor = color;
-    els.o.appendChild(r); setTimeout(function () { r.remove(); }, 1300);
-  }
-  function burst(x, y, n, power) {
-    var cv = els.cv, W = cv.width = root.innerWidth, H = cv.height = root.innerHeight;
-    for (var i = 0; i < n; i++) {
-      var a = Math.random() * 6.283, s = (2 + Math.random() * 9) * power, kind = Math.random();
-      S.particles.push({ x: x, y: y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 1, r: 1.5 + Math.random() * 5.5 * (power > 1 ? 1.2 : 0.8), a: 1,
-        c: kind < 0.5 ? '12,9,8' : kind < 0.8 ? '232,35,47' : '244,237,224' });
-    }
-    if (!S.pAlive) { S.pAlive = true; drawP(W, H); }
-  }
-  function drawP(W, H) {
-    var cx = els.cv.getContext('2d');
+  // ---- 演出（浮遊する塵。叩きつけの衝撃や爆発はなし）
+  function moteInit() {
+    var cv = els.cv, W = cv.width = root.innerWidth, H = cv.height = root.innerHeight, n = W < 720 ? 18 : 34;
+    S.motes = [];
+    for (var i = 0; i < n; i++) S.motes.push({ x: Math.random() * W, y: Math.random() * H, r: 0.8 + Math.random() * 2.2, s: 0.12 + Math.random() * 0.35, ph: Math.random() * 6.283, a: 0.12 + Math.random() * 0.3, red: Math.random() < 0.25 });
+    var cx = cv.getContext('2d');
     (function f() {
+      if (S.state === 'gone' || !els.o) return;
       cx.clearRect(0, 0, W, H);
-      for (var i = S.particles.length - 1; i >= 0; i--) {
-        var p = S.particles[i]; p.x += p.vx; p.y += p.vy; p.vx *= 0.955; p.vy = p.vy * 0.955 + 0.16; p.a -= 0.017;
-        if (p.a <= 0) { S.particles.splice(i, 1); continue; }
-        cx.fillStyle = 'rgba(' + p.c + ',' + Math.min(1, p.a * 1.1) + ')'; cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.283); cx.fill();
+      for (var j = 0; j < S.motes.length; j++) {
+        var m = S.motes[j]; m.y -= m.s; m.ph += 0.01; m.x += Math.sin(m.ph) * 0.25;
+        if (m.y < -6) { m.y = H + 6; m.x = Math.random() * W; }
+        cx.fillStyle = 'rgba(' + (m.red ? '232,35,47' : '244,237,224') + ',' + m.a * (0.6 + 0.4 * Math.sin(m.ph * 2)) + ')';
+        cx.beginPath(); cx.arc(m.x, m.y, m.r, 0, 6.283); cx.fill();
       }
-      if (S.particles.length) root.requestAnimationFrame(f); else { S.pAlive = false; cx.clearRect(0, 0, W, H); }
+      S.moteRaf = root.requestAnimationFrame(f);
     })();
   }
-  function center(node) { var r = node.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }
+  function ring(node, cls) {
+    var r = node.getBoundingClientRect(), i = el('i', 'op-ring' + (cls ? ' ' + cls : ''));
+    i.style.left = (r.left + r.width / 2) + 'px'; i.style.top = (r.top + r.height / 2) + 'px';
+    els.o.appendChild(i); setTimeout(function () { i.remove(); }, 4600 * S.k + 600);
+  }
 
   var CUE = {
-    vid: function () { els.vids && els.vids.classList.add('show'); els.o.classList.add('op-vid'); },
+    vid: function () { els.o.classList.add('op-vid'); els.vids && els.vids.classList.add('show'); },
     dou: function () { els.o.classList.add('op-dou'); },
     kIn: function () { els.o.classList.add('op-kin'); },
-    kHit: function () {
-      shake(false); var c = center(els.o.querySelector('.op-kd')); ring(c[0], c[1], false, 'rgba(244,237,224,.5)'); burst(c[0] - 60, c[1], 26, 0.7);
-      els.o.classList.add('op-khit');
-    },
-    slam: function () {
-      els.o.classList.add('op-slam'); els.flash.classList.remove('go'); void els.flash.offsetWidth; els.flash.classList.add('go');
-      shake(true); var c = center(els.o.querySelector('.op-kr')); ring(c[0], c[1], true); setTimeout(function () { ring(c[0], c[1], true, 'rgba(232,35,47,.7)'); }, 120);
-      burst(c[0], c[1], 90, 1.4);
-    },
+    kHit: function () { els.o.classList.add('op-khit'); ring(els.o.querySelector('.op-kd'), 'soft'); },
+    kr: function () { els.o.classList.add('op-kr-on'); },
+    ring: function () { els.o.classList.add('op-ringed'); ring(els.o.querySelector('.op-kr'), 'big'); },
     sub: function () { els.o.classList.add('op-sub-on'); },
-    enter: function () { els.o.classList.add('op-enter-on'); try { els.enter.focus({ preventScroll: true }); } catch (e) {} },
-    end: function () {}
+    end: function () { leave(); }
   };
 
   // QA 専用: #opfreeze=<秒> のとき、その瞬間の絵を再現して止める（タブが背景でも同じ絵になるよう、各アニメを合図の時刻から数えて進める）
   var qaSeen = typeof WeakMap !== 'undefined' ? new WeakMap() : null;
   function qaStep(now) {
     var upto = Math.min(now, QA_FREEZE);
-    dueCues(VISUAL_CUES, upto, S.fired).forEach(function (i) {
-      S.fired[i] = true; CUE[VISUAL_CUES[i].name](); void els.o.offsetWidth;
-      doc.getAnimations().forEach(function (a) { if (!qaSeen.has(a)) qaSeen.set(a, VISUAL_CUES[i].t); });
+    dueCues(S.cues, upto, S.fired).forEach(function (i) {
+      S.fired[i] = true; CUE[S.cues[i].name](); void els.o.offsetWidth;
+      doc.getAnimations().forEach(function (a) { if (!qaSeen.has(a)) qaSeen.set(a, S.cues[i].t); });
     });
     if (now >= QA_FREEZE) {
       doc.getAnimations().forEach(function (a) { try { var t0 = qaSeen.get(a); a.pause(); if (t0 != null) a.currentTime = Math.max(0, (QA_FREEZE - t0) * 1000); } catch (e) {} });
@@ -6995,19 +6860,17 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
     if (S.state !== 'running') return;
     var now = S.clock();
     if (QA_FREEZE != null) { qaStep(now); return; }
-    dueCues(VISUAL_CUES, now, S.fired).forEach(function (i) { S.fired[i] = true; CUE[VISUAL_CUES[i].name](); });
+    dueCues(S.cues, now, S.fired).forEach(function (i) { S.fired[i] = true; CUE[S.cues[i].name](); });
     if (S.bgm && !soundOn()) { S.bgm.stop(0.25); S.bgm = null; }
-    S.raf = root.requestAnimationFrame(loop);
+    if (S.state === 'running') S.raf = root.requestAnimationFrame(loop);
   }
 
   function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
-  function begin() {
-    if (S.state !== 'gate' && S.state !== 'idle') return Promise.resolve();
-    S.state = 'running'; els.o.classList.remove('op-gated'); els.o.classList.add('op-run');
+  function start() {
     var ac = null, p = Promise.resolve();
     if (soundOn() && D.sfx && D.sfx.ctx) {
-      ac = D.sfx.ctx();
+      try { ac = D.sfx.ctx(); } catch (e) { ac = null; }
       if (ac && ac.state !== 'running') p = Promise.race([ac.resume().catch(function () {}), sleep(450)]);
     }
     return p.then(function () {
@@ -7016,7 +6879,7 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
       if (ac) {
         var t0 = ac.currentTime + 0.15;
         S.clock = function () { return ac.currentTime - t0; };
-        try { S.bgm = createBgm(ac, t0, bgmSchedule(TL)); } catch (e) { S.bgm = null; }
+        try { S.bgm = createBgm(ac, t0, bgmSchedule(S.k)); } catch (e) { S.bgm = null; }
       } else {
         var w0 = root.performance.now() + 150;
         S.clock = function () { return (root.performance.now() - w0) / 1000; };
@@ -7025,30 +6888,43 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
     });
   }
 
-  function toFinal(fadeBgm) {
-    if (S.state === 'final' || S.state === 'gone') return;
-    S.state = 'final'; root.cancelAnimationFrame(S.raf);
-    els.o.classList.remove('op-gated'); els.o.classList.add('op-final', 'op-run');
-    els.vids && els.vids.classList.add('show');
-    if (S.bgm) { S.bgm.stop(fadeBgm || 0.5); S.bgm = null; }
-    try { els.enter.focus({ preventScroll: true }); } catch (e) {}
+  function finish() {
+    var a = S.after; S.after = null;
+    if (a) { try { a(); } catch (e) { try { console.warn('opening after failed', e); } catch (_) {} } }
   }
 
-  function leave() {
+  // 演出を終えてアプリへ。フェード中（約 40%）に after（TOP の表示・ようこそ）を呼ぶ。
+  function leave(fast) {
     if (S.state === 'gone') return;
-    if (S.state !== 'final') toFinal(0.2);
-    S.state = 'gone'; store('kry.opened', '1');
-    if (S.bgm) { S.bgm.stop(1.2); S.bgm = null; }
-    els.o.classList.add('op-out');
+    S.state = 'gone'; root.cancelAnimationFrame(S.raf); root.cancelAnimationFrame(S.moteRaf);
+    if (S.bgm) { S.bgm.stop(fast ? 0.5 : 1.6); S.bgm = null; }
     doc.documentElement.classList.remove('op-lock');
-    setTimeout(function () { els.o.hidden = true; }, 1000);
+    if (!els.o) { finish(); return; }
+    els.o.classList.add('op-out');
+    setTimeout(finish, fast ? 80 : 460);
+    setTimeout(function () { if (els.o) els.o.hidden = true; if (els.opvids) els.opvids.querySelectorAll('video').forEach(function (v) { try { v.pause(); } catch (e) {} }); }, 1300);
   }
 
   function onKey(e) {
-    if (!els.o || els.o.hidden || S.state === 'gone') return;
-    if (S.state === 'gate') { if (e.key === 'Escape') { e.preventDefault(); toFinal(); } return; }   // Enter/Space はゲートボタンが受ける
-    if (S.state === 'running' && (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ')) { e.preventDefault(); toFinal(0.5); }
-    else if (S.state === 'final' && e.key === 'Escape') { e.preventDefault(); leave(); }
+    if (!els.o || els.o.hidden || S.state !== 'running') return;
+    if (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); leave(true); }
+  }
+
+  /** ログイン成功後に呼ぶ。after は演出の終わり際に 1 回だけ呼ばれる。 */
+  function play(after) {
+    if (S.state === 'running') { var prev = after; if (prev) { var a0 = S.after; S.after = function () { if (a0) a0(); prev(); }; } return; }
+    S.after = after || null;
+    if (D.embed || D.reduced) { S.state = 'gone'; finish(); return; }
+    var h = HASH(), seen = store('kry.opened') === '1';
+    S.k = /opshort=1/.test(h) ? SHORT_K : /opfull=1/.test(h) ? 1 : (seen ? SHORT_K : 1);
+    S.cues = visualCues(S.k); S.fired = {}; S.state = 'running';
+    store('kry.opened', '1');
+    buildOverlay(); doc.documentElement.classList.add('op-lock');
+    els.snd.addEventListener('click', function (e) { e.stopPropagation(); if (D.sfx) { D.sfx.set(!D.sfx.on); } paintSnd(); if (!soundOn() && S.bgm) { S.bgm.stop(0.25); S.bgm = null; } });
+    els.o.addEventListener('click', function () { if (S.state === 'running') leave(true); });
+    doc.addEventListener('keydown', onKey, true);
+    moteInit();
+    start();
   }
 
   function watchLoginVisibility(login) {
@@ -7065,28 +6941,15 @@ body[data-view="staff"] .st-prev .tc-card, body[data-view="staff"] .st-prev .vca
     D = deps || {};
     var login = $('screen-login');
     if (!login || D.embed || S.state !== 'idle') return;
-    var h = (root.location.hash || '') + (root.location.search || '');
+    var h = HASH();
     if (/fx=/.test(h)) return;                                       // 既存の QA フックを邪魔しない
-    var forced = /opening=1/.test(h), seen = store('kry.opened') === '1';
-    buildVideos(login); watchLoginVisibility(login);
-    if (seen && !forced) { els.vids.classList.add('show', 'instant'); return; }     // 同じ訪問の 2 回目以降: 演出は省き、動画背景だけ
-    buildOverlay(); doc.documentElement.classList.add('op-lock');
-    els.snd.addEventListener('click', function (e) { e.stopPropagation(); if (D.sfx) { D.sfx.set(!D.sfx.on); } paintSnd(); if (!soundOn() && S.bgm) { S.bgm.stop(0.25); S.bgm = null; } });
-    els.enter.addEventListener('click', function (e) { e.stopPropagation(); leave(); });
-    els.gate.addEventListener('click', function (e) { e.stopPropagation(); begin(); });
-    els.o.addEventListener('click', function () { if (S.state === 'running') toFinal(0.5); });
-    doc.addEventListener('keydown', onKey, true);
-    if (D.reduced) { toFinal(); els.vids.classList.add('show'); return; }          // 静止ポスター＋最終形のみ
-    var ac = null;
-    if (soundOn() && D.sfx && D.sfx.ctx) { try { ac = D.sfx.ctx(); } catch (e) {} }
-    if ((ac && ac.state !== 'running') || (ac && /opgate=1/.test(h))) {                  // (QA: opgate=1 でゲートを強制)
-     // 自動再生ブロック: 最初の操作で開始
-      S.state = 'gate'; els.o.classList.add('op-gated'); try { els.gate.focus({ preventScroll: true }); } catch (e) {}
-    } else { begin(); }
+    buildLoginVideos(login); watchLoginVisibility(login);
+    els.vids.classList.add('show');
+    if (/opening=1/.test(h)) play(null);                              // QA: 読み込み直後に演出を再生（#opening=1&opfreeze=秒 で瞬間を静止）
   }
 
   root.KryOpening = {
-    init: init, relang: relang, skip: function () { if (S.state === 'running' || S.state === 'gate') toFinal(0.4); },
+    init: init, play: play, relang: relang, skip: function () { if (S.state === 'running') leave(true); },
     leave: leave, state: function () { return S.state; }, TL: TL, schedule: bgmSchedule
   };
 })(typeof window !== 'undefined' ? window : globalThis);
@@ -7144,6 +7007,33 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     };
   }
 
+  // 複数セグメント（型＋組手）: セグメントごとに追跡し、**全セグメントが閾値以上**になった瞬間に1回だけ justReachedAll。
+  // n = セグメント数（or {count, duration:[秒...]}）。feed(i, ev) でセグメント i のイベントを渡す。
+  function createMultiTracker(n, opts) {
+    var durs = null;
+    if (n && typeof n === 'object') { durs = n.duration || null; n = n.count != null ? n.count : (durs ? durs.length : 0); }
+    n = Math.max(1, n | 0);
+    var trs = [], i, firedAll = false;
+    for (i = 0; i < n; i++) { var o = {}; for (var k in (opts || {})) o[k] = opts[k]; if (durs && durs[i] > 0) o.duration = durs[i]; trs.push(createWatchTracker(o)); }
+    function agg(snaps, just) {
+      var done = 0, i2;
+      for (i2 = 0; i2 < snaps.length; i2++) if (snaps[i2].pct >= ((opts && opts.threshold != null) ? opts.threshold : DEF.threshold) - 1e-9 && snaps[i2].duration > 0) done++;
+      var pct = 0; for (i2 = 0; i2 < snaps.length; i2++) pct += snaps[i2].pct; pct /= snaps.length;
+      return { segments: snaps, done: done, total: snaps.length, pct: pct, reachedAll: firedAll, justReachedAll: !!just };
+    }
+    function all() { return trs.map(function (t) { return t.state(); }); }
+    return {
+      feed: function (idx, ev) {
+        if (!(idx >= 0 && idx < trs.length)) return agg(all(), false);
+        trs[idx].feed(ev);
+        var snaps = all(), a = agg(snaps, false);
+        if (!firedAll && a.done === a.total) { firedAll = true; a = agg(snaps, true); }
+        return a;
+      },
+      state: function () { return agg(all(), false); }
+    };
+  }
+
   // Run a whole event list; returns the final snapshot plus how many times it fired (must be <= 1).
   function trackWatch(events, opts) {
     var tr = createWatchTracker(opts), last = tr.state(), fires = 0;
@@ -7167,8 +7057,9 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
   }
 
   // cb(snapshot) on progress, snapshot.justReached once. Returns {stop()}.
-  function attachYouTube(iframe, cb) {
-    var tr = createWatchTracker(), timer = null, player = null, dead = false;
+  // feed（任意）: 既定の単独トラッカーの代わりに使う関数 ev => snapshot（複数セグメントでは ev => multi.feed(i, ev)）。
+  function attachYouTube(iframe, cb, feed) {
+    var tr = feed ? { feed: feed } : createWatchTracker(), timer = null, player = null, dead = false;
     function sample() {
       if (dead || !player || !player.getCurrentTime) return;
       var st = player.getPlayerState ? player.getPlayerState() : -1;
@@ -7181,14 +7072,14 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     return { stop: function () { dead = true; if (timer) clearInterval(timer); try { if (player && player.destroy) player.destroy(); } catch (e) {} } };
   }
 
-  function attachVideo(video, cb) {
-    var tr = createWatchTracker();
+  function attachVideo(video, cb, feed) {
+    var tr = feed ? { feed: feed } : createWatchTracker();
     function sample() { cb(tr.feed({ pos: video.currentTime, playing: !video.paused && !video.ended && !video.seeking, t: Date.now(), dur: video.duration })); }
     ['timeupdate', 'pause', 'play', 'seeking', 'seeked', 'ended', 'loadedmetadata'].forEach(function (n) { video.addEventListener(n, sample); });
     return { stop: function () { ['timeupdate', 'pause', 'play', 'seeking', 'seeked', 'ended', 'loadedmetadata'].forEach(function (n) { video.removeEventListener(n, sample); }); } };
   }
 
-  var api = { createWatchTracker: createWatchTracker, trackWatch: trackWatch, attachYouTube: attachYouTube, attachVideo: attachVideo };
+  var api = { createWatchTracker: createWatchTracker, createMultiTracker: createMultiTracker, trackWatch: trackWatch, attachYouTube: attachYouTube, attachVideo: attachVideo };
   root.KryWatch80 = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
@@ -7234,10 +7125,15 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
       {id:'l4', when:nextSat(3), title:I('live.r4.t'), coach:'', note:{}, visible:true},
     ],
     videos: () => [
+      {id:'u1', title:{en:'Kata + kumite: from the form to the bout',ja:'型＋組手：型から実戦へ'}, cat:'kata', level:'intermediate', genre:'explain', coach:'funada', dur:'0:27', visible:true,
+       segments:[{kind:'kata', title:{en:'Full performance',ja:'演武'}, src:'media/kata-01-play.mp4', seconds:18},{kind:'kumite', title:{en:'Bout',ja:'実戦'}, src:'media/kumite-t01-play.mp4', seconds:9}]},
+      {id:'u2', title:{en:'Kata + kumite: reading the distance',ja:'型＋組手：間合いを読む'}, cat:'kumite', level:'advanced', genre:'explain', coach:'toyoda', dur:'0:20', visible:true,
+       segments:[{kind:'kata', title:{en:'Full performance',ja:'演武'}, src:'media/kata-05-play.mp4', seconds:12.8},{kind:'kumite', title:{en:'Bout',ja:'実戦'}, src:'media/kumite-t02-play.mp4', seconds:6.7}]},
+    ].concat([
       ['v1','kumite','beginner','doalong','', '6:40','kumite'],['v2','kumite','beginner','doalong','','5:10','kumite'],
       ['v3','kata','beginner','explain','funada','9:25','kata'],['v4','kumite','intermediate','explain','toyoda','8:02','kumite'],
       ['v5','kata','intermediate','explain','funada','7:30','kata'],['v6','kumite','advanced','match','yamauchi','8:40','kumite'],
-    ].map(a=>({id:a[0], title:I(a[0]+'.title'), cat:a[1], level:a[2], genre:a[3], coach:a[4], dur:a[5], video:{type:'sample',v:a[6]}, visible:true})),
+    ].map(a=>({id:a[0], title:I(a[0]+'.title'), cat:a[1], level:a[2], genre:a[3], coach:a[4], dur:a[5], video:{type:'sample',v:a[6]}, visible:true}))),
     xp: () => [{id:'xp', rules:{watch:{xp:10,on:true},live:{xp:30,on:true},submit:{xp:20,on:true},login:{xp:5,on:true}}, belts:BELT_DEF.map(b=>({k:b[0],xp:b[1],exam:true}))}],
     exams: () => [{id:'e0', belt:3, member:I('mem.dubois'), date:todayStr(), status:'pending', comment:''}],
     plans: () => pricing().plans.map((p,i)=>({id:'p'+i, tier:p.tier, name:p.name, price:p.price, usd:p.usd||Math.round(p.price*OVERSEAS_MULT/150), rec:!!p.rec, feats:p.feats, visible:true})),
@@ -7302,6 +7198,7 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
   function nextLive(){ const a=liveSorted(); if(!a.length) return null; const now=Date.now()-2*3600e3; return a.find(x=>x.ms>=now) || a[a.length-1]; }
   function embedFor(src){
     if(!src || !src.v || !src.type) return null;
+    if(src.type==='media') return /^media\/[\w.\-]+\.mp4$/.test(String(src.v)) ? {kind:'video', url:src.v, poster:String(src.v).replace(/-(?:play|loop)\.mp4$/,'-poster.jpg'), media:true} : null;
     if(src.type==='sample') return VID[src.v] ? {kind:'video', url:VID[src.v], poster:POS[src.v], sample:!/^m-/.test(src.v)} : null;
     const u=String(src.v).trim(); let m;
     if((m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/))) return {kind:'iframe', yt:m[1], url:'https://www.youtube-nocookie.com/embed/'+m[1]+'?autoplay=1&rel=0'+(window.KRY_API_BASE ? '&enablejsapi=1'+(/^https?:$/.test(location.protocol) ? '&origin='+encodeURIComponent(location.origin) : '') : '')};
@@ -7311,19 +7208,45 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
   }
   const hasVideo = src => !!embedFor(src);
 
+  // ---------- 動画の単元 = パートの並び（型・組手）。旧形式 video:{type,v} は 1 パートとして扱う（後方互換） ----------
+  // segments:[{kind:'kata'|'kumite', title, src(素材パス | URL | YouTube ID), seconds, video_key?}]
+  const SEG_KINDS=['kata','kumite'], SEG_MAX=6;
+  function segSrc(sg){
+    const v=String(sg&&sg.src||'').trim();
+    if(v){
+      if(/^media\/[\w.\-]+\.mp4$/.test(v)) return {type:'media', v:v};
+      if(/^[\w-]{11}$/.test(v)) return {type:'url', v:'https://youtu.be/'+v};
+      return {type:'url', v:v};
+    }
+    return sg && sg.type && sg.v ? {type:sg.type, v:sg.v} : null;
+  }
+  function segsOf(it){
+    if(!it) return [];
+    if(Array.isArray(it.segments) && it.segments.length) return it.segments.slice(0,SEG_MAX).map(sg=>({kind:SEG_KINDS.includes(sg.kind)?sg.kind:'kata', title:sg.title||'', src:segSrc(sg), key:sg.video_key||'', seconds:+sg.seconds||0}));
+    return hasVideo(it.video) ? [{kind:it.cat==='kata'?'kata':'kumite', title:'', src:it.video, key:'', seconds:0}] : [];
+  }
+  const unitPlayable = it => segsOf(it).some(sg=>hasVideo(sg.src));
+  const kindLabel = k => t('chip.'+k);
+
   // ---------- video modal ----------
   let modalFrom=null;
   let wtStop=null;
-  function openVideo(src, title, onWatch){
-    const e=embedFor(src); if(!e) return;
+  function ensureModal(){
     let m=$('cx-modal');
     if(!m){
       m=document.createElement('div'); m.id='cx-modal'; m.className='cx-modal'; m.hidden=true; m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true');
-      m.innerHTML='<div class="cx-box"><div class="cx-bar"><b id="cx-mt"></b><button type="button" class="cx-x" id="cx-mx"></button></div><div class="cx-stage" id="cx-stage"></div><div class="cx-cap" id="cx-cap"></div></div>';
+      m.innerHTML='<div class="cx-box"><div class="cx-bar"><b id="cx-mt"></b><button type="button" class="cx-x" id="cx-mx"></button></div><div class="cx-segs" id="cx-segs" role="tablist" hidden></div><div class="cx-stage" id="cx-stage"></div><div class="cx-cap" id="cx-cap"></div></div>';
       document.body.appendChild(m);
       m.addEventListener('mousedown', ev=>{ if(ev.target===m) closeVideo(); });
       $('cx-mx').addEventListener('click', closeVideo);
+      $('cx-segs').addEventListener('click', ev=>{ const b=ev.target.closest('[data-si],[data-snext]'); if(!b||!unitNav) return; unitNav(b.dataset.snext!==undefined ? 'next' : +b.dataset.si); });
     }
+    return m;
+  }
+  let unitNav=null;
+  function openVideo(src, title, onWatch){
+    const e=embedFor(src); if(!e) return;
+    const m=ensureModal(); unitNav=null; $('cx-segs').hidden=true;
     $('cx-mx').textContent = '✕ ' + t('tc.close');
     $('cx-mt').textContent = title||'';
     $('cx-cap').textContent = e.sample ? t('tc.sample') : '';
@@ -7343,10 +7266,56 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     }
     modalFrom=document.activeElement; m.hidden=false; document.body.classList.add('cx-open'); $('cx-mx').focus();
   }
+  // 単元（型＋組手など複数パート）: タブで切り替え、動画が終わったら次のパートへ。
+  // XP（API モード）: パートごとに視聴を追跡し、全パートが 80% 以上になった時に 1 回だけ onWatch。
+  function openUnit(it, onWatch){
+    const segs=segsOf(it).filter(sg=>hasVideo(sg.src)), title=tx(it.name||it.title);
+    if(segs.length<=1){ if(segs[0]) openVideo(segs[0].src, title, onWatch); return; }
+    const m=ensureModal(), st=$('cx-stage'), bar=$('cx-segs'), cap=$('cx-cap');
+    if(wtStop){ wtStop.stop(); wtStop=null; }
+    const embs=segs.map(sg=>embedFor(sg.src));
+    const tracked = !!(onWatch && window.KryWatch80 && KryWatch80.createMultiTracker && embs.every(e=>e.yt || (e.kind==='video' && !e.sample)));
+    const multi = tracked ? KryWatch80.createMultiTracker({count:segs.length, duration:segs.map(sg=>sg.seconds)}) : null;
+    let cur=0; const ok=segs.map(()=>false);
+    const label=(sg,i)=>kindLabel(sg.kind)+(tx(sg.title)?' · '+tx(sg.title):'');
+    function paintBar(){
+      bar.innerHTML = segs.map((sg,i)=>`<button type="button" role="tab" class="cx-seg ${sg.kind}${i===cur?' on':''}${ok[i]?' done':''}" aria-selected="${i===cur}" data-si="${i}"><b>${esc(kindLabel(sg.kind))}</b><span>${esc(tx(sg.title))}</span><i class="ck" aria-hidden="true">✓</i></button>`).join('')+
+        (cur<segs.length-1?`<button type="button" class="cx-next" data-snext="1">${esc(S('Next','次へ'))} →</button>`:'');
+    }
+    function capText(r){
+      if(!multi){ cap.textContent = tx(segs[cur].title) ? label(segs[cur],cur) : kindLabel(segs[cur].kind); return; }
+      const sn=r && r.segments && r.segments[cur];
+      cap.textContent = (r && r.reachedAll) ? t('wt.done') : label(segs[cur],cur)+' — '+(sn && sn.duration>0 ? t('wt.left').replace('{n}', sn.remainingPct) : t('wt.left').replace('{n}',80))+'  ('+(r?r.done:0)+'/'+segs.length+')';
+    }
+    function show(i){
+      if(wtStop){ wtStop.stop(); wtStop=null; }
+      cur=Math.max(0,Math.min(segs.length-1,i)); const e=embs[cur];
+      st.innerHTML = e.kind==='iframe'
+        ? `<iframe src="${esc(e.url)}" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="${esc(label(segs[cur],cur))}"></iframe>`
+        : `<video controls autoplay playsinline src="${esc(e.url)}"${e.poster?` poster="${esc(e.poster)}"`:''}></video>`;
+      const el=st.firstElementChild;
+      if(e.kind==='video') el.addEventListener('ended', ()=>{ if(cur<segs.length-1) show(cur+1); });
+      if(multi){
+        const idx=cur, pt=function(r){
+          r.segments.forEach((sn,j)=>{ ok[j] = sn.duration>0 && sn.pct>=0.8-1e-9; });
+          if(r.justReachedAll){ onWatch(); if(window.V5 && V5.toast) V5.toast(t('wt.done')); }
+          paintBar(); capText(r);
+        };
+        const feed=ev=>multi.feed(idx, ev);
+        wtStop = e.yt ? KryWatch80.attachYouTube(el, pt, feed) : KryWatch80.attachVideo(el, pt, feed);
+        capText(multi.state());
+      } else capText();
+      paintBar();
+    }
+    unitNav = a => show(a==='next' ? cur+1 : a);
+    $('cx-mx').textContent = '✕ ' + t('tc.close'); $('cx-mt').textContent = title||''; bar.hidden=false;
+    show(0);
+    modalFrom=document.activeElement; m.hidden=false; document.body.classList.add('cx-open'); $('cx-mx').focus();
+  }
   function closeVideo(){
     const m=$('cx-modal'); if(!m||m.hidden) return;
     if(wtStop){ wtStop.stop(); wtStop=null; }
-    $('cx-stage').innerHTML=''; m.hidden=true; document.body.classList.remove('cx-open');
+    unitNav=null; $('cx-stage').innerHTML=''; m.hidden=true; document.body.classList.remove('cx-open');
     if(modalFrom && modalFrom.focus) try{ modalFrom.focus(); }catch(e){}
   }
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeVideo(); });
@@ -7357,7 +7326,8 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     const award = ref[0]==='video' && window.V5 && V5.watch && document.body.dataset.view==='student';
     // API mode: YouTube / mp4 pay XP only after 80% was actually played (see prod/web/watch-80.js). Others: as before.
     const gated = award && window.KRY_API_BASE && window.KryWatch80 && !(V5.state && V5.state.watchedIds && V5.state.watchedIds[ref[1]]);
-    openVideo(it.video, tx(it.name||it.title), gated ? function(){ V5.watch(ref[1]); } : null);
+    const onW = gated ? function(){ V5.watch(ref[1]); } : null;
+    if(ref[0]==='video') openUnit(it, onW); else openVideo(it.video, tx(it.name||it.title), onW);
     if(award && !gated) V5.watch(ref[1]);
   }, true);
   document.addEventListener('keydown', e=>{ if((e.key==='Enter'||e.key===' ') && e.target.matches && e.target.matches('.vcard[data-cms-play]')){ e.preventDefault(); e.target.click(); } });
@@ -7428,10 +7398,11 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
                 : `<tr><td colspan="3" class="cx-empty">${esc(t('cms.live.empty'))}</td></tr>`);
   }
   function videoCard(v){
-    const ok=hasVideo(v.video), tags=[v.cat,v.level,v.genre].join(' ');
+    const ok=unitPlayable(v), tags=[v.cat,v.level,v.genre].join(' '), sg=segsOf(v), kinds=[...new Set(sg.map(x=>x.kind))];
+    const segBadge = sg.length>1 ? `<span class="vseg">${esc(sg.map(x=>kindLabel(x.kind)).join(' + '))}</span>` : '';
     const cr=[t('chip.'+v.cat),t('chip.'+v.level),t('chip.'+v.genre)].join(' · ');
     return `<div class="card vcard" data-tag="${tags}"${ok?` data-cms-play="video:${v.id}" role="button" tabindex="0"`:''}>`+
-      `<div class="vthumb ${v.cat}">${(()=>{ const x=CMS.videoXp(v); return x>0 ? `<span class="vxp">+${x} XP</span>` : '<span></span>'; })()}${ok?`<i class="vplay" aria-hidden="true">${PLAY}</i>`:''}<span class="dur">${esc(v.dur||'')}</span></div>`+
+      `<div class="vthumb ${v.cat}">${(()=>{ const x=CMS.videoXp(v); return x>0 ? `<span class="vxp">+${x} XP</span>` : '<span></span>'; })()}${ok?`<i class="vplay" aria-hidden="true">${PLAY}</i>`:''}${segBadge}<span class="dur">${esc(v.dur||'')}</span></div>`+
       `<div class="vbody"><div class="vt">${esc(tx(v.title))}</div><div class="vc">${esc(cr)}</div>${v.coach?`<div class="vcc">${chip(v.coach)}</div>`:''}</div></div>`;
   }
   function renderVideos(){
@@ -7487,7 +7458,8 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
       ],
       videos:[
         {k:'title',type:'text',l:1,req:1,label:S('Title','タイトル'),ph:S('e.g. Punch step 1','例：突き ステップ1')},
-        {k:'video',type:'video',label:S('Video','動画')},
+        {k:'video',type:'video',label:S('Video (single)','動画（1本だけの場合）')},
+        {k:'segments',type:'segs',label:S('Parts: kata + kumite','パート（型＋組手を組み合わせる）')},
         {k:'hl',type:'check',label:S('Show in highlights','ハイライトに表示')},
         seg('cat',S('Type','種類'),[['kumite',S('Kumite','組手')],['kata',S('Kata','型')]]),
         seg('level',S('Level','レベル'),[['beginner',S('Beginner','初級')],['intermediate',S('Intermediate','中級')],['advanced',S('Advanced','上級')]]),
@@ -7509,7 +7481,7 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     const d = {coaches:{name:{en:'',ja:''},cat:'kumite',cred:{en:'',ja:''},role:{en:'',ja:''},bio:{en:'',ja:''},photo:'',ath:-1,mono:'',video:{type:'',v:''},hl:true},
       news:{title:{en:'',ja:''},date:todayStr(),body:{en:'',ja:''},tag:''},
       live:{title:{en:'',ja:''},when:nextSat(0),coach:'',note:{en:'',ja:''}},
-      videos:{title:{en:'',ja:''},cat:'kumite',level:'beginner',genre:'doalong',coach:'',dur:'5:00',xp:'',video:{type:'',v:''},hl:true},
+      videos:{title:{en:'',ja:''},cat:'kumite',level:'beginner',genre:'doalong',coach:'',dur:'5:00',xp:'',video:{type:'',v:''},segments:[],hl:true},
       plans:{name:{en:'',ja:''},usd:29,feats:{en:'',ja:''},rec:false}}[coll];
     return JSON.parse(JSON.stringify(d));
   }
@@ -7518,6 +7490,7 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     F(coll).forEach(f=>{ if(f.l){ const v=d[f.k]||{}; d[f.k]={en:v.en||'',ja:v.ja||''}; } });
     if(coll==='plans'){ d.feats={en:(it.feats||[]).map(x=>x.en||'').join('\n'), ja:(it.feats||[]).map(x=>x.ja||'').join('\n')}; }
     if(!d.video) d.video={type:'',v:''};
+    if(coll==='videos') d.segments=(Array.isArray(it.segments)?it.segments:[]).map(sg=>({kind:SEG_KINDS.includes(sg.kind)?sg.kind:'kata', title:tx(sg.title), _o:(sg.title&&typeof sg.title==='object')?sg.title:null, src:sg.src||'', video_key:sg.video_key||'', seconds:+sg.seconds||0, _url:!!sg.src && !/^media\//.test(sg.src)}));
     return d;
   }
   function keepOther(orig, nv){ // keep es/pt/fr only if the English text did not change
@@ -7535,7 +7508,10 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
       it.tier = orig.tier || {en:'',ja:''};
     }
     if(coll==='coaches' && it.photo) it.ath=-1;
-    if(coll==='videos'){ if(d.xp===''||d.xp==null) delete it.xp; else it.xp=Math.max(0,Math.round(+d.xp)); }
+    if(coll==='videos'){ if(d.xp===''||d.xp==null) delete it.xp; else it.xp=Math.max(0,Math.round(+d.xp));
+      const sg=(d.segments||[]).filter(x=>x.src||x.video_key).slice(0,SEG_MAX).map(x=>{
+        const o={kind:x.kind, title:(x._o && x.title===tx(x._o)) ? x._o : (x.title||'')}; if(x.src) o.src=x.src; if(x.video_key) o.video_key=x.video_key; if(x.seconds>0) o.seconds=x.seconds; if(!o.title) delete o.title; return o; });
+      if(sg.length) it.segments=sg; else delete it.segments; }
     return it;
   }
   // preview = the same markup members see
@@ -7593,7 +7569,31 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
           `<input class="st-in" id="stf-vfile" type="file" accept="video/mp4,video/quicktime,video/webm"${st.up&&st.up.busy?' disabled':''}>`+
           `<progress id="stf-vprog" max="100" value="${st.up?st.up.pct|0:0}" style="width:100%;margin-top:.4rem"${st.up&&st.up.busy?'':' hidden'}></progress>`+
           `<p class="st-hint" id="stf-vupmsg" role="status">${esc(st.up&&st.up.msg ? st.up.msg : (d.video_key ? S('Uploaded. It will be saved with this video.','アップロード済みです。この動画と一緒に保存されます。') : ''))}</p></div>` : '')+`</div>`; }
+    if(f.type==='segs') return segsHtml(d);
     return '';
+  }
+  // 実素材（media-manifest）: [id, 再生秒]
+  const MEDIA_CLIPS=[['kata-01',18],['kata-02',18],['kata-03',11.8],['kata-04',8.1],['kata-05',12.8],['kata-06',6.7],['kata-07',18],['kata-08',18],['kata-09',18],['kata-10',18],['kata-11',11.1],['kumite-t01',9],['kumite-t02',6.7],['kumite-t03',7.5]];
+  const segSel = sg => /^media\//.test(sg.src||'') ? 'media:'+sg.src.replace(/^media\/(.+)-play\.mp4$/,'$1') : (sg._url||sg.src ? 'url' : 'none');
+  function segsHtml(d){
+    const a=d.segments||[];
+    const rows=a.map((sg,i)=>{
+      const sel=segSel(sg), arr=[['none',S('Choose a source…','動画を選ぶ…')]].concat(MEDIA_CLIPS.map(c=>['media:'+c[0],S('Real clip: ','実映像：')+kindLabel(c[0].startsWith('kata')?'kata':'kumite')+' '+c[0].replace(/^\D+-?/,'')])).concat([['url',S('Paste a link (YouTube or .mp4)','リンクを貼る（YouTube・mp4）')]]);
+      const bad = sel==='url' && sg.src && !embedFor(segSrc(sg));
+      return `<div class="st-seg-row" data-si="${i}"><div class="st-seg-top"><span class="st-seg-n">${i+1}</span><div class="st-seg" role="radiogroup" aria-label="${esc(S('Part type','パートの種類'))}">`+
+        SEG_KINDS.map(k=>`<button type="button" role="radio" aria-checked="${k===sg.kind}" class="${k===sg.kind?'on':''}" data-sk="${k}" data-si="${i}">${esc(kindLabel(k))}</button>`).join('')+`</div>`+
+        `<div class="st-seg-ord"><button type="button" class="st-btn ghost sq" data-sact="up" data-si="${i}" aria-label="${esc(S('Move up','上へ'))}"${i===0?' disabled':''}>↑</button><button type="button" class="st-btn ghost sq" data-sact="down" data-si="${i}" aria-label="${esc(S('Move down','下へ'))}"${i===a.length-1?' disabled':''}>↓</button><button type="button" class="st-btn ghost danger" data-sact="del" data-si="${i}">${esc(S('Remove','削除'))}</button></div></div>`+
+        `<input class="st-in" type="text" data-stitle="${i}" value="${esc(sg.title||'')}" placeholder="${esc(S('Part title (optional)','パート名（任意）'))}" autocomplete="off" aria-label="${esc(S('Part title','パート名'))}">`+
+        `<select class="st-in" data-ssel="${i}" aria-label="${esc(S('Video source','動画の元'))}">${opts(arr,sel)}</select>`+
+        `<input class="st-in st-vurl" type="url" inputmode="url" data-surl="${i}" placeholder="https://www.youtube.com/watch?v=..." value="${esc(sel==='url'?sg.src:'')}"${sel==='url'?'':' hidden'}>`+
+        (bad?`<p class="st-hint">${esc(S('That link is not supported. Use a YouTube or direct .mp4 link.','対応していないリンクです。YouTube・mp4のリンクを使ってください。'))}</p>`:'')+
+        (window.KRY_API_BASE ? `<label class="st-lbl" style="margin-top:.5rem">${esc(S('Or upload a file (saved as an uploaded key)','またはファイルをアップロード（アップロード済みキーとして保存）'))}<input class="st-in" type="file" data-sfile="${i}" accept="video/mp4,video/quicktime,video/webm"${st.up&&st.up.busy?' disabled':''}></label>`+
+          (sg.video_key?`<p class="st-hint">${esc(S('Uploaded: ','アップロード済み：')+sg.video_key)}</p>`:''):'')+`</div>`;
+    }).join('');
+    return `<div class="st-f st-segs"><div class="st-lbl">${esc(S('Parts: kata + kumite','パート（型＋組手を組み合わせる）'))}</div>`+
+      `<p class="st-hint">${esc(S('Add parts to make one lesson from kata and kumite. Members switch between the parts. When parts are added, they are played instead of the single video above.','パートを足すと、1つの動画が「型」と「組手」の組み合わせになります。会員はタブで切り替えて見られます。パートがあるときは、上の1本の動画のかわりにこちらが再生されます。'))}</p>`+
+      rows+`<div class="st-seg-add"><button type="button" class="st-btn" data-act="sadd"${a.length>=SEG_MAX?' disabled':''}>+ ${esc(S('Add a part','パートを追加'))} (${a.length}/${SEG_MAX})</button>`+
+      (a.some(x=>x.src)?`<button type="button" class="st-btn ghost" data-act="sprev">${esc(S('Test play','再生を確認'))}</button>`:'')+`</div></div>`;
   }
   function formHtml(coll){
     const fs=F(coll), d=st.draft, main=fs.filter(f=>!f.opt), opt=fs.filter(f=>f.opt);
@@ -7704,11 +7704,11 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
   function updPreview(){ const p=$('st-prev-body'); if(p) p.innerHTML=previewHTML(st.tab,st.draft); }
   // API mode: upload the chosen lesson video to R2, keep the key in the draft (saved as video_key on publish)
   const st_up = (o)=>{ st.up=Object.assign(st.up||{},o); const m=$('stf-vupmsg'), p=$('stf-vprog'); if(m && o.msg!==undefined) m.textContent=o.msg; if(p){ p.hidden=!st.up.busy; p.value=st.up.pct|0; } };
-  function studioUpload(file){
+  function studioUpload(file, segIdx){
     if(!window.CMS || !CMS.uploadFile) return;
     st.up={busy:true,pct:0,msg:S('Uploading… ','アップロード中… ')+file.name}; stRender(true);
     CMS.uploadFile({purpose:'cms', file:file, onProgress:p=>st_up({pct:p, msg:S('Uploading… ','アップロード中… ')+p+'%'})}).then(key=>{
-      if(st.draft) st.draft.video_key=key; st.up={busy:false,pct:100,msg:S('Uploaded: ','アップロード済み：')+file.name}; stRender(true);
+      if(st.draft){ if(segIdx!=null && st.draft.segments[segIdx]){ const sg=st.draft.segments[segIdx]; sg.video_key=key; sg._url=false; } else st.draft.video_key=key; } st.up={busy:false,pct:100,msg:S('Uploaded: ','アップロード済み：')+file.name}; stRender(true);
     }).catch(err=>{ st.up={busy:false,pct:0,msg:(err && err.ja) || S('Upload failed.','アップロードに失敗しました。')}; stRender(true); });
   }
   function publish(){
@@ -7717,6 +7717,7 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     const req=fs.find(f=>f.req);
     if(req && !(d[req.k].en||'').trim() && !(d[req.k].ja||'').trim()){ st.err=S('Please fill in: ','入力してください：')+req.label; const e=$('st-err'); if(e) e.textContent=st.err; const i=$('stf-'+req.k+'-en'); if(i) i.focus(); return; }
     if(d.video && d.video.type==='url' && !embedFor(d.video)){ st.err=S('Fix the video link or choose "No video yet".','動画リンクを直すか「動画なし」を選んでください。'); const e=$('st-err'); if(e) e.textContent=st.err; return; }
+    if(coll==='videos' && (d.segments||[]).some(x=>x.src && !embedFor(segSrc(x)))){ st.err=S('Fix the part link or choose another source.','パートのリンクを直すか、別の動画を選んでください。'); const e=$('st-err'); if(e) e.textContent=st.err; return; }
     const orig = st.id ? byId(coll,st.id) : null, it=fromDraft(coll,d,orig);
     let ok=true;
     if(orig) CMS.update(coll, st.id, it); else { ok = CMS.add(coll, it, coll==='news'||coll==='live') !== null; }
@@ -7725,7 +7726,11 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     if(!(function(){ try{ return localStorage.getItem(KEY)!==null; }catch(e){ return false; } })()) toast(S('Published, but this browser cannot save it. It will reset on reload.','公開しましたが、このブラウザでは保存できません。再読み込みで元に戻ります。'), true);
   }
   function onClick(e){
-    const el=e.target.closest('[data-tab],[data-act],[data-seg]'); if(!el) return;
+    const el=e.target.closest('[data-tab],[data-act],[data-seg],[data-sk],[data-sact]'); if(!el) return;
+    if(el.dataset.sk){ const sg=st.draft.segments[+el.dataset.si]; if(sg){ sg.kind=el.dataset.sk; stRender(true); updPreview(); } return; }
+    if(el.dataset.sact){ const a=st.draft.segments, i=+el.dataset.si, ac=el.dataset.sact;
+      if(ac==='del') a.splice(i,1); else { const j=ac==='up'?i-1:i+1; if(j>=0&&j<a.length){ const x=a[i]; a[i]=a[j]; a[j]=x; } }
+      stRender(true); updPreview(); return; }
     if(el.dataset.tab){ st.tab=el.dataset.tab; st.xpDraft=null; st.mode='list'; st.id=null; st.err=''; stRender(); return; }
     if(el.dataset.seg){ st.draft[el.dataset.seg]=el.dataset.v; el.parentNode.querySelectorAll('button').forEach(b=>{ const on=b===el; b.classList.toggle('on',on); b.setAttribute('aria-checked',on); }); updPreview(); return; }
     const act=el.dataset.act, coll=st.tab, card=el.closest('.st-card'), id=card?card.dataset.id:null;
@@ -7741,6 +7746,8 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
     else if(act==='reset'){ if(window.confirm(S('Reset all demo content to the original? Your changes will be lost.','デモ内容を元に戻しますか？変更は失われます。'))){ CMS.reset(); st.mode='list'; stRender(); } }
     else if(act==='rmphoto'){ st.draft.photo=''; st.draft.ath=-1; stRender(true); }
     else if(act==='vprev') openVideo(st.draft.video, tx(st.draft.name||st.draft.title));
+    else if(act==='sadd'){ if(st.draft.segments.length<SEG_MAX){ const last=st.draft.segments[st.draft.segments.length-1]; st.draft.segments.push({kind:last&&last.kind==='kata'?'kumite':'kata', title:'', _o:null, src:'', video_key:'', seconds:0, _url:false}); stRender(true); } }
+    else if(act==='sprev'){ const o=st.id?byId(coll,st.id):null, it=fromDraft(coll,st.draft,o); openUnit(Object.assign({},it,{video:{type:'',v:''}})); }
   }
   function onInput(e){
     const t_=e.target;
@@ -7752,6 +7759,14 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
       if(t_.dataset.be){ d.belts[+t_.dataset.be].exam=t_.checked; const sp=t_.parentNode.querySelector('span'); if(sp) sp.textContent=t_.checked?S('Exam required','試験あり'):S('Automatic','自動'); return; }
     }
     if(!st.draft) return;
+    if(t_.dataset.stitle!==undefined){ const sg=st.draft.segments[+t_.dataset.stitle]; if(sg){ sg.title=t_.value; updPreview(); } return; }
+    if(t_.dataset.ssel!==undefined){ const sg=st.draft.segments[+t_.dataset.ssel], v=t_.value; if(!sg) return;
+      if(v==='none'){ sg.src=''; sg._url=false; sg.seconds=0; }
+      else if(v==='url'){ sg.src=''; sg._url=true; sg.seconds=0; }
+      else { const id=v.split(':')[1], c=MEDIA_CLIPS.find(x=>x[0]===id); sg.src='media/'+id+'-play.mp4'; sg._url=false; sg.seconds=c?c[1]:0; sg.kind=id.startsWith('kata')?'kata':'kumite'; }
+      stRender(true); updPreview(); if(v==='url'){ const u=document.querySelector('[data-surl="'+t_.dataset.ssel+'"]'); if(u) u.focus(); } return; }
+    if(t_.dataset.surl!==undefined){ const sg=st.draft.segments[+t_.dataset.surl]; if(sg){ sg.src=t_.value.trim(); sg._url=true; sg.seconds=0; updPreview(); } return; }
+    if(t_.dataset.sfile!==undefined){ const f=t_.files&&t_.files[0], i=+t_.dataset.sfile; if(f) studioUpload(f, i); return; }
     if(t_.dataset.vsel){ const v=t_.value; st.draft.video = v==='none'?{type:'',v:''} : v==='url'?{type:'url',v:''} : {type:'sample',v:v.split(':')[1]}; stRender(true); if(v==='url'){ const u=$('stf-vurl'); if(u) u.focus(); } return; }
     if(t_.dataset.vurl){ st.draft.video={type:'url',v:t_.value.trim()}; const h=$('stf-vhint'); if(h) h.textContent = (t_.value.trim() && !embedFor(st.draft.video)) ? S('That link is not supported. Use a YouTube, Vimeo or direct .mp4 link.','対応していないリンクです。YouTube・Vimeo・mp4のリンクを使ってください。') : ''; updPreview(); return; }
     if(t_.id==='stf-vfile'){ const f=t_.files&&t_.files[0]; if(f) studioUpload(f); return; }
@@ -7820,7 +7835,7 @@ try{ KryOpening.init({ getLang:function(){return currentLang;}, sfx:sfx, embed:E
       out.push(pg+': '+Object.keys(bad).map(k=>k+'×'+bad[k]).join(' | ')); });
     pre.textContent=out.join('\n');
   }
-  window.CMSX = {tx:tx, coachImg:coachImg, monoOf:monoOf, avatar:avatar, embedFor:embedFor, hasVideo:hasVideo, byId:byId, coaches:()=>vis('coaches'), videos:()=>vis('videos'), openVideo:openVideo, closeVideo:closeVideo, exams:()=>CMS.get('exams')};
+  window.CMSX = {tx:tx, coachImg:coachImg, monoOf:monoOf, avatar:avatar, embedFor:embedFor, hasVideo:hasVideo, byId:byId, coaches:()=>vis('coaches'), videos:()=>vis('videos'), openVideo:openVideo, openUnit:openUnit, segsOf:segsOf, closeVideo:closeVideo, exams:()=>CMS.get('exams')};
   initStudio(); syncBack(); renderAll();
   if(/audit=1/.test(location.hash)) setTimeout(auditTest, 400);
   if(/sfxtest/.test(location.hash)) setTimeout(sfxTest, 200);
@@ -8371,6 +8386,123 @@ body[data-view="staff"] .v7-ent,body[data-view="staff"] .v7-ms,body[data-view="s
   .msg-photo.ph.none { grid-column: 1 / -1; aspect-ratio: 4/3; min-height: 0; }
   .msg-pillars { grid-template-columns: 1fr; }
 }
+
+/* ===================================================================
+   REFINE — スタイリッシュ化（最終レイヤー。機能・文言は変えず、形・余白・字間・動きを整える）
+   方針: 斜め/斬り込みの装飾を外して角丸+1px線に統一 / 見出しは小さく静かに / 色は 黒漆・生成り・朱 ＋ 金を差し色に
+   ================================================================ */
+:root, body[data-view] { --cut: 0px; --cut-s: 0px; --skew: none; --cutbox: none; --slash: 0deg;
+  --r: 12px; --r-s: 8px; --r-pill: 999px; --ease-soft: cubic-bezier(.22,.61,.36,1); --dur: .28s; }
+body { background-image: radial-gradient(1000px 480px at 90% -10%, rgba(232,35,47,.055), transparent 62%); }
+.main::before { height: 1px; background: var(--line-strong); }
+:focus-visible { outline: 2px solid rgba(240,207,134,.75); outline-offset: 2px; border-radius: 4px; }
+
+/* 見出し: 章番号と斬り線をやめ、細い罫線だけに */
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); margin: clamp(2.2rem, 4vw, 3rem) 0 1rem; letter-spacing: .01em; align-items: center; }
+.section-title::before { display: none; }
+.section-title::after { transform: none; height: 1px; margin-bottom: 0; background: var(--line); }
+:lang(ja) .section-title { font-size: clamp(1.25rem, 2.3vw, 1.65rem); letter-spacing: .04em; }
+.section-title .en-tag { letter-spacing: .14em; opacity: .8; }
+body[data-view="staff"] .section-title { font-size: clamp(1.15rem, 1.8vw, 1.45rem); }
+
+/* カード: 1px線 + 角丸。左の太い陣営バーは細く内側に */
+.card, .belt-row, .flow-step, .ql, .onb-card, .hero-carousel, .hero-video, .drop, .phone-frame, .week-tile, .funnel .fstep { border-radius: var(--r); clip-path: none; }
+.card { background: var(--lacquer-2); transition: transform var(--dur) var(--ease-soft), box-shadow var(--dur) var(--ease-soft), background var(--dur); }
+.card::before { left: 0; top: 14px; bottom: 14px; width: 2px; border-radius: 2px; opacity: .9; }
+.card::after { background: none; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow var(--dur) var(--ease-soft); }
+.card:hover::after { box-shadow: inset 0 0 0 1px var(--line-strong); }
+.card.stat::before, .card.news-list::before, .card.past-list::before, .card.submit-list::before { display: none; }
+.vcard:hover, .ql:hover { transform: translateY(-2px); }
+.vthumb { border-radius: calc(var(--r) - 2px) calc(var(--r) - 2px) 0 0; }
+.vthumb::after { opacity: .6; }
+.vthumb .dur, .vthumb .newbadge, .vthumb .vxp { clip-path: none; border-radius: 6px; padding: 5px 8px; }
+.vthumb .vseg { position: absolute; left: .6rem; bottom: .6rem; z-index: 2; background: rgba(10,10,12,.62); color: var(--bone); font: 600 11px/1 var(--f-ui); letter-spacing: .08em; padding: 5px 9px; border-radius: 999px; backdrop-filter: blur(4px); }
+.vthumb .dur { position: relative; z-index: 2; }
+.vthumb:has(.vseg) .dur { margin-left: auto; }
+
+/* ボタン: 斜めの切り口と Anton をやめ、UI フォントの静かなボタンに */
+.btn-primary, .gen-btn, .switch-btn, .h2-btn, .btn-ghost, .h2-btn.ghost, .switch-btn.off, .slotbtn, .car-nav { clip-path: none; border-radius: var(--r-s); font-family: var(--f-ui); font-weight: 700; text-transform: none; letter-spacing: .05em; font-size: .95rem; transition: background var(--dur) var(--ease-soft), box-shadow var(--dur) var(--ease-soft), transform var(--dur) var(--ease-soft), color var(--dur); }
+.btn-primary:hover, .gen-btn:hover, .switch-btn.on:hover, .h2-btn.primary:hover, .btn-ghost:hover, .h2-btn.ghost:hover, .switch-btn.off:hover { transform: translateY(-1px); }
+.btn-primary:active, .gen-btn:active { transform: translateY(0) scale(.99); }
+.btn-primary, .gen-btn { box-shadow: 0 6px 18px -10px rgba(232,35,47,.7); }
+.btn-ghost, .h2-btn.ghost, .switch-btn.off, .slotbtn { box-shadow: inset 0 0 0 1px var(--line-strong); background: transparent; }
+.pill { clip-path: none; border-left: 0; border-radius: var(--r-pill); padding: 6px 12px; letter-spacing: .1em; font-size: 11px; }
+.pill .dot { transform: none; border-radius: 50%; }
+.avatar, .onb-step .onb-n { clip-path: none; border-radius: 50%; }
+
+/* 入力: 4辺の細い線 + 角丸、フォーカスは朱の線 */
+.field, .st-in, input.field, select.field, textarea.field { background: rgba(242,236,224,.03); border: 1px solid var(--line-strong); border-bottom-width: 1px; border-radius: var(--r-s); transition: border-color var(--dur) var(--ease-soft), background var(--dur); }
+.field:focus, .st-in:focus { border-color: var(--aka-hot); background: rgba(242,236,224,.05); outline: none; box-shadow: 0 0 0 3px rgba(232,35,47,.16); }
+
+/* ログイン前の画面: 動画の上に、静かなガラスのフォームだけ */
+#screen-login::before, #screen-register::before { display: none; }
+.auth-card { clip-path: none; border-radius: 16px; background: rgba(12,11,10,.7); -webkit-backdrop-filter: blur(18px) saturate(1.1); backdrop-filter: blur(18px) saturate(1.1); box-shadow: 0 30px 80px -30px #000; padding: 2.4rem 2.2rem 2rem; }
+.auth-card::before { left: 22px; right: 22px; top: 0; bottom: auto; width: auto; height: 1px; background: linear-gradient(90deg, transparent, var(--aka), transparent); }
+.auth-card::after { border-radius: inherit; box-shadow: inset 0 0 0 1px var(--line); }
+.auth-title { font-size: clamp(1.9rem, 6vw, 2.5rem); line-height: 1.1; letter-spacing: .04em; margin-bottom: 1.1rem; }
+:lang(ja) .auth-title { font-size: clamp(1.6rem, 5vw, 2rem); font-family: var(--f-serif); font-weight: 700; letter-spacing: .12em; }
+.auth-tagline { font-size: 1rem; opacity: .9; margin-bottom: .9rem; }
+
+/* TOP: ヒーローを静かに（巨大見出しを一段小さく、ティッカーは細い罫線の帯に） */
+.hero2 { border-radius: var(--r); min-height: clamp(460px, 52vw, 600px); }
+.h2-title { font-size: clamp(2.4rem, 6vw, 4.8rem); line-height: 1.02; letter-spacing: 0; }
+:lang(ja) .h2-title { font-size: clamp(2rem, 5.2vw, 4rem); letter-spacing: .02em; }
+:lang(es) .h2-title, :lang(pt) .h2-title, :lang(fr) .h2-title { font-size: clamp(2.2rem, 6vw, 4.2rem); }
+.h2-title .h2-l2 { clip-path: none; border-radius: 6px; font-size: .3em; padding: .35em .8em; }
+.h2-eyebrow { letter-spacing: .16em; }
+.h2-eyebrow::before { transform: none; height: 1px; }
+.h2-ticker { background: rgba(10,10,12,.62); color: var(--bone-2); border-top: 1px solid var(--line); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.h2-ticker .tk-set span::after { width: 4px; height: 4px; border-radius: 50%; background: var(--aka); transform: none; }
+.h2-ticker .tk-set span:first-child { font-family: var(--f-ui); font-weight: 700; color: var(--bone); letter-spacing: .1em; }
+.h2-ticker .tk-track { animation-duration: 64s; }
+
+/* ナビ（レール）: ラベルの字間を詰め、選択中は朱の細い線で示す */
+.navbtn { transition: background var(--dur) var(--ease-soft), color var(--dur), transform var(--dur) var(--ease-soft); }
+.navbtn:hover { transform: none; }
+
+/* モーダル（ようこそ / 動画） */
+.onb-card { border-radius: 16px; box-shadow: inset 0 0 0 1px var(--line-strong), 0 40px 90px -30px #000; }
+.cx-modal { -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); background: rgba(5,5,7,.86); }
+.cx-box { border-radius: 16px; overflow: hidden; border: 0; box-shadow: inset 0 0 0 1px var(--line-strong), 0 40px 90px -30px #000; }
+.cx-x { border-radius: var(--r-s); clip-path: none; }
+.cx-stage { border-radius: 0; }
+
+/* 残りの斬り込み・斜め形状を角丸に統一 */
+.banner, .ph, .ph-cap, .badge, .belt-chip, .week-streak, .tc-chip, .tc-all, .tc-replay, .tc-play, .tc-card, .tc-ph, .v5-btn, .v5-start, .v5-pill, .v5-exam-btn,
+.v7-sl-chip, .v7-sl-watch, .v7-sl-ph, .v5-toast-i, .v5-side, .v5-ctab, .v5-cut, .v5-next-in, .v5-miss, .v5-wk, .v5-honor, .v5-bh-cur, .tc-all, .news-feat, .st-card, .st-toast, .st-backbar,
+.hero2-cards .ph, .hero2-cards .ph .ph-cap, .st-prev, .exam-card, .ex-row, .coach-photo { clip-path: none !important; }
+.ph, .tc-card, .tc-ph, .coach-photo, .st-card, .ex-row, .st-prev { border-radius: var(--r) !important; }
+.ph-cap, .badge, .belt-chip, .week-streak, .tc-chip, .v7-sl-chip, .v5-pill, .banner { border-radius: 8px !important; }
+.tc-all, .tc-replay, .tc-play, .v5-btn, .v5-start, .v5-exam-btn, .v7-sl-watch, .v5-side, .v5-ctab, .st-toast, .st-backbar { border-radius: var(--r-s) !important; }
+.banner { border-left-width: 2px; }
+.tc-title { font-size: clamp(1.7rem, 3.2vw, 2.4rem); letter-spacing: .01em; line-height: 1.05; }
+:lang(ja) .tc-title { font-size: clamp(1.4rem, 2.6vw, 1.9rem); letter-spacing: .04em; }
+.topbar h1 { font-size: clamp(1.5rem, 2.3vw, 1.9rem); letter-spacing: .02em; }
+.v5-start { font-family: var(--f-ui); font-size: 1.05rem; letter-spacing: .06em; text-transform: none; }
+.v5-btn { font-family: var(--f-ui); font-weight: 700; font-size: .95rem; letter-spacing: .05em; text-transform: none; }
+
+/* 動画の単元: 型 / 組手 のタブと「次へ」 */
+.cx-segs { display: flex; gap: .5rem; flex-wrap: wrap; align-items: stretch; padding: 0 1rem .75rem; }
+.cx-segs[hidden] { display: none; }
+.cx-seg { display: inline-flex; align-items: center; gap: .55rem; min-height: 44px; padding: 0 1rem 0 .55rem; background: rgba(242,236,224,.04); color: var(--bone-2); border: 1px solid var(--line-strong); border-radius: var(--r-pill); font: 600 14px var(--f-ui); letter-spacing: .04em; cursor: pointer; transition: background var(--dur) var(--ease-soft), color var(--dur), border-color var(--dur); }
+.cx-seg b { display: inline-grid; place-items: center; min-width: 38px; height: 28px; padding: 0 .6rem; border-radius: var(--r-pill); background: var(--aka); color: #fff; font: 700 13px/1 var(--f-ui); letter-spacing: .06em; }
+.cx-seg.kata b { background: var(--ao); }
+.cx-seg span:empty { display: none; }
+.cx-seg .ck { font-style: normal; opacity: 0; width: 0; color: var(--good); transition: opacity var(--dur), width var(--dur); }
+.cx-seg.done .ck { opacity: 1; width: 1em; }
+.cx-seg:hover { background: rgba(242,236,224,.09); color: var(--bone); }
+.cx-seg.on { background: var(--bone); color: var(--lacquer); border-color: var(--bone); }
+.cx-next { margin-left: auto; min-height: 44px; padding: 0 1.1rem; border: 1px solid var(--line-strong); background: transparent; color: var(--bone); border-radius: var(--r-pill); font: 700 14px var(--f-ui); letter-spacing: .06em; cursor: pointer; transition: background var(--dur), border-color var(--dur); }
+.cx-next:hover { background: var(--aka); border-color: var(--aka); color: #fff; }
+
+/* Studio: パート編集 */
+.st-segs .st-seg-row { display: grid; gap: .5rem; padding: .9rem; margin-bottom: .7rem; border: 1px solid var(--line-strong); border-radius: var(--r); background: rgba(242,236,224,.025); }
+.st-seg-top { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.st-seg-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--lacquer-3); color: var(--bone-2); font: 700 13px var(--f-ui); }
+.st-seg-ord { margin-left: auto; display: flex; gap: .35rem; }
+.st-seg-add { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .4rem; }
+.st-btn { border-radius: var(--r-s); clip-path: none; }
+.st-seg button { border-radius: var(--r-pill); }
 </style>
 <script>
 /* 選手アピールの動画: 画面内(50%以上)の動画だけ再生・同時最大3本・タップでモーダル(音あり)・reduced-motionは静止ポスター */
